@@ -55,8 +55,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="bi bi-bar-chart"></i> Analitycs
+                            <a class="nav-link" href="absensi_karyawan">
+                                <i class="bi bi-bar-chart"></i> Absensi karyawan
                             </a>
                         </li>
                         <li class="nav-item">
@@ -94,7 +94,7 @@
                     <!-- User (md) -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="return confirm('Are you sure you want to logout?')">
+                            <a class="nav-link" href="<?php echo base_url('auth/logout')?>" onclick="return confirm('Are you sure you want to logout?')">
                                 <i class="bi bi-box-arrow-left"></i> Logout
                             </a>
                         </li>

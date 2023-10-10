@@ -10,7 +10,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- CSS File -->
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/login.css" rel="stylesheet">
-    <title>Register</title>
+    <title>Register Admin</title>
 </head>
 
 <body>
@@ -26,45 +26,44 @@
             <!--------------------------- Left Box ----------------------------->
 
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-                style="background: #103cbe;">
+                style="background: #C07F00;">
                 <div class="featured-image mb-3">
                     <img src="https://cdn3d.iconscout.com/3d/premium/thumb/form-4721284-3927997.png" class="img-fluid"
-                        style="width: 250px;">
+                        style="width: 290px;">
                 </div>
             </div>
 
             <!-------------------- ------ Right Box ---------------------------->
 
             <div class="col-md-6 right-box">
-                <form action="<?php echo base_url('Auth/aksi_register') ?>" method="post"
+                <form action="<?php echo base_url('Auth/aksi_register_admin') ?>" method="post"
                     class="row align-items-center">
                     <div class="header-text mb-4">
-                        <h2>Register</h2>
+                        <h2>Register Admin</h2>
                         <p>Buat akun sekarang agar bisa login</p>
                     </div>
                     <div class="input-group mb-3">
                         <input type="email" class="form-control form-control-lg bg-light fs-6" name="email"
-                            placeholder="Email address">
+                            required="Input email harus di isi" placeholder="Email address">
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="username"
-                            placeholder="Username">
+                            required="Input username harus di isi" placeholder="Username">
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_depan"
-                            placeholder="Nama depan">
+                            required="Input nama depan harus di isi" placeholder="Nama depan">
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_belakang"
-                            placeholder="Nama Belakang">
+                            required="Input nama belakang harus di isi" placeholder="Nama Belakang">
                     </div>
                     <div class="input-group mb-1">
                         <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" name="password"
-                            placeholder="Password">
+                            required="Input password harus di isi" placeholder="Password">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role"
-                            placeholder="Role" value="karyawan">
+                        <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role" placeholder="Role" value="admin">
                     </div>
                     <p>Password harus minimal 8 karakter*</p>
                     <div class="input-group mb-5 d-flex justify-content-between">
@@ -75,7 +74,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <button type="submit" name="submit" class="btn btn-lg btn-primary w-100 fs-6">Register</button>
+                        <button type="submit" name="submit" class="btn btn-lg w-100 fs-6" style="background: #C07F00; color: white;">Register</button>
                     </div>
                     <div class="row">
                         <small>Sudah memiliki akun silahkan <a href="/absensi/auth/">Login</a></small>
