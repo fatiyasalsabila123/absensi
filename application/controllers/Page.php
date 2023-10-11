@@ -31,36 +31,25 @@ class Page extends CI_Controller
 		$this->load->view('page/karyawan/absensi_karyawan', $data);
 	}
 
-	public function pulang()
+	public function pulang($id)
 	{
-		$user_id = $this->session->userdata('id');
-		$absensi_data = $this->m_model->get_absensi_terkini($user_id);
+        date_default_timezone_set('Asia/Jakarta');
+		$absensi = $this->db->get_where('absensi', array('id' => $id))->row();
 
-		if (!empty($absensi_data)) {
-			$jam_pulang = date('H:i:s');
+        if ($absensi) {
+            $data = array(
+                'jam_pulang' => date('H:i:s'),
+                'status' => 'done', 
+            );
 
-			$data = [
-				"jam_pulang" => $jam_pulang,
-				"status" => "done"
-			];
+            $this->db->where('id', $id);
+            $this->db->update('absensi', $data);
+            redirect(base_url('page/absensi_karyawan')); 
+        } else {
+            echo 'Data absensi tidak ditemukan';
+        }
+    }
 
-			$where = ["id" => $absensi_data['id']];
-
-			// Melakukan update ke dalam database
-			$eksekusi = $this->m_model->update_data('absensi', $data, $where);
-
-			if ($eksekusi) {
-				$this->session->set_flashdata('success', 'Berhasil melakukan pulang');
-				redirect(base_url('page/absensi_karyawan'));
-			} else {
-				$this->session->set_flashdata('error', 'Gagal melakukan pulang');
-				redirect(base_url('page/absensi_karyawan'));
-			}
-		} else {
-			$this->session->set_flashdata('error', 'Anda belum melakukan masuk');
-			redirect(base_url('page/dashboard'));
-		}
-	}
 
 	public function hapus($id)
 	{
@@ -77,7 +66,7 @@ class Page extends CI_Controller
 		$eksekusi = $this->m_model->ubah_data('absensi', $data, array('id' => $this->input->post('id')));
 		if ($eksekusi) {
 			$this->session->set_flashdata('success_message', 'berhasil');
-			redirect(base_url('page/abensi_karyawan'));
+			redirect(base_url('page/absensi_karyawan'));
 		} else {
 			$this->session->set_flashdata('error', "Data guru belum di edit");
 			redirect(base_url('page/edit_kegiatan/' . $this->input->post('id')));

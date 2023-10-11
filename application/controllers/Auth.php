@@ -43,10 +43,13 @@ class Auth extends CI_Controller
 				$this->session->set_flashdata('success_login', 'berhasil');
 				redirect(base_url() . "admin/dashboard"); // menuju ke halaman page
 			} elseif ($this->session->userdata('role') == 'karyawan') {
+				
+				date_default_timezone_set('Asia/Jakarta');
 				$data = [
 					"id_karyawan" => $result['id'],
-					"jam_pulang" => date('H:i:s'),
+					"jam_masuk" => date('H:i:s'),
 					"date" => date('Y-m-d'),
+					"jam_pulang" => "0000-00-00 00:00:00",
 				];
 
 				$eksekusi = $this->m_model->tambah_data('absensi', $data);

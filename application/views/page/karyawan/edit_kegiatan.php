@@ -22,7 +22,7 @@
             <?php $this->load->view('component/header'); ?>
             <?php foreach ($karyawan1 as $data):?>
             <form method="post" action="<?php echo base_url('page/aksi_edit')?>" enctype="multipart/form-data" class="card shadow border-0 w-100 py-3">
-            <input type="hidden" name="id" value="<?php $data->id?>">
+            <input type="hidden" name="id" value="<?php echo $data->id?>">
                 <div class="card-body">
                     <div>
                         <h3>Kegiatan</h3>
@@ -31,8 +31,8 @@
                     </div>
                 </div>
                 <div class="flex px-3">
-                <button type="button" class="btn btn-sm btn-danger text-danger-hover-none">
-                   Cancel
+                <button type="button" class="btn btn-sm btn-danger text-danger-hover-none"><a class="text-light text-decoration-none" href="/absensi/page/absensi_karyawan">
+                   Cancel</a>
                 </button>
                 <button type="submit" name="submit" class="btn btn-sm btn-primary text-danger-hover-none">
                    Submit

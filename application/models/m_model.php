@@ -86,5 +86,28 @@ class M_model extends CI_Model
         $result = $this->db->query($sql,  array($id));
         return $result->row()->jam_masuk;
     }
+    public function updateAbsensiPulang($user_id) {
+        $data = array(
+            'jam_pulang' => date('Y-m-d H:i:s'), // Menggunakan waktu saat ini
+            'status' => 'done'
+        );
+        
+        $this->db->where('id_karyawan', $user_id);
+        $this->db->where('jam_masuk IS NOT NULL'); // Pastikan sudah ada data jam masuk
+        $this->db->where('jam_pulang IS NULL'); // Pastikan belum ada data jam pulang
+        $this->db->update('absensi', $data);
+    }
+
+    public function ubahKegiatan($id_absensi, $kegiatan_baru) {
+        $data = array('kegiatan' => $kegiatan_baru);
+        
+        $this->db->where('id', $id_absensi); // Sesuaikan dengan nama kolom ID di tabel absensi
+        $this->db->update('absensi', $data);
+        
+        return $this->db->affected_rows(); // Mengembalikan jumlah baris yang berubah
+    }
+    
+    
+    
 }
 ?>
