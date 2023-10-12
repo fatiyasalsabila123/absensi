@@ -26,15 +26,10 @@ class Auth extends CI_Controller
 		if (!empty($result) && md5($password) === $result['password']) {
 			$data = [
 				'logged_in' => TRUE,
-				// Menandai bahwa pengguna telah login
 				'email' => $result['email'],
-				// Menyimpan email pengguna ke sesi
 				'username' => $result['username'],
-				// Menyimpan username pengguna ke sesi
 				'role' => $result['role'],
-				// Menyimpan peran pengguna ke sesi
 				'id' => $result['id'],
-				// Menyimpan ID pengguna ke sesi
 			];
 			$this->session->set_userdata($data); // Menyimpan data ke dalam sesi
 
@@ -43,22 +38,30 @@ class Auth extends CI_Controller
 				$this->session->set_flashdata('success_login', 'berhasil');
 				redirect(base_url() . "admin/dashboard"); // menuju ke halaman page
 			} elseif ($this->session->userdata('role') == 'karyawan') {
-				
+				$absen = $this->m_model->hariIniAbsen($result['id']);
 				date_default_timezone_set('Asia/Jakarta');
-				$data = [
-					"id_karyawan" => $result['id'],
-					"jam_masuk" => date('H:i:s'),
-					"date" => date('Y-m-d'),
-					"jam_pulang" => "0000-00-00 00:00:00",
-				];
-
-				$eksekusi = $this->m_model->tambah_data('absensi', $data);
-				if ($eksekusi) {
-					$this->session->set_flashdata('Berhasil login sebagai karyawan');
+				if (!empty($absen)) {
 					redirect(base_url('page/dashboard'));
 				} else {
-					$this->session->set_flashdata('Gagal login huuuuuu');
-					redirect(base_url('auth'));
+					$data = [
+						"id_karyawan" => $result['id'],
+						"jam_masuk" => date('H:i:s'),
+						"date" => date('Y-m-d'),
+						"jam_pulang" => "0000-00-00 00:00:00",
+						"status" => "not",
+						"keterangan_izin" => "-",
+						"kegiatan" => "-"
+					];
+
+					$eksekusi = $this->m_model->tambah_data('absensi', $data);
+					if ($eksekusi) {
+						$this->session->set_flashdata('Berhasil login sebagai karyawan');
+						$id_absensi = $this->db->insert_id();
+						redirect(base_url('page/edit_kegiatan/'. $id_absensi));
+					} else {
+						$this->session->set_flashdata('Gagal login huuuuuu');
+						redirect(base_url('auth'));
+					}
 				}
 			} else {
 				$this->session->set_flashdata('error', 'gagal login');

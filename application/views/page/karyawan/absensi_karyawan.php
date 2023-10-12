@@ -39,7 +39,7 @@
                                         <th scope="col">Jam pulang</th>
                                         <th scope="col">Keterangan izin</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Aksi</th>
+                                        <th scope="col" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,18 +72,23 @@
                                                 <?php echo $row->status ?>
                                             </td>
                                             <td class="text-end">
-                                                <?php if ($row->status == "done"):?>
-                                                <button type="button" class="btn btn-sm btn-secondary text-danger-hover"disabled><a
-                                                        class="text-white text-decoration-none" >
-                                                        Pulang</a>
-                                                </button>
-                                                <?php else:?>
-                                                <button type="button" class="btn btn-sm btn-warning text-danger-hover"><a
-                                                        class="text-black text-decoration-none"
-                                                        href="<?php echo base_url('page/pulang/' . $row->id) ?>">
-                                                        Pulang</a>
-                                                </button>
-                                                <?php endif;?>
+                                                <?php if ($row->status == "done"): ?>
+                                                    <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
+                                                        disabled><a class="text-white text-decoration-none">
+                                                            Pulang</a>
+                                                    </button>
+                                                <?php elseif ($row->keterangan_izin != "-"): ?>
+                                                    <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
+                                                        disabled><a class="text-white text-decoration-none">
+                                                            Pulang</a>
+                                                    </button>
+                                                <?php else: ?>
+                                                    <button type="button" class="btn btn-sm btn-warning text-danger-hover"><a
+                                                            class="text-black text-decoration-none"
+                                                            href="<?php echo base_url('page/pulang/' . $row->id) ?>">
+                                                            Pulang</a>
+                                                    </button>
+                                                <?php endif; ?>
                                                 <button type="button"
                                                     class="btn btn-sm btn-square btn-primary text-danger-hover-none"><a
                                                         class="text-light text-decoration-none"

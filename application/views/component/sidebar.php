@@ -61,33 +61,6 @@
                             <i class="bi bi-bar-chart"></i> Absensi karyawan
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-chat"></i> Messages
-                            <span
-                                class="badge bg-soft-primary text-primary rounded-pill d-inline-flex align-items-center ms-auto">6</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-bookmarks"></i> Collections
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-people"></i> Users
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-globe-americas"></i> Ranking
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-file-text"></i> Posts
-                        </a>
-                    </li>
                 </ul>
                 <!-- Divider -->
                 <!-- <hr class="navbar-divider my-5 opacity-20"> -->

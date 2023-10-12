@@ -106,8 +106,30 @@ class M_model extends CI_Model
         
         return $this->db->affected_rows(); // Mengembalikan jumlah baris yang berubah
     }
+
+    public function get($id = null)
+    {
+        $this->db->from('user');
+        if ($id != null) {
+            $this->db->where('id', $id);
+        }
+        $query = $this->db->get();
+        return $query; // Tidak perlu row() di sini
+    }
     
-    
+    public function hariIniAbsen($id) {
+        $this->db->where('id_karyawan', $id);
+        $this->db->where('date', date('Y-m-d'));
+        $query = $this->db->get('absensi');
+        return $query->result();
+    }
+
+    public function izin_satu_kali($id) {
+        $this->db->where('id_karyawan', $id);
+        $this->db->where('date', date('Y-m-d'));
+        $query = $this->db->get('absensi');
+        return $query->result();
+    } 
     
 }
 ?>
