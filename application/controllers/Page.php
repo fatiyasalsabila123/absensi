@@ -125,6 +125,26 @@ class Page extends CI_Controller
         }
     }
 
+	public function aksi_ubah_gambar() {
+		$foto = $this->input->post('foto');
+		if ($foto[0] == false) {
+			$data = [
+				"image" => "user.avif"
+			];
+		} else {
+			$data = [
+				"image" => $foto[1]
+			];
+		}
+		$this->session->set_userdata($data);
+        $update_result = $this->m_model->ubah_data('user', $data, array('id' => $this->session->userdata('id')));
+        if ($update_result) {
+            redirect(base_url('page/profile'));
+        } else {
+            redirect(base_url('page/profile'));
+        }
+	}
+
 	public function aksi_ubah_profile() {
 		$data = [
 			"username" => $this->input->post('username'),
@@ -152,5 +172,29 @@ class Page extends CI_Controller
 		$data['profile'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
 		$this->load->view('page/karyawan/profile', $data);
 	}
+
+	public function aksi_edit_password() {
+		$password_lama = $this->input->post('password_lama');
+		$password_baru = $this->input->post('password_baru');
+		$konfirmasi_password = $this->input->post('konfirmasi_password');
+
+		$user_id = $this->session->userdata('id');
+		$user = $this->m_model->get_by_id('user', 'id', $user_id);
+
+		if (password_verify($password_lama, $user->password)) {
+			if ($password_baru === $konfirmasi_password) {
+				$data = [
+					'password' => password_hash($password_baru, PASSWORD_DEFAULT),
+				];
+				$eksekusi = $this->m_model->ubah_data('user', $data, array('id' =>$user_id));
+			} else {
+				echo "gagal";
+			}
+		} else {
+			echo "gagal";
+		}
+		redirect(base_url('page/profile'));
+	} 
+
 
 }

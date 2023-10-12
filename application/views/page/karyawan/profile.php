@@ -28,10 +28,10 @@
                     <div class="container-fluid max-w-screen-xl">
                         <div class="row g-0">
                             <div class="col-auto">
-                                <a href="#"
+                                <a href=""
                                     class="avatar w-40 h-40 border border-body border-4 rounded-circle shadow mt-n16">
                                     <img alt="..."
-                                        src="https://img.freepik.com/free-psd/3d-illustration-person-with-glasses_23-2149436185.jpg?size=626&ext=jpg&ga=GA1.1.1464020286.1696819460&semt=ais"
+                                        src="<?php echo $this->session->userData('image') ?>"
                                         class="rounded-circle">
                                 </a>
                             </div>
@@ -87,25 +87,35 @@
                                 <div class="card-body">
                                     <h5 class="mb-3">Edit Password</h5>
                                     <hr>
-                                    <form action="" class="row">
+                                    <form method="post" action="<?php echo base_url('page/aksi_edit_password') ?>"
+                                        enctype="multipart/form-data" class="row">
                                         <div class="mb-3 col-6">
                                             <label for="password_lama" class="form-label">Password lama</label>
-                                            <input type="text" name="password_lama" class="form-control"
+                                            <div class="input-group">
+                                            <input type="password" name="password_lama" class="form-control"
                                                 id="password_lama" placeholder="password_lama" required>
+                                            <span class="input-group-text"><i id="showPasswordLama" class="fas fa-eye"></i></span>
+                                        </div>
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="password_baru" class="form-label">Password baru</label>
-                                            <input type="text" name="password_baru" class="form-control"
+                                            <div class="input-group">
+                                            <input type="password" name="password_baru" class="form-control"
                                                 id="password_baru" placeholder="password_baru" required>
+                                            <span class="input-group-text"><i id="showPasswordBaru" class="fas fa-eye"></i></span>
+                                        </div>
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="konfirmasi_password" class="form-label">Konfirmasi
                                                 password</label>
-                                            <input type="text" name="konfirmasi_password" class="form-control"
+                                                <div class="input-group">
+                                            <input type="password" name="konfirmasi_password" class="form-control"
                                                 id="konfirmasi_password" placeholder="konfirmasi_password" required>
+                                            <span class="input-group-text"><i id="showKonfirmasiPassword" class="fas fa-eye"></i></span>
+                                        </div>
                                         </div>
                                         <br>
-                                        <button class="btn btn-sm btn-primary">Submit</button>
+                                        <button type="submit" name="submit" class="btn btn-sm btn-primary">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -145,11 +155,27 @@
                                                 id="jurusan_kelas" placeholder="nama_belakang" required value="<?php echo $value->nama_belakang?>">
                                         </div>
                                         <br>
-                                        <button class="btn btn-sm btn-primary" type="submit" name="submit">Submit</button>
+                                        <button class="btn btn-sm btn-primary" style="width:fit-content" type="submit" name="submit">Submit</button>
                                     </form>
                                     <?php endforeach;?>
                                 </div>
                             </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Edit Foto</h5>
+                                    <hr>
+                                    <form method="post" action="<?php echo base_url('page/aksi_edit_gambar') ?>"
+                                        enctype="multipart/form-data"  class="row">
+                                        <div class="mb-3 col-6">
+                                            <label for="foto" class="form-label">Foto</label>
+                                            <div class="input-group">
+                                            <input type="file" name="foto" class="form-control"
+                                                id="foto" placeholder="foto" required>
+                                        </div>
+                                        <br>
+                                        <button class="btn btn-sm btn-primary">Submit</button>
+                                    </form>
+                                </div>
                         </div>
                 </main>
             </div>
@@ -178,6 +204,39 @@
         });
 
     </script>
+
+<script>
+    function togglePassword(inputId, iconId) {
+        var passwordInput = document.getElementById(inputId);
+        var passwordIcon = document.getElementById(iconId);
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordIcon.classList.remove("fa-eye");
+            passwordIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            passwordIcon.classList.remove("fa-eye-slash");
+            passwordIcon.classList.add("fa-eye");
+        }
+    }
+
+    // Menambahkan event listener untuk ikon mata pada input password lama
+    document.getElementById('showPasswordLama').addEventListener('click', function () {
+        togglePassword('password_lama', 'showPasswordLama');
+    });
+
+    // Menambahkan event listener untuk ikon mata pada input password baru
+    document.getElementById('showPasswordBaru').addEventListener('click', function () {
+        togglePassword('password_baru', 'showPasswordBaru');
+    });
+
+    // Menambahkan event listener untuk ikon mata pada input konfirmasi password
+    document.getElementById('showKonfirmasiPassword').addEventListener('click', function () {
+        togglePassword('konfirmasi_password', 'showKonfirmasiPassword');
+    });
+</script>
+
 
 </body>
 
