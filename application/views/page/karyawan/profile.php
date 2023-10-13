@@ -31,7 +31,7 @@
                                 <a href=""
                                     class="avatar w-40 h-40 border border-body border-4 rounded-circle shadow mt-n16">
                                     <img alt="..."
-                                        src="<?php echo $this->session->userData('image') ?>"
+                                        src="<?php echo base_url('images/user/' . $this->fungsi->user_login()->image) ?>"
                                         class="rounded-circle">
                                 </a>
                             </div>
@@ -164,7 +164,7 @@
                                 <div class="card-body">
                                     <h5 class="mb-3">Edit Foto</h5>
                                     <hr>
-                                    <form method="post" action="<?php echo base_url('page/aksi_edit_gambar') ?>"
+                                    <form method="post" action="<?php echo base_url('page/aksi_ubah_gambar') ?>"
                                         enctype="multipart/form-data"  class="row">
                                         <div class="mb-3 col-6">
                                             <label for="foto" class="form-label">Foto</label>
@@ -173,7 +173,7 @@
                                                 id="foto" placeholder="foto" required>
                                         </div>
                                         <br>
-                                        <button class="btn btn-sm btn-primary">Submit</button>
+                                        <button type="submit" name="submit" class="btn btn-sm btn-primary">Submit</button>
                                     </form>
                                 </div>
                         </div>
@@ -181,6 +181,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.getElementById('myProfile').addEventListener('click', function () {
             document.getElementById('myProfileContainer').style.display = 'block';
@@ -236,6 +237,124 @@
         togglePassword('konfirmasi_password', 'showKonfirmasiPassword');
     });
 </script>
+
+<?php if ($this->session->flashdata('berhasil_edit_profile')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil edit profile',
+                text: '<?= $this->session->flashdata('berhasil_edit_profile') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+<?php if ($this->session->flashdata('gagal_edit_profile')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal edit profile',
+                text: '<?= $this->session->flashdata('gagal_edit_profile') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+
+<?php if ($this->session->flashdata('konfirmasi_pass')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal ganti password',
+                text: '<?= $this->session->flashdata('konfirmasi_pass') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+
+<?php if ($this->session->flashdata('berhasil_ganti_password')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil ganti password',
+                text: '<?= $this->session->flashdata('berhasil_ganti_password') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+<?php if ($this->session->flashdata('konfirmasi_pass')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal ganti password',
+                text: '<?= $this->session->flashdata('konfirmasi_pass') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+<?php if ($this->session->flashdata('pass_lama')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal ganti password',
+                text: '<?= $this->session->flashdata('pass_lama') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+
+
+<?php if ($this->session->flashdata('berhasil_ganti_foto')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil ganti foto',
+                text: '<?= $this->session->flashdata('berhasil_ganti_foto') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+
+<?php if ($this->session->flashdata('gagal_ganti_foto')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal ganti Foto',
+                text: '<?= $this->session->flashdata('gagal_ganti_foto') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
 
 
 </body>

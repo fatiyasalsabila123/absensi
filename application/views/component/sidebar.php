@@ -52,7 +52,7 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="dashboard">
                             <i class="bi bi-house"></i> Dashboard
                         </a>
                     </li>
@@ -69,7 +69,7 @@
                 <!-- User (md) -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="profile">
                             <i class="bi bi-person-square"></i> Account
                         </a>
                     </li>

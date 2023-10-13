@@ -30,7 +30,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total masuk kerja</span>
-                                            <span class="h3 font-bold mb-0"><?php echo $count?></span>
+                                            <span class="h3 font-bold mb-0"></span>
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
@@ -141,6 +141,65 @@
                                 </ul>
                             </nav>
                         </div> -->
+                    </div>
+                    <div class="card shadow border-0 mb-7">
+                        <div class="card-header px-3">
+                            <h5 class="mb-0">Karyawan</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-nowrap">
+                                <thead class="thead-light">
+                                <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Nama depan</th>
+                            <th scope="col">Nama belakang</th>
+                            <th scope="col">image</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                                </thead>
+                                <tbody>
+                        <?php $no = 0;
+                        foreach ($get_user as $row):
+                            $no++ ?>
+                            <tr>
+                                <td>
+                                    <?php echo $no ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->username?>
+                                </td>
+                                <td>
+                                    <?php echo $row->nama_depan ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->nama_belakang ?>
+                                </td>
+                                <td>
+                                    <img style="width:80px; border-radius:50%" src="<?= base_url('images/user/' . $row->image) ?>" alt="">
+                                   
+                                </td>
+                                <td>
+                                    <?php echo $row->email ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                            </table>
+                        </div>
+                        <!-- <div class="card-footer border-0 py-5">
+                            <span class="text-muted text-sm">Showing 10 items out of 250 results found</span>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link disabled" href="#">Previous</a></li>
+                                    <li class="page-item"><a class="page-link bg-info text-white" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div> -->
+                    </div>
                     </div>
                 </div>
             </main>

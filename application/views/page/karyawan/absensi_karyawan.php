@@ -12,20 +12,105 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
 
 <body>
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <?php $this->load->view('component/sidebar'); ?>
         <div class="h-screen flex-grow-1 overflow-y-lg-auto">
-            <?php $this->load->view('component/header'); ?>
+            <!-- Header -->
+            <header class="bg-surface-primary border-bottom pt-6">
+                <div class="container-fluid">
+                    <div class="mb-npx">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                                <!-- Title -->
+                                <h1 class="h2 mb-0 ls-tight">
+                                    <img src="https://bytewebster.com/img/logo.png" width="40"> Absensi karyawan
+                                </h1>
+                            </div>
+                        </div>
+                        <!-- Nav -->
+                        <ul class="nav nav-tabs mt-4 overflow-x border-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!" id="rekap_harian">
+                                    <i class="bi bi-house"></i> Rekap harian
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!" id="rekap_migguan">
+                                    <i class="bi bi-bar-chart"></i> Rekap mingguan
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!" id="rekap_bulanan">
+                                    <i class="bi bi-chat"></i> Rekap bulanan
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
             <!-- start table absensi karyawan -->
             <main class="py-6 bg-surface-secondary">
                 <div class="container-fluid">
+
+                    <div class="card shadow border-0 mb-7" id="tampil_harian">
+                        <form action="<?php echo base_url('page/export_absensi'); ?>" method="post"
+                            class="card-header bg-white">
+                            <div class="card-body">
+                                <div>
+                                    <h5>Rekap data harian</h5>
+                                    <!-- <hr> -->
+                                    <input cols="40" rows="10" type="date" name="tanggal" class="form-control mt-5" />
+                                </div>
+                            </div>
+                            <button type="submit" name="submit"
+                                class="btn btn-sm btn-primary float-right">Submit</button>
+                        </form>
+                    </div>
+                    <div class="card shadow border-0 mb-7" id="tampil_mingguan">
+                        <form action="<?php echo base_url('page/export_absensi_mingguan'); ?>" method="post"
+                            class="card-header bg-white">
+                            <div class="card-body">
+                                <div>
+                                    <h5>Rekap data mingguan</h5>
+                                    <hr>
+                                    <br>
+                                    <!-- <hr> -->
+                                    <label for="" class="form-label">Tanggal Awal</label>
+                                    <input type="date" name="tanggal_awal" class="form-control mt-5" />
+                                    <label for="" class="form-label">Tanggal akhir</label>
+                                    <input type="date" name="tanggal_akhir" class="form-control mt-5" />
+                                </div>
+                            </div>
+                            <button type="submit" name="submit"
+                                class="btn btn-sm btn-primary float-right">Submit</button>
+                        </form>
+                    </div>
+                    <div class="card shadow border-0 mb-7" id="tampil_bulanan" style="display:none">
+                        <form action="<?php echo base_url('page/export_absensi_bulanan'); ?>" method="post"
+                            class="card-header bg-white">
+                            <div class="card-body">
+                                <div>
+                                    <h5>Rekap data bulanan</h5>
+                                    <!-- <hr> -->
+                                    <input cols="40" rows="10" type="date" name="tanggal" class="form-control mt-5" />
+                                </div>
+                            </div>
+                            <button type="submit" name="submit"
+                                class="btn btn-sm btn-primary float-right">Submit</button>
+                        </form>
+                    </div>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header bg-white">
-                            <h5 class="mb-0">Absensi</h5>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-0">Absensi</h5>
+                                <button class="btn btn-sm btn-primary"><a
+                                        href="<?php echo base_url('page/export_absensi') ?>"
+                                        class="text-decoration-none text-light">Export</a></button>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-nowrap">
@@ -39,7 +124,9 @@
                                         <th scope="col">Jam pulang</th>
                                         <th scope="col">Keterangan izin</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col" class="text-center">Aksi</th>
+                                        <?php if ($this->session->userdata('role') == "karyawan"): ?>
+                                            <th scope="col" class="text-center">Aksi</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,35 +158,37 @@
                                             <td>
                                                 <?php echo $row->status ?>
                                             </td>
-                                            <td class="text-end">
-                                                <?php if ($row->status == "done"): ?>
-                                                    <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
-                                                        disabled><a class="text-white text-decoration-none">
-                                                            Pulang</a>
+                                            <?php if ($this->session->userdata('role') == "karyawan"): ?>
+                                                <td class="text-end">
+                                                    <?php if ($row->status == "done"): ?>
+                                                        <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
+                                                            disabled><a class="text-white text-decoration-none">
+                                                                Pulang</a>
+                                                        </button>
+                                                    <?php elseif ($row->keterangan_izin != "-"): ?>
+                                                        <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
+                                                            disabled><a class="text-white text-decoration-none">
+                                                                Pulang</a>
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <button type="button" class="btn btn-sm btn-warning text-danger-hover"><a
+                                                                class="text-black text-decoration-none"
+                                                                href="<?php echo base_url('page/pulang/' . $row->id) ?>">
+                                                                Pulang</a>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-square btn-primary text-danger-hover-none"><a
+                                                            class="text-light text-decoration-none"
+                                                            href="<?php echo base_url('page/edit_kegiatan/' . $row->id) ?>">
+                                                            <i class="fas fa-edit"></i></a>
                                                     </button>
-                                                <?php elseif ($row->keterangan_izin != "-"): ?>
-                                                    <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
-                                                        disabled><a class="text-white text-decoration-none">
-                                                            Pulang</a>
+                                                    <button type="button" onclick="hapus(<?php echo $row->id ?>)"
+                                                        class="btn btn-sm btn-square btn-danger text-danger-hover-none">
+                                                        <i class="bi bi-trash"></i>
                                                     </button>
-                                                <?php else: ?>
-                                                    <button type="button" class="btn btn-sm btn-warning text-danger-hover"><a
-                                                            class="text-black text-decoration-none"
-                                                            href="<?php echo base_url('page/pulang/' . $row->id) ?>">
-                                                            Pulang</a>
-                                                    </button>
-                                                <?php endif; ?>
-                                                <button type="button"
-                                                    class="btn btn-sm btn-square btn-primary text-danger-hover-none"><a
-                                                        class="text-light text-decoration-none"
-                                                        href="<?php echo base_url('page/edit_kegiatan/' . $row->id) ?>">
-                                                        <i class="fas fa-edit"></i></a>
-                                                </button>
-                                                <button type="button" onclick="hapus(<?php echo $row->id ?>)"
-                                                    class="btn btn-sm btn-square btn-danger text-danger-hover-none">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </td>
+                                                </td>
+                                            <?php endif; ?>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -121,6 +210,35 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+
+        <script>
+            const tampilHarian = document.getElementById('tampil_harian');
+            const tampilMingguan = document.getElementById('tampil_mingguan');
+            const tampilBulanan = document.getElementById('tampil_bulanan');
+
+            const rekapHarian = document.getElementById('rekap_harian');
+            const rekapMingguan = document.getElementById('rekap_mingguan');
+            const rekapBulanan = document.getElementById('rekap_bulanan');
+
+            rekapHarian.addEventListener('click', function () {
+                tampilHarian.style.display = 'block';
+                tampilMingguan.style.display = 'none';
+                tampilBulanan.style.display = 'none';
+            });
+
+            rekapMingguan.addEventListener('click', function () {
+                tampilHarian.style.display = 'none';
+                tampilBulanan.style.display = 'none';
+                tampilMingguan.style.display = 'block';
+            });
+
+            rekapBulanan.addEventListener('click', function () {
+                tampilHarian.style.display = 'none';
+                tampilMingguan.style.display = 'none';
+                tampilBulanan.style.display = 'block';
+            });
+        </script>
+
 
 </body>
 

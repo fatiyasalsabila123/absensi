@@ -19,23 +19,24 @@
                             <img src="https://bytewebster.com/img/logo.png" width="40"> Absensi karyawan
                         </h1>
                     </div>
-                    <!-- Actions -->
-                    <div class="col-sm-6 col-12 text-sm-end">
-                        <div class="mx-n1">
-                            <!-- <a href="#" class="btn d-inline-flex btn-sm btn-warning mx-1">
-                                        <span class=" pe-2">
-                                            <i class="bi bi-gear-wide-connected"></i>
-                                        </span>
-                                        <span>Manage</span>
-                                    </a> -->
-                            <!-- <h4 class="border p-2" style="width:fit-content; float: left;">00.00.00</h4> -->
-                            <!-- <h4><?php echo date("Y-m-d H:i:s", $waktu_sekarang)?></h4> -->
-                        </div>
-                    </div>
                 </div>
                 <!-- Nav -->
                 <ul class="nav nav-tabs mt-4 overflow-x border-0">
-
+                <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-house"></i> Rekap harian
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-bar-chart"></i> Rekap mingguan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-chat"></i> Rekap bulanan
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

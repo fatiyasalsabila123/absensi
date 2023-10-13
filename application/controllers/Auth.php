@@ -36,7 +36,7 @@ class Auth extends CI_Controller
 			// Memeriksa peran pengguna dan mengarahkannya ke halaman yang sesuai
 			if ($this->session->userdata('role') == 'admin') {
 				$this->session->set_flashdata('success_login', 'berhasil');
-				redirect(base_url() . "admin/dashboard"); // menuju ke halaman page
+				redirect(base_url() . "page/dashboard"); // menuju ke halaman page
 			} elseif ($this->session->userdata('role') == 'karyawan') {
 				$absen = $this->m_model->hariIniAbsen($result['id']);
 				date_default_timezone_set('Asia/Jakarta');
