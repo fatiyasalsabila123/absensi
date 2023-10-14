@@ -37,19 +37,19 @@
                                 class="text-light text-decoration-none" href="/absensi/page/absensi_karyawan">
                                 Cancel</a>
                         </button>
-                        <?php if ($data->status == "done"): ?>
-                            <button type="button" class="btn btn-sm btn-success text-danger-hover-none" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                Izin
-                            </button>
-                        <?php elseif ($data->keterangan_izin != "-"): ?>
+                        <?php if ($data->keterangan_izin != "-"): ?>
                             <button type="button" onclick="tampilSweetAlertKeterangan()"
                                 class="btn btn-sm btn-success text-danger-hover-none">
                                 Izin
                             </button>
-                        <?php else: ?>
+                        <?php elseif ($data->status != "done"): ?>
                             <button type="button" onclick="tampilSweetAlert()"
                                 class="btn btn-sm btn-success text-danger-hover-none">
+                                Izin
+                            </button>
+                        <?php else: ?>
+                            <button type="button" class="btn btn-sm btn-success text-danger-hover-none" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
                                 Izin
                             </button>
                         <?php endif; ?>

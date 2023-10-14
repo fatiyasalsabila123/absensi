@@ -3,8 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Page extends CI_Controller
 {
+	//start construct
 	function __construct()
 	{
 		parent::__construct();
@@ -12,26 +14,30 @@ class Page extends CI_Controller
 		$this->load->helper('my_helper');
 		$this->load->library('upload');
 	}
+	//end construct
+
+	//start dashboard admin dan karyawan
 	public function dashboard()
 	{
 		if ($this->session->userdata('role') === "admin") {
 			$data['dashboard'] = $this->m_model->get_all_karyawan();
 			$data['total_data'] = count($data['dashboard']);
 			$data['get_user'] = $this->m_model->get_data('user')->result();
+			$data['total_kerja'] = $this->m_model->getTotalJamMasuk();
+			$data['total_cuti'] = $this->m_model->getTotalCuti();
 		} else {
 			$data['dashboard'] = $this->m_model->getAbsensiByIdKaryawan($this->session->userdata('id'));
 			$data['total_data'] = count($data['dashboard']);
-			$data['count'] = $this->m_model->jam_kerja($this->session->userdata('id'));
-			$latest_work_time = $this->m_model->jam_kerja($this->session->userdata('id'));
-
-			if (empty($latest_work_time)) {
-				$data['cuti'] = $this->m_model->jam_kerja($this->session->userdata('id'));
-			} else {
-				$data['cuti'] = "Tidak sedang cuti";
-			}
+			$data['total_cuti'] = $this->m_model->getTotalCuti($this->session->userdata('id'));
+			$data['total_kerja'] = $this->m_model->getTotalJamMasukKaryawan($this->session->userdata('id'));
 		}
 		$this->load->view('page/dashboard', $data);
 	}
+	//end dashboard
+
+	// start role karyawan 
+
+	//start untuk menampilkan data absensi karyawan
 	public function absensi_karyawan()
 	{
 		if ($this->session->userdata('role') === "admin") {
@@ -44,7 +50,9 @@ class Page extends CI_Controller
 		}
 		$this->load->view('page/karyawan/absensi_karyawan', $data);
 	}
+	//end untuk menampilkan data absensi karyawan
 
+	//start pulang di tabel absensi
 	public function pulang($id)
 	{
 		date_default_timezone_set('Asia/Jakarta');
@@ -63,15 +71,17 @@ class Page extends CI_Controller
 			echo 'Data absensi tidak ditemukan';
 		}
 	}
+	//end pulang di tabel absensi
 
-
+	// start hapus data absensi
 	public function hapus($id)
 	{
 		$this->m_model->delete('absensi', 'id', $id);
 		redirect(base_url('page/absensi_karyawan'));
 	}
+	//end hapus data absensi
 
-
+	//start edit kegiatan di tabell absensi
 	public function aksi_edit()
 	{
 		$data = [
@@ -86,42 +96,39 @@ class Page extends CI_Controller
 			redirect(base_url('page/edit_kegiatan/' . $this->input->post('id')));
 		}
 	}
+	//end edit kegiatan
 
+	//start aksi keterangan izin untuk tabel absensi
 	public function aksi_keterangan_izin()
 	{
-		$id = $this->input->post('id');
-		$user_id = $this->session->userdata('id');
-
-		$ijin_hari_ini = $this->m_model->izin_satu_kali($user_id, $id);
-		if (!empty($ijin_hari_ini)) {
-			$this->session->set_flashdata('gagal_ijin', "Anda sudah ijin hari ini");
-			redirect(base_url('page/edit_kegiatan/' . $this->input->post('id')));
+		$data = [
+			'keterangan_izin' => $this->input->post('keterangan_izin'),
+			"jam_pulang" => "00:00:00",
+			"jam_masuk" => "00:00:00",
+			"kegiatan" => "-",
+			"status" => "done",
+		];
+		$eksekusi = $this->m_model->ubah_data('absensi', $data, array('id' => $this->input->post('id')));
+		if ($eksekusi) {
+			$this->session->set_flashdata('berhasil_izin', 'Berhasil untuk izin');
+			redirect(base_url('page/absensi_karyawan'));
 		} else {
-			$data = [
-				'keterangan_izin' => $this->input->post('keterangan_izin'),
-				"jam_pulang" => "00:00:00",
-				"jam_masuk" => "00:00:00",
-				"kegiatan" => "-",
-				"status" => "done",
-			];
-			$eksekusi = $this->m_model->ubah_data('absensi', $data, array('id' => $this->input->post('id')));
-			if ($eksekusi) {
-				$this->session->set_flashdata('berhasil_izin', 'Berhasil untuk izin');
-				redirect(base_url('page/absensi_karyawan'));
-			} else {
-				$this->session->set_flashdata('gagal_izin', "Gagal memberi keterangan izin");
-				redirect(base_url('page/edit_kegiatan/' . $this->input->post('id')));
-			}
+			$this->session->set_flashdata('gagal_izin', "Gagal memberi keterangan izin");
+			redirect(base_url('page/edit_kegiatan/' . $this->input->post('id')));
 		}
 	}
+	//end aksi keterangan izin
 
+	// start edit kegiatan
 	public function edit_kegiatan($id)
 	{
 		$data['karyawan1'] = $this->m_model->get_by_id('absensi', 'id', $id)->result();
 		// $data['user'] = $this->m_model->get_data('user')->result();
 		$this->load->view('page/karyawan/edit_kegiatan', $data);
 	}
+	//end edit kegiatan
 
+	// start upload image admin dan karyawan
 	public function upload_image($value)
 	{
 		$kode = round(microtime(true) * 1000);
@@ -138,7 +145,9 @@ class Page extends CI_Controller
 			return array(true, $nama);
 		}
 	}
+	// end upload image admin dan karyawan
 
+	//start edit gambar profile admin dan karyawan 
 	public function aksi_ubah_gambar()
 	{
 		$foto = $this->upload_image('foto');
@@ -161,7 +170,9 @@ class Page extends CI_Controller
 			redirect(base_url('page/profile'));
 		}
 	}
+	//end edit gambar profile admin dan karyawan 
 
+	// start edit profile karyawan dan admin
 	public function aksi_ubah_profile()
 	{
 		$data = [
@@ -184,13 +195,18 @@ class Page extends CI_Controller
 			redirect(base_url('page/profile'));
 		}
 	}
+	//edn edit profile karyawan dan admin
 
+	//start profile karyawan
 	public function profile()
 	{
 		$data['profile'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
+		$data['menu'] = "profile";
 		$this->load->view('page/karyawan/profile', $data);
 	}
+	//end profile karyawan
 
+	//start edit password karyawan dan admin 
 	public function aksi_edit_password()
 	{
 		$password_lama = $this->input->post('password_lama', true);
@@ -219,7 +235,22 @@ class Page extends CI_Controller
 		}
 		redirect(base_url('page/profile'));
 	}
+	//end edit password karyawan dan admin
 
+	// end role karyawan
+
+	// start role admin
+
+	//start profile admin
+	public function profileAdmin()
+	{
+		$data['profile'] = $this->m_model->get_by_id('user', 'id', $this->session->userdata('id'))->result();
+		$data['menu'] = "profile";
+		$this->load->view('page/admin/profileAdmin', $data);
+	}
+	//end profile admin
+
+	//start export data karyawan
 	public function export()
 	{
 
@@ -313,9 +344,12 @@ class Page extends CI_Controller
 		$writer->save('php://output');
 
 	}
-	public function export_absensi()
+	//end export data karyawan
+
+	//start export semua data absensi
+	public function export_absensi_all()
 	{
-		$tanggal = $this->input->post('tanggal');
+		$tanggal = date('Y-m-d');
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 
@@ -333,7 +367,7 @@ class Page extends CI_Controller
 					'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
 				]
 			];
-	
+
 			$style_row = [
 				'alignment' => [
 					'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
@@ -345,11 +379,11 @@ class Page extends CI_Controller
 					'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
 				]
 			];
-	
+
 			$sheet->setCellValue('A1', "DATA ABSEN KARYAWAN");
 			$sheet->mergeCells('A1:E1');
 			$sheet->getStyle('A1')->getFont()->setBold(true);
-	
+
 			$sheet->setCellValue('A3', "ID");
 			$sheet->setCellValue('B3', "NAMA KARYAWAN");
 			$sheet->setCellValue('C3', "KEGIATAN");
@@ -358,7 +392,7 @@ class Page extends CI_Controller
 			$sheet->setCellValue('F3', "JAM PULANG");
 			$sheet->setCellValue('G3', "KETERANGAN IZIN");
 			$sheet->setCellValue('H3', "STATUS");
-	
+
 			$sheet->getStyle('A3')->applyFromArray($style_col);
 			$sheet->getStyle('B3')->applyFromArray($style_col);
 			$sheet->getStyle('C3')->applyFromArray($style_col);
@@ -367,21 +401,21 @@ class Page extends CI_Controller
 			$sheet->getStyle('F3')->applyFromArray($style_col);
 			$sheet->getStyle('G3')->applyFromArray($style_col);
 			$sheet->getStyle('H3')->applyFromArray($style_col);
-	
-			$karyawan = $this->m_model->getHarianData($tanggal);
-	
+
+			$karyawan = $this->m_model->get_all_karyawan();
+
 			$no = 1;
 			$numrow = 4;
 			foreach ($karyawan as $data) {
 				$sheet->setCellValue('A' . $numrow, $no);
-				$sheet->setCellValue('B' . $numrow, $data->nama_depan . ' ' .$data->nama_belakang);
+				$sheet->setCellValue('B' . $numrow, $data->nama_depan . ' ' . $data->nama_belakang);
 				$sheet->setCellValue('C' . $numrow, $data->kegiatan);
 				$sheet->setCellValue('D' . $numrow, $data->date);
 				$sheet->setCellValue('E' . $numrow, $data->jam_masuk);
 				$sheet->setCellValue('F' . $numrow, $data->jam_pulang);
 				$sheet->setCellValue('G' . $numrow, $data->keterangan_izin);
 				$sheet->setCellValue('H' . $numrow, $data->status);
-	
+
 				$sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
 				$sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
 				$sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
@@ -390,11 +424,11 @@ class Page extends CI_Controller
 				$sheet->getStyle('F' . $numrow)->applyFromArray($style_row);
 				$sheet->getStyle('G' . $numrow)->applyFromArray($style_row);
 				$sheet->getStyle('H' . $numrow)->applyFromArray($style_row);
-	
+
 				$no++;
 				$numrow++;
 			}
-	
+
 			$sheet->getColumnDimension('A')->setWidth(5);
 			$sheet->getColumnDimension('B')->setWidth(25);
 			$sheet->getColumnDimension('C')->setWidth(50);
@@ -403,26 +437,138 @@ class Page extends CI_Controller
 			$sheet->getColumnDimension('F')->setWidth(30);
 			$sheet->getColumnDimension('G')->setWidth(30);
 			$sheet->getColumnDimension('H')->setWidth(30);
-	
+
 			$sheet->getDefaultRowDimension()->setRowHeight(-1);
-	
+
 			$sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-	
+
 			$sheet->setTitle("LAPORAN DATA ABSEN KARYAWAN");
 			header('Content-Type: aplication/vnd.openxmlformants-officedocument.spreadsheetml.sheet');
-			header('Content-Disposition: attachment; filename="data_karyawan.xlsx"');
+			header('Content-Disposition: attachment; filename="semua_data_absensi.xlsx"');
 			header('Cache-Control: max-age=0');
-	
+
 			$writer = new Xlsx($spreadsheet);
 			$writer->save('php://output');
 		}
 
 	}
+	//end export semua data absensi
 
+	//start export data absen perhari
+	public function export_absensi()
+	{
+		$tanggal = date('Y-m-d');
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+
+		if (!empty($tanggal)) {
+			$style_col = [
+				'font' => ['bold' => true],
+				'alignment' => [
+					'horizontal' => \PhpOffice\PhpSpreadsheet\style\Alignment::HORIZONTAL_CENTER,
+					'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
+				],
+				'borders' => [
+					'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
+				]
+			];
+
+			$style_row = [
+				'alignment' => [
+					'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
+				],
+				'borders' => [
+					'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
+				]
+			];
+
+			$sheet->setCellValue('A1', "DATA ABSEN KARYAWAN");
+			$sheet->mergeCells('A1:E1');
+			$sheet->getStyle('A1')->getFont()->setBold(true);
+
+			$sheet->setCellValue('A3', "ID");
+			$sheet->setCellValue('B3', "NAMA KARYAWAN");
+			$sheet->setCellValue('C3', "KEGIATAN");
+			$sheet->setCellValue('D3', "TANGGAL MASUK");
+			$sheet->setCellValue('E3', "JAM MASUK");
+			$sheet->setCellValue('F3', "JAM PULANG");
+			$sheet->setCellValue('G3', "KETERANGAN IZIN");
+			$sheet->setCellValue('H3', "STATUS");
+
+			$sheet->getStyle('A3')->applyFromArray($style_col);
+			$sheet->getStyle('B3')->applyFromArray($style_col);
+			$sheet->getStyle('C3')->applyFromArray($style_col);
+			$sheet->getStyle('D3')->applyFromArray($style_col);
+			$sheet->getStyle('E3')->applyFromArray($style_col);
+			$sheet->getStyle('F3')->applyFromArray($style_col);
+			$sheet->getStyle('G3')->applyFromArray($style_col);
+			$sheet->getStyle('H3')->applyFromArray($style_col);
+
+			$karyawan = $this->m_model->getHarianData($tanggal);
+
+			$no = 1;
+			$numrow = 4;
+			foreach ($karyawan as $data) {
+				$sheet->setCellValue('A' . $numrow, $no);
+				$sheet->setCellValue('B' . $numrow, $data->nama_depan . ' ' . $data->nama_belakang);
+				$sheet->setCellValue('C' . $numrow, $data->kegiatan);
+				$sheet->setCellValue('D' . $numrow, $data->date);
+				$sheet->setCellValue('E' . $numrow, $data->jam_masuk);
+				$sheet->setCellValue('F' . $numrow, $data->jam_pulang);
+				$sheet->setCellValue('G' . $numrow, $data->keterangan_izin);
+				$sheet->setCellValue('H' . $numrow, $data->status);
+
+				$sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('F' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('G' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('H' . $numrow)->applyFromArray($style_row);
+
+				$no++;
+				$numrow++;
+			}
+
+			$sheet->getColumnDimension('A')->setWidth(5);
+			$sheet->getColumnDimension('B')->setWidth(25);
+			$sheet->getColumnDimension('C')->setWidth(50);
+			$sheet->getColumnDimension('D')->setWidth(20);
+			$sheet->getColumnDimension('E')->setWidth(30);
+			$sheet->getColumnDimension('F')->setWidth(30);
+			$sheet->getColumnDimension('G')->setWidth(30);
+			$sheet->getColumnDimension('H')->setWidth(30);
+
+			$sheet->getDefaultRowDimension()->setRowHeight(-1);
+
+			$sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+
+			$sheet->setTitle("LAPORAN DATA ABSEN KARYAWAN");
+			header('Content-Type: aplication/vnd.openxmlformants-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment; filename="absensi_perhari.xlsx"');
+			header('Cache-Control: max-age=0');
+
+			$writer = new Xlsx($spreadsheet);
+			$writer->save('php://output');
+		}
+
+	}
+	//end export data absen perhari
+
+	//start export data absen mingguan
 	public function export_absensi_mingguan()
 	{
-		$tanggal_awal = $this->input->post('tanggal_awal');
-		$tanggal_akhir = $this->input->post('tanggal_akhir');
+		$tanggal_akhir = date('Y-m-d');
+		$tanggal_awal = date('Y-m-d', strtotime('-7 days', strtotime($tanggal_akhir)));
+		$tanggal_awal = date('W', strtotime($tanggal_awal));
+		$tanggal_akhir = date('W', strtotime($tanggal_akhir));
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 
@@ -440,7 +586,7 @@ class Page extends CI_Controller
 					'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
 				]
 			];
-	
+
 			$style_row = [
 				'alignment' => [
 					'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
@@ -452,11 +598,11 @@ class Page extends CI_Controller
 					'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
 				]
 			];
-	
+
 			$sheet->setCellValue('A1', "DATA ABSEN KARYAWAN");
 			$sheet->mergeCells('A1:E1');
 			$sheet->getStyle('A1')->getFont()->setBold(true);
-	
+
 			$sheet->setCellValue('A3', "ID");
 			$sheet->setCellValue('B3', "NAMA KARYAWAN");
 			$sheet->setCellValue('C3', "KEGIATAN");
@@ -465,7 +611,7 @@ class Page extends CI_Controller
 			$sheet->setCellValue('F3', "JAM PULANG");
 			$sheet->setCellValue('G3', "KETERANGAN IZIN");
 			$sheet->setCellValue('H3', "STATUS");
-	
+
 			$sheet->getStyle('A3')->applyFromArray($style_col);
 			$sheet->getStyle('B3')->applyFromArray($style_col);
 			$sheet->getStyle('C3')->applyFromArray($style_col);
@@ -474,21 +620,21 @@ class Page extends CI_Controller
 			$sheet->getStyle('F3')->applyFromArray($style_col);
 			$sheet->getStyle('G3')->applyFromArray($style_col);
 			$sheet->getStyle('H3')->applyFromArray($style_col);
-	
+
 			$karyawan = $this->m_model->getMingguanData($tanggal_awal, $tanggal_akhir);
-	
+
 			$no = 1;
 			$numrow = 4;
 			foreach ($karyawan as $data) {
 				$sheet->setCellValue('A' . $numrow, $no);
-				$sheet->setCellValue('B' . $numrow, $data->nama_depan . ' ' .$data->nama_belakang);
+				$sheet->setCellValue('B' . $numrow, $data->nama_depan . ' ' . $data->nama_belakang);
 				$sheet->setCellValue('C' . $numrow, $data->kegiatan);
 				$sheet->setCellValue('D' . $numrow, $data->date);
 				$sheet->setCellValue('E' . $numrow, $data->jam_masuk);
 				$sheet->setCellValue('F' . $numrow, $data->jam_pulang);
 				$sheet->setCellValue('G' . $numrow, $data->keterangan_izin);
 				$sheet->setCellValue('H' . $numrow, $data->status);
-	
+
 				$sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
 				$sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
 				$sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
@@ -497,11 +643,11 @@ class Page extends CI_Controller
 				$sheet->getStyle('F' . $numrow)->applyFromArray($style_row);
 				$sheet->getStyle('G' . $numrow)->applyFromArray($style_row);
 				$sheet->getStyle('H' . $numrow)->applyFromArray($style_row);
-	
+
 				$no++;
 				$numrow++;
 			}
-	
+
 			$sheet->getColumnDimension('A')->setWidth(5);
 			$sheet->getColumnDimension('B')->setWidth(25);
 			$sheet->getColumnDimension('C')->setWidth(50);
@@ -510,21 +656,172 @@ class Page extends CI_Controller
 			$sheet->getColumnDimension('F')->setWidth(30);
 			$sheet->getColumnDimension('G')->setWidth(30);
 			$sheet->getColumnDimension('H')->setWidth(30);
-	
+
 			$sheet->getDefaultRowDimension()->setRowHeight(-1);
-	
+
 			$sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-	
+
 			$sheet->setTitle("LAPORAN DATA ABSEN KARYAWAN");
 			header('Content-Type: aplication/vnd.openxmlformants-officedocument.spreadsheetml.sheet');
-			header('Content-Disposition: attachment; filename="data_karyawan.xlsx"');
+			header('Content-Disposition: attachment; filename="data_absensi_perminggu.xlsx"');
 			header('Cache-Control: max-age=0');
-	
+
 			$writer = new Xlsx($spreadsheet);
 			$writer->save('php://output');
 		}
 
 	}
+	//end export data absen mingguan
+
+	//start export data absen bulanan
+	public function export_absensi_bulanan()
+	{
+		// $bulan = $this->input->post('bulan');
+		$bulan = date('Y-m');
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+
+		if (!empty($bulan)) {
+			$style_col = [
+				'font' => ['bold' => true],
+				'alignment' => [
+					'horizontal' => \PhpOffice\PhpSpreadsheet\style\Alignment::HORIZONTAL_CENTER,
+					'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
+				],
+				'borders' => [
+					'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
+				]
+			];
+
+			$style_row = [
+				'alignment' => [
+					'vertical' => \PhpOffice\PhpSpreadsheet\style\Alignment::VERTICAL_CENTER
+				],
+				'borders' => [
+					'top' => ['borderstyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'right' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'bottom' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN],
+					'left' => ['borderStyle' => \PhpOffice\PhpSpreadsheet\style\Border::BORDER_THIN]
+				]
+			];
+
+			$sheet->setCellValue('A1', "DATA ABSEN KARYAWAN");
+			$sheet->mergeCells('A1:E1');
+			$sheet->getStyle('A1')->getFont()->setBold(true);
+
+			$sheet->setCellValue('A3', "ID");
+			$sheet->setCellValue('B3', "NAMA KARYAWAN");
+			$sheet->setCellValue('C3', "KEGIATAN");
+			$sheet->setCellValue('D3', "TANGGAL MASUK");
+			$sheet->setCellValue('E3', "JAM MASUK");
+			$sheet->setCellValue('F3', "JAM PULANG");
+			$sheet->setCellValue('G3', "KETERANGAN IZIN");
+			$sheet->setCellValue('H3', "STATUS");
+
+			$sheet->getStyle('A3')->applyFromArray($style_col);
+			$sheet->getStyle('B3')->applyFromArray($style_col);
+			$sheet->getStyle('C3')->applyFromArray($style_col);
+			$sheet->getStyle('D3')->applyFromArray($style_col);
+			$sheet->getStyle('E3')->applyFromArray($style_col);
+			$sheet->getStyle('F3')->applyFromArray($style_col);
+			$sheet->getStyle('G3')->applyFromArray($style_col);
+			$sheet->getStyle('H3')->applyFromArray($style_col);
+
+			$karyawan = $this->m_model->getBulananData($bulan);
+
+			$no = 1;
+			$numrow = 4;
+			foreach ($karyawan as $data) {
+				$sheet->setCellValue('A' . $numrow, $no);
+				$sheet->setCellValue('B' . $numrow, $data->nama_depan . ' ' . $data->nama_belakang);
+				$sheet->setCellValue('C' . $numrow, $data->kegiatan);
+				$sheet->setCellValue('D' . $numrow, $data->date);
+				$sheet->setCellValue('E' . $numrow, $data->jam_masuk);
+				$sheet->setCellValue('F' . $numrow, $data->jam_pulang);
+				$sheet->setCellValue('G' . $numrow, $data->keterangan_izin);
+				$sheet->setCellValue('H' . $numrow, $data->status);
+
+				$sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('F' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('G' . $numrow)->applyFromArray($style_row);
+				$sheet->getStyle('H' . $numrow)->applyFromArray($style_row);
+
+				$no++;
+				$numrow++;
+			}
+
+			$sheet->getColumnDimension('A')->setWidth(5);
+			$sheet->getColumnDimension('B')->setWidth(25);
+			$sheet->getColumnDimension('C')->setWidth(50);
+			$sheet->getColumnDimension('D')->setWidth(20);
+			$sheet->getColumnDimension('E')->setWidth(30);
+			$sheet->getColumnDimension('F')->setWidth(30);
+			$sheet->getColumnDimension('G')->setWidth(30);
+			$sheet->getColumnDimension('H')->setWidth(30);
+
+			$sheet->getDefaultRowDimension()->setRowHeight(-1);
+
+			$sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+
+			$sheet->setTitle("LAPORAN DATA ABSEN KARYAWAN");
+			header('Content-Type: aplication/vnd.openxmlformants-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment; filename="absensi_perbulan.xlsx"');
+			header('Cache-Control: max-age=0');
+
+			$writer = new Xlsx($spreadsheet);
+			$writer->save('php://output');
+		}
+
+	}
+	//end export data absen bulanan
+
+	//start menampilkan page rekap harian
+	public function rekapHarian()
+	{
+		$tanggal = date('Y-m-d');
+		$data['rekapHarian'] = $this->m_model->getHarianData($tanggal);
+		$this->load->view('page/admin/rekapHarian', $data);
+	}
+	//end menampilkan page rekap harian
+
+	//start menampilkan page rekap mingguan
+	public function rekapMingguan()
+	{
+		$tanggal_akhir = date('Y-m-d');
+		$tanggal_awal = date('Y-m-d', strtotime('-7 days', strtotime($tanggal_akhir)));
+		$tanggal_awal = date('W', strtotime($tanggal_awal));
+		$tanggal_akhir = date('W', strtotime($tanggal_akhir));
+		$data['rekapMingguan'] = $this->m_model->getMingguanData($tanggal_awal, $tanggal_akhir);
+		$this->load->view('page/admin/rekapMingguan', $data);
+	}
+	//end menampilkan page rekap mingguan
+
+	//start menampilkan page rekap bulanan
+	public function rekapBulanan()
+	{
+		// $bulan = $this->input->post('bulan');
+		$bulan = date('Y-m');
+		$data['rekapBulanan'] = $this->m_model->getBulananData($bulan);
+		$this->load->view('page/admin/rekapBulanan', $data);
+	}
+	//end menampilkan page rekap bulanan
+
+	//start menampilkan page data karyawan
+	public function dataKaryawan()
+	{
+		$data['get_karyawan'] = $this->m_model->get_data('user')->result();
+		$this->load->view('page/admin/dataKaryawan', $data);
+	}
+	//end menampilkan page data karyawan
+
+	//end role admin
 
 
 }

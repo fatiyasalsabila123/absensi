@@ -4,52 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absensi karyawan</title>
+    <title>Data absensi harian</title>
+    <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/dashboard.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/dashboard.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
 
 <body>
+
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <?php $this->load->view('component/sidebar'); ?>
         <div class="h-screen flex-grow-1 overflow-y-lg-auto">
-            <!-- Header -->
-            <header class="bg-surface-primary border-bottom pt-6">
-                <div class="container-fluid">
-                    <div class="mb-npx">
-                        <div class="row align-items-center">
-                            <div class="col-sm-6 col-12 mb-4 mb-sm-0">
-                                <!-- Title -->
-                                <h1 class="h2 mb-0 ls-tight">
-                                    <img src="https://bytewebster.com/img/logo.png" width="40"> Absensi karyawan
-                                </h1>
-                            </div>
-                        </div>
-                        <!-- Nav -->
-                        <ul class="nav nav-tabs mt-4 overflow-x border-0">
-                        </ul>
-                    </div>
-                </div>
-            </header>
-            <!-- start table absensi karyawan -->
+            <?php $this->load->view('component/header'); ?>
             <main class="py-6 bg-surface-secondary">
                 <div class="container-fluid">
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header bg-white">
-                            <div class="d-flex justify-content-between">
-                                <h5 class="mb-0">Absensi</h5>
-                                <?php if ($this->session->userdata('role') === "admin"): ?>
-                                    <button class="btn btn-sm btn-primary"><a
-                                            href="<?php echo base_url('page/export_absensi_all') ?>"
-                                            class="text-decoration-none text-light">Export</a></button>
-                                <?php endif;?>
-                            </div>
+                            <form
+                                class="d-flex justify-content-between">
+                                <h5 class="mb-0">Data perbulan</h5>
+                                <div class="d-flex" style="gap:10px">
+                                    <!-- <select class="form-select form-select-sm" name="bulan" id="bulan"
+                                        aria-label="Small select example">
+                                        <option value="" selected>Pilih bulan</option>
+                                        <option value="01">Januari</option>
+                                        <option value="02">Februari</option>
+                                        <option value="03">Maret</option>
+                                        <option value="04">April</option>
+                                        <option value="05">Mei</option>
+                                        <option value="06">Juni</option>
+                                        <option value="07">Juli</option>
+                                        <option value="08">Agustus</option>
+                                        <option value="09">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select> -->
+                                    <button type="submit" name="submit" class="btn btn-sm btn-primary"><a class="text-light" href="<?php echo base_url('page/export_absensi_bulanan')?>">Export</a></button>
+                                </div>
+                            </form>
+
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-nowrap">
@@ -63,14 +60,14 @@
                                         <th scope="col">Jam pulang</th>
                                         <th scope="col">Keterangan izin</th>
                                         <th scope="col">Status</th>
-                                        <?php if ($this->session->userdata('role') === "karyawan"): ?>
+                                        <?php if ($this->session->userdata('role') == "karyawan"): ?>
                                             <th scope="col" class="text-center">Aksi</th>
                                         <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 0;
-                                    foreach ($karyawan as $row):
+                                    foreach ($rekapBulanan as $row):
                                         $no++ ?>
                                         <tr>
                                             <td>
@@ -97,7 +94,7 @@
                                             <td>
                                                 <?php echo $row->status ?>
                                             </td>
-                                            <?php if ($this->session->userdata('role') === "karyawan"): ?>
+                                            <?php if ($this->session->userdata('role') == "karyawan"): ?>
                                                 <td class="text-end">
                                                     <?php if ($row->status == "done"): ?>
                                                         <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
@@ -137,47 +134,19 @@
                 </div>
             </main>
         </div>
-        <!-- end tabel absensi karyawan -->
-        <script>
-            function hapus(id) { // Fungsi JavaScript untuk mengkonfirmasi dan mengarahkan ke halaman "delete.php" dengan id yang akan dihapus.
-                var yes = confirm("Yakin Di Hapus?");
-                if (yes == true) {
-                    window.location.href = "<?php echo base_url('page/hapus/') ?>" + id; // Mengarahkan ke halaman "hapus_pembayaran.php" dengan mengirimkan id yang akan dihapus sebagai parameter.
-                }
-            }
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add an event listener for the "change" event on the select element
+            var selectElement = document.getElementById('bulan');
+            var formElement = selectElement.form; // Get the parent form
 
-        <script>
-            const tampilHarian = document.getElementById('tampil_harian');
-            const tampilMingguan = document.getElementById('tampil_mingguan');
-            const tampilBulanan = document.getElementById('tampil_bulanan');
-
-            const rekapHarian = document.getElementById('rekap_harian');
-            const rekapMingguan = document.getElementById('rekap_mingguan');
-            const rekapBulanan = document.getElementById('rekap_bulanan');
-
-            rekapHarian.addEventListener('click', function () {
-                tampilHarian.style.display = 'block';
-                tampilMingguan.style.display = 'none';
-                tampilBulanan.style.display = 'none';
+            selectElement.addEventListener('change', function () {
+                formElement.submit(); // Submit the form when the select element changes
             });
-
-            rekapMingguan.addEventListener('click', function () {
-                tampilHarian.style.display = 'none';
-                tampilBulanan.style.display = 'none';
-                tampilMingguan.style.display = 'block';
-            });
-
-            rekapBulanan.addEventListener('click', function () {
-                tampilHarian.style.display = 'none';
-                tampilMingguan.style.display = 'none';
-                tampilBulanan.style.display = 'block';
-            });
-        </script>
-
+        });
+    </script>
 
 </body>
 

@@ -3,19 +3,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
-
+	//start construct
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('m_model');
 	}
+	//end construct
 
 	// <=== start login ==>
+
+	// start menampilkan page login
 	public function index()
 	{
 		// $data['login'] = $this->m_model->get_karyawan();
 		$this->load->view('auth/login');
 	}
+	//end menampilkan page login
+
+	//start aksi untuk login
 	public function aksi_login()
 	{
 		$email = $this->input->post('email', true);
@@ -71,6 +77,7 @@ class Auth extends CI_Controller
 			redirect(base_url() . "auth"); // menuju kembali ke halaman login jika login gagal
 		}
 	}
+	//end aksi login
 	// <=== end login ===>
 
 	//  <=== logout ===>
@@ -81,11 +88,15 @@ class Auth extends CI_Controller
 	}
 
 	//  <=== register karyawan ===>
+
+	// start menampilkan page register karyawan
 	public function register()
 	{
 		$this->load->view('auth/register');
 	}
+	// end menampilkan page register karyawan
 
+	// start aksi register karyawan
 	public function aksi_register()
 	{
 		$email = $this->input->post('email');
@@ -118,14 +129,19 @@ class Auth extends CI_Controller
 			redirect('auth');
 		}
 	}
+	// start aksi register karyawan
 	// <=== end Register karyawan ===>
 
 	// <=== start register admin ==>
+
+	//start menampilkan page register admin
 	public function register_admin()
 	{
 		$this->load->view('auth/register_admin');
 	}
+	//end menampilkan page register admin
 
+	//start aksi register admin
 	public function aksi_register_admin()
 	{
 		$email = $this->input->post('email');
@@ -158,6 +174,7 @@ class Auth extends CI_Controller
 			redirect('auth');
 		}
 	}
+	//end aksi register admin
 	// <=== end register admin ==>
 
 }

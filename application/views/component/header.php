@@ -22,21 +22,6 @@
                 </div>
                 <!-- Nav -->
                 <ul class="nav nav-tabs mt-4 overflow-x border-0">
-                <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-house"></i> Rekap harian
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-bar-chart"></i> Rekap mingguan
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-chat"></i> Rekap bulanan
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>

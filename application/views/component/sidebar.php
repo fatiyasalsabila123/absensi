@@ -61,6 +61,28 @@
                             <i class="bi bi-bar-chart"></i> Absensi karyawan
                         </a>
                     </li>
+                    <?php if ($this->session->userdata('role') === "admin"):?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dataKaryawan">
+                            <i class="bi bi-bar-chart"></i> Data Karyawan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rekapHarian">
+                            <i class="bi bi-bar-chart"></i> Data absensi harian
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rekapMingguan">
+                            <i class="bi bi-bar-chart"></i> Data absensi mingguan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rekapBulanan">
+                            <i class="bi bi-bar-chart"></i> Data absensi bulanan
+                        </a>
+                    </li>
+                    <?php endif;?>
                 </ul>
                 <!-- Divider -->
                 <!-- <hr class="navbar-divider my-5 opacity-20"> -->
@@ -68,11 +90,19 @@
                 <div class="mt-auto"></div>
                 <!-- User (md) -->
                 <ul class="navbar-nav">
+                    <?php if ($this->session->userdata('role') === "karyawan"):?>
                     <li class="nav-item">
                         <a class="nav-link" href="profile">
                             <i class="bi bi-person-square"></i> Account
                         </a>
                     </li>
+                    <?php else:?>
+                        <li class="nav-item">
+                        <a class="nav-link" href="profileAdmin">
+                            <i class="bi bi-person-square"></i> Account
+                        </a>
+                    </li>
+                    <?php endif;?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url('auth/logout') ?>"
                             onclick="return confirm('Are you sure you want to logout?')">
