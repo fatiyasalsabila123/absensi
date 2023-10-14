@@ -13,6 +13,9 @@ class Page extends CI_Controller
 		$this->load->model('m_model');
 		$this->load->helper('my_helper');
 		$this->load->library('upload');
+		if ($this->session->userData('logged_in') != true) {
+            redirect(base_url().'auth');
+        }
 	}
 	//end construct
 
@@ -676,8 +679,8 @@ class Page extends CI_Controller
 	//start export data absen bulanan
 	public function export_absensi_bulanan()
 	{
-		// $bulan = $this->input->post('bulan');
-		$bulan = date('Y-m');
+		$bulan = $this->input->post('bulan');
+		// $bulan = date('Y-m');
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 
@@ -806,8 +809,8 @@ class Page extends CI_Controller
 	//start menampilkan page rekap bulanan
 	public function rekapBulanan()
 	{
-		// $bulan = $this->input->post('bulan');
-		$bulan = date('Y-m');
+		$bulan = $this->input->post('bulan');
+		// $bulan = date('Y-m');
 		$data['rekapBulanan'] = $this->m_model->getBulananData($bulan);
 		$this->load->view('page/admin/rekapBulanan', $data);
 	}

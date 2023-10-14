@@ -61,19 +61,20 @@ class Auth extends CI_Controller
 
 					$eksekusi = $this->m_model->tambah_data('absensi', $data);
 					if ($eksekusi) {
-						$this->session->set_flashdata('Berhasil login sebagai karyawan');
+						$this->session->set_flashdata('berhasil_login, Berhasil login sebagai karyawan yeayy');
 						$id_absensi = $this->db->insert_id();
-						redirect(base_url('page/edit_kegiatan/'. $id_absensi));
+						redirect(base_url('page/edit_kegiatan/' . $id_absensi));
 					} else {
-						$this->session->set_flashdata('Gagal login huuuuuu');
+						$this->session->set_flashdata('gagal_login, Gagal login huuuuuu');
 						redirect(base_url('auth'));
 					}
 				}
 			} else {
 				$this->session->set_flashdata('error', 'gagal login');
-				redirect(base_url() . "auth"); // menuju ke halaman login jika peran bukan admin
+				redirect(base_url() . "auth");
 			}
 		} else {
+			$this->session->set_flashdata('pass_email, Password atau email salah, yahhh');
 			redirect(base_url() . "auth"); // menuju kembali ke halaman login jika login gagal
 		}
 	}

@@ -23,27 +23,29 @@
                 <div class="container-fluid">
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header bg-white">
-                            <form
-                                class="d-flex justify-content-between">
+                            <form class="d-flex justify-content-between" action = "<?php echo base_url('page/rekapBulanan')?>" method="post">
                                 <h5 class="mb-0">Data perbulan</h5>
                                 <div class="d-flex" style="gap:10px">
-                                    <!-- <select class="form-select form-select-sm" name="bulan" id="bulan"
+                                    <select class="form-select form-select-sm" name="bulan" id="bulan"
                                         aria-label="Small select example">
-                                        <option value="" selected>Pilih bulan</option>
-                                        <option value="01">Januari</option>
-                                        <option value="02">Februari</option>
-                                        <option value="03">Maret</option>
-                                        <option value="04">April</option>
-                                        <option value="05">Mei</option>
-                                        <option value="06">Juni</option>
-                                        <option value="07">Juli</option>
-                                        <option value="08">Agustus</option>
-                                        <option value="09">September</option>
-                                        <option value="10">Oktober</option>
-                                        <option value="11">November</option>
-                                        <option value="12">Desember</option>
-                                    </select> -->
-                                    <button type="submit" name="submit" class="btn btn-sm btn-primary"><a class="text-light" href="<?php echo base_url('page/export_absensi_bulanan')?>">Export</a></button>
+                                        <option value="">Pilih bulan</option>
+                                        <option value="01" <?php echo date('m') == '01' ? 'selected' : '' ?>>Januari</option>
+                                        <option value="02" <?php echo date('m') == '02' ? 'selected' : '' ?>>Februari</option>
+                                        <option value="03" <?php echo date('m') == '03' ? 'selected' : '' ?>>Maret</option>
+                                        <option value="04" <?php echo date('m') == '04' ? 'selected' : '' ?>>April</option>
+                                        <option value="05" <?php echo date('m') == '05' ? 'selected' : '' ?>>Mei</option>
+                                        <option value="06" <?php echo date('m') == '06' ? 'selected' : '' ?>>Juni</option>
+                                        <option value="07" <?php echo date('m') == '07' ? 'selected' : '' ?>>Juli</option>
+                                        <option value="08" <?php echo date('m') == '08' ? 'selected' : '' ?>>Agustus</option>
+                                        <option value="09" <?php echo date('m') == '09' ? 'selected' : '' ?>>September</option>
+                                        <option value="10" <?php echo date('m') == '10' ? 'selected' : '' ?>>Oktober</option>
+                                        <option value="11" <?php echo date('m') == '11' ? 'selected' : '' ?>>November</option>
+                                        <option value="12" <?php echo date('m') == '12' ? 'selected' : '' ?>>Desember</option>
+                                    </select>
+                                    <button type="submit" name="submit" class="btn btn-sm btn-primary">Submit</button>
+                                    <button type="submit" name="submit" class="btn btn-sm btn-primary"><a
+                                            class="text-light"
+                                            href="<?php echo base_url('page/export_absensi_bulanan') ?>">Export</a></button>
                                 </div>
                             </form>
 

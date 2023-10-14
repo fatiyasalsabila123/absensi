@@ -147,7 +147,7 @@ class M_model extends CI_Model
         $this->db->select("absensi.*, user.nama_depan, user.nama_belakang");
         $this->db->from("absensi");
         $this->db->join("user", "absensi.id_karyawan = user.id", "left");
-        $this->db->where("DATE_FORMAT(date, '%Y-%m') = ", $bulan); // Perbaikan di sini
+        $this->db->where("DATE_FORMAT(date, '%m') = ", $bulan); // Perbaikan di sini
         $query = $this->db->get();
         return $query->result();
     }

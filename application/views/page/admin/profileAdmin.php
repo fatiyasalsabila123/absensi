@@ -28,16 +28,24 @@
                     <div class="container-fluid max-w-screen-xl">
                         <div class="row g-0">
                             <div class="col-auto">
-                                <a href=""
-                                    class="avatar w-40 h-40 border border-body border-4 rounded-circle shadow mt-n16">
-                                    <img alt="..."
-                                        src="<?php echo base_url('images/user/' . $this->fungsi->user_login()->image) ?>"
-                                        class="rounded-circle">
+                                <a class="avatar w-40 h-40 border border-body border-4 rounded-circle shadow mt-n16">
+                                    <?php if (!empty($this->fungsi->user_login()->image)): ?>
+                                        <img alt="..."
+                                            src="<?php echo base_url('images/user/' . $this->fungsi->user_login()->image) ?>"
+                                            class="rounded-circle">
+                                    <?php else: ?>
+                                        <img alt="..." src="<?php echo base_url('/asset/FlexStart/') ?>assets/img/user.avif"
+                                            class="rounded-circle">
+                                    <?php endif; ?>
                                 </a>
                             </div>
                             <div class="col ps-4 pt-4">
-                                <h6 class="text-xs text-uppercase text-muted mb-1"><?php echo $this->session->userData('role') ?></h6>
-                                <h1 class="h2"><?php echo $this->session->userData('username') ?></h1>
+                                <h6 class="text-xs text-uppercase text-muted mb-1">
+                                    <?php echo $this->session->userData('role') ?>
+                                </h6>
+                                <h1 class="h2">
+                                    <?php echo $this->session->userData('username') ?>
+                                </h1>
                             </div>
                         </div>
                         <ul class="nav nav-tabs overflow-x ms-1 mt-4">
@@ -92,30 +100,34 @@
                                         <div class="mb-3 col-6">
                                             <label for="password_lama" class="form-label">Password lama</label>
                                             <div class="input-group">
-                                            <input type="password" name="password_lama" class="form-control"
-                                                id="password_lama" placeholder="password_lama" required>
-                                            <span class="input-group-text"><i id="showPasswordLama" class="fas fa-eye"></i></span>
-                                        </div>
+                                                <input type="password" name="password_lama" class="form-control"
+                                                    id="password_lama" placeholder="password_lama" required>
+                                                <span class="input-group-text"><i id="showPasswordLama"
+                                                        class="fas fa-eye"></i></span>
+                                            </div>
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="password_baru" class="form-label">Password baru</label>
                                             <div class="input-group">
-                                            <input type="password" name="password_baru" class="form-control"
-                                                id="password_baru" placeholder="password_baru" required>
-                                            <span class="input-group-text"><i id="showPasswordBaru" class="fas fa-eye"></i></span>
-                                        </div>
+                                                <input type="password" name="password_baru" class="form-control"
+                                                    id="password_baru" placeholder="password_baru" required>
+                                                <span class="input-group-text"><i id="showPasswordBaru"
+                                                        class="fas fa-eye"></i></span>
+                                            </div>
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="konfirmasi_password" class="form-label">Konfirmasi
                                                 password</label>
-                                                <div class="input-group">
-                                            <input type="password" name="konfirmasi_password" class="form-control"
-                                                id="konfirmasi_password" placeholder="konfirmasi_password" required>
-                                            <span class="input-group-text"><i id="showKonfirmasiPassword" class="fas fa-eye"></i></span>
-                                        </div>
+                                            <div class="input-group">
+                                                <input type="password" name="konfirmasi_password" class="form-control"
+                                                    id="konfirmasi_password" placeholder="konfirmasi_password" required>
+                                                <span class="input-group-text"><i id="showKonfirmasiPassword"
+                                                        class="fas fa-eye"></i></span>
+                                            </div>
                                         </div>
                                         <br>
-                                        <button type="submit" name="submit" class="btn btn-sm btn-primary">Submit</button>
+                                        <button type="submit" name="submit"
+                                            class="btn btn-sm btn-primary">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -127,37 +139,40 @@
                                 <div class="card-body">
                                     <h5 class="mb-3">Edit Profile</h5>
                                     <hr>
-                                    <?php foreach ($profile as $value) : ?>
-                                    <form method="post" action="<?php echo base_url('page/aksi_ubah_profile') ?>"
-                                        enctype="multipart/form-data" class="row">
-                                        <div class="mb-3 col-6">
-                                            <label for="username" class="form-label">Username</label>
-                                            <!-- Input field untuk jurusam_kelas -->
-                                            <input type="text" name="username" class="form-control" id="jurusan_kelas"
-                                                placeholder="username" required value="<?php echo $value->username?>">
-                                        </div>
-                                        <div class="mb-3 col-6">
-                                            <label for="email" class="form-label">Email</label>
-                                            <!-- Input field untuk jurusam_kelas -->
-                                            <input type="text" name="email" class="form-control" id="jurusan_kelas"
-                                                placeholder="email" required value="<?php echo $value->email?>">
-                                        </div>
-                                        <div class="mb-3 col-6">
-                                            <label for="nama_depan" class="form-label">Nama depan</label>
-                                            <!-- Input field untuk jurusam_kelas -->
-                                            <input type="text" name="nama_depan" class="form-control" id="jurusan_kelas"
-                                                placeholder="nama_depan" required value="<?php echo $value->nama_depan?>">
-                                        </div>
-                                        <div class="mb-3 col-6">
-                                            <label for="nama_belakang" class="form-label">Nama belakang</label>
-                                            <!-- Input field untuk jurusam_kelas -->
-                                            <input type="text" name="nama_belakang" class="form-control"
-                                                id="jurusan_kelas" placeholder="nama_belakang" required value="<?php echo $value->nama_belakang?>">
-                                        </div>
-                                        <br>
-                                        <button class="btn btn-sm btn-primary" style="width:fit-content" type="submit" name="submit">Submit</button>
-                                    </form>
-                                    <?php endforeach;?>
+                                    <?php foreach ($profile as $value): ?>
+                                        <form method="post" action="<?php echo base_url('page/aksi_ubah_profile') ?>"
+                                            enctype="multipart/form-data" class="row">
+                                            <div class="mb-3 col-6">
+                                                <label for="username" class="form-label">Username</label>
+                                                <!-- Input field untuk jurusam_kelas -->
+                                                <input type="text" name="username" class="form-control" id="jurusan_kelas"
+                                                    placeholder="username" required value="<?php echo $value->username ?>">
+                                            </div>
+                                            <div class="mb-3 col-6">
+                                                <label for="email" class="form-label">Email</label>
+                                                <!-- Input field untuk jurusam_kelas -->
+                                                <input type="text" name="email" class="form-control" id="jurusan_kelas"
+                                                    placeholder="email" required value="<?php echo $value->email ?>">
+                                            </div>
+                                            <div class="mb-3 col-6">
+                                                <label for="nama_depan" class="form-label">Nama depan</label>
+                                                <!-- Input field untuk jurusam_kelas -->
+                                                <input type="text" name="nama_depan" class="form-control" id="jurusan_kelas"
+                                                    placeholder="nama_depan" required
+                                                    value="<?php echo $value->nama_depan ?>">
+                                            </div>
+                                            <div class="mb-3 col-6">
+                                                <label for="nama_belakang" class="form-label">Nama belakang</label>
+                                                <!-- Input field untuk jurusam_kelas -->
+                                                <input type="text" name="nama_belakang" class="form-control"
+                                                    id="jurusan_kelas" placeholder="nama_belakang" required
+                                                    value="<?php echo $value->nama_belakang ?>">
+                                            </div>
+                                            <br>
+                                            <button class="btn btn-sm btn-primary" style="width:fit-content" type="submit"
+                                                name="submit">Submit</button>
+                                        </form>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                             <div class="card">
@@ -165,18 +180,19 @@
                                     <h5 class="mb-3">Edit Foto</h5>
                                     <hr>
                                     <form method="post" action="<?php echo base_url('page/aksi_ubah_gambar') ?>"
-                                        enctype="multipart/form-data"  class="row">
+                                        enctype="multipart/form-data" class="row">
                                         <div class="mb-3 col-6">
                                             <label for="foto" class="form-label">Foto</label>
                                             <div class="input-group">
-                                            <input type="file" name="foto" class="form-control"
-                                                id="foto" placeholder="foto" required>
-                                        </div>
-                                        <br>
-                                        <button type="submit" name="submit" class="btn btn-sm btn-primary">Submit</button>
+                                                <input type="file" name="foto" class="form-control" id="foto"
+                                                    placeholder="foto" required>
+                                            </div>
+                                            <br>
+                                            <button type="submit" name="submit"
+                                                class="btn btn-sm btn-primary">Submit</button>
                                     </form>
                                 </div>
-                        </div>
+                            </div>
                 </main>
             </div>
         </div>
@@ -206,39 +222,39 @@
 
     </script>
 
-<script>
-    function togglePassword(inputId, iconId) {
-        var passwordInput = document.getElementById(inputId);
-        var passwordIcon = document.getElementById(iconId);
+    <script>
+        function togglePassword(inputId, iconId) {
+            var passwordInput = document.getElementById(inputId);
+            var passwordIcon = document.getElementById(iconId);
 
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            passwordIcon.classList.remove("fa-eye");
-            passwordIcon.classList.add("fa-eye-slash");
-        } else {
-            passwordInput.type = "password";
-            passwordIcon.classList.remove("fa-eye-slash");
-            passwordIcon.classList.add("fa-eye");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordIcon.classList.remove("fa-eye");
+                passwordIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                passwordIcon.classList.remove("fa-eye-slash");
+                passwordIcon.classList.add("fa-eye");
+            }
         }
-    }
 
-    // Menambahkan event listener untuk ikon mata pada input password lama
-    document.getElementById('showPasswordLama').addEventListener('click', function () {
-        togglePassword('password_lama', 'showPasswordLama');
-    });
+        // Menambahkan event listener untuk ikon mata pada input password lama
+        document.getElementById('showPasswordLama').addEventListener('click', function () {
+            togglePassword('password_lama', 'showPasswordLama');
+        });
 
-    // Menambahkan event listener untuk ikon mata pada input password baru
-    document.getElementById('showPasswordBaru').addEventListener('click', function () {
-        togglePassword('password_baru', 'showPasswordBaru');
-    });
+        // Menambahkan event listener untuk ikon mata pada input password baru
+        document.getElementById('showPasswordBaru').addEventListener('click', function () {
+            togglePassword('password_baru', 'showPasswordBaru');
+        });
 
-    // Menambahkan event listener untuk ikon mata pada input konfirmasi password
-    document.getElementById('showKonfirmasiPassword').addEventListener('click', function () {
-        togglePassword('konfirmasi_password', 'showKonfirmasiPassword');
-    });
-</script>
+        // Menambahkan event listener untuk ikon mata pada input konfirmasi password
+        document.getElementById('showKonfirmasiPassword').addEventListener('click', function () {
+            togglePassword('konfirmasi_password', 'showKonfirmasiPassword');
+        });
+    </script>
 
-<?php if ($this->session->flashdata('berhasil_edit_profile')): ?>
+    <?php if ($this->session->flashdata('berhasil_edit_profile')): ?>
         <script>
             Swal.fire({
                 icon: 'success',
@@ -252,7 +268,7 @@
             });
         </script>
     <?php endif; ?>
-<?php if ($this->session->flashdata('gagal_edit_profile')): ?>
+    <?php if ($this->session->flashdata('gagal_edit_profile')): ?>
         <script>
             Swal.fire({
                 icon: 'error',
@@ -267,7 +283,7 @@
         </script>
     <?php endif; ?>
 
-<?php if ($this->session->flashdata('konfirmasi_pass')): ?>
+    <?php if ($this->session->flashdata('konfirmasi_pass')): ?>
         <script>
             Swal.fire({
                 icon: 'error',
@@ -282,7 +298,7 @@
         </script>
     <?php endif; ?>
 
-<?php if ($this->session->flashdata('berhasil_ganti_password')): ?>
+    <?php if ($this->session->flashdata('berhasil_ganti_password')): ?>
         <script>
             Swal.fire({
                 icon: 'success',
@@ -296,7 +312,7 @@
             });
         </script>
     <?php endif; ?>
-<?php if ($this->session->flashdata('konfirmasi_pass')): ?>
+    <?php if ($this->session->flashdata('konfirmasi_pass')): ?>
         <script>
             Swal.fire({
                 icon: 'error',
@@ -310,7 +326,7 @@
             });
         </script>
     <?php endif; ?>
-<?php if ($this->session->flashdata('pass_lama')): ?>
+    <?php if ($this->session->flashdata('pass_lama')): ?>
         <script>
             Swal.fire({
                 icon: 'error',
@@ -326,7 +342,7 @@
     <?php endif; ?>
 
 
-<?php if ($this->session->flashdata('berhasil_ganti_foto')): ?>
+    <?php if ($this->session->flashdata('berhasil_ganti_foto')): ?>
         <script>
             Swal.fire({
                 icon: 'success',
@@ -341,7 +357,7 @@
         </script>
     <?php endif; ?>
 
-<?php if ($this->session->flashdata('gagal_ganti_foto')): ?>
+    <?php if ($this->session->flashdata('gagal_ganti_foto')): ?>
         <script>
             Swal.fire({
                 icon: 'error',
