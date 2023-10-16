@@ -7,7 +7,7 @@
     <title>Absensi karyawan</title>
 </head>
 <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/dashboard.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet"> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -48,7 +48,7 @@
                                     <button class="btn btn-sm btn-primary"><a
                                             href="<?php echo base_url('page/export_absensi_all') ?>"
                                             class="text-decoration-none text-light">Export</a></button>
-                                <?php endif;?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -138,14 +138,50 @@
             </main>
         </div>
         <!-- end tabel absensi karyawan -->
+        <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
         <script>
-            function hapus(id) { // Fungsi JavaScript untuk mengkonfirmasi dan mengarahkan ke halaman "delete.php" dengan id yang akan dihapus.
-                var yes = confirm("Yakin Di Hapus?");
-                if (yes == true) {
-                    window.location.href = "<?php echo base_url('page/hapus/') ?>" + id; // Mengarahkan ke halaman "hapus_pembayaran.php" dengan mengirimkan id yang akan dihapus sebagai parameter.
-                }
+            function hapus(id) {
+                swal.fire({
+                    title: 'Yakin untuk menghapus data ini?',
+                    icon: 'warning',
+                    background: '#fff',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Ya Hapus', customClass: {
+                        title: 'text-dark',
+                        content: 'text-dark'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil Dihapus',
+                            showConfirmButton: false,
+                            timer: 1500,
+
+                        }).then(function () {
+                            window.location.href = "<?php echo base_url('controller/namafunction/') ?>" + id;
+                        });
+                    }
+                });
             }
         </script>
+        <?php if ($this->session->flashdata('berhasil_pulang')): ?>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: '<?= $this->session->flashdata('berhasil_pulang') ?>',
+                    background: '#fff',
+                    customClass: {
+                        title: 'text-dark',
+                        content: 'text-dark'
+                    }
+                });
+            </script>
+        <?php endif; ?>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>

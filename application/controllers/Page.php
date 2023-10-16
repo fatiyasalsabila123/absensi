@@ -54,7 +54,6 @@ class Page extends CI_Controller
 		$this->load->view('page/karyawan/absensi_karyawan', $data);
 	}
 	//end untuk menampilkan data absensi karyawan
-
 	//start pulang di tabel absensi
 	public function pulang($id)
 	{
@@ -69,6 +68,7 @@ class Page extends CI_Controller
 
 			$this->db->where('id', $id);
 			$this->db->update('absensi', $data);
+			$this->session->set_flashdata('berhasil_pulang', 'Berhasil Pulang');
 			redirect(base_url('page/absensi_karyawan'));
 		} else {
 			echo 'Data absensi tidak ditemukan';
@@ -810,7 +810,6 @@ class Page extends CI_Controller
 	public function rekapBulanan()
 	{
 		$bulan = $this->input->post('bulan');
-		// $bulan = date('Y-m');
 		$data['rekapBulanan'] = $this->m_model->getBulananData($bulan);
 		$this->load->view('page/admin/rekapBulanan', $data);
 	}

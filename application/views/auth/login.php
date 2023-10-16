@@ -42,12 +42,12 @@
                         <p>Selamat datang kembali</p>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="email"
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" required name="email"
                             placeholder="Email address">
                     </div>
                     <div class="input-group mb-1">
                         <input type="password" id="password" class="form-control form-control-lg bg-light fs-6"
-                            name="password" placeholder="Password">
+                            required name="password" placeholder="Password">
                     </div>
                     <div class="input-group mb-5 d-flex justify-content-between">
                         <div class="form-check">
@@ -61,10 +61,6 @@
                     </div>
                     <div class="input-group mb-3">
                         <button type="submit" name="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
-                    </div>
-                    <div class="input-group mb-3">
-                        <button class="btn btn-lg btn-light w-100 fs-6"><img src="images/google.png" style="width:20px"
-                                class="me-2"><small>Login dengan google</small></button>
                     </div>
                     <div class="row">
                         <small>Belum memiliki akun ? silahkan <a href="/absensi/auth/register">Register</a></small>

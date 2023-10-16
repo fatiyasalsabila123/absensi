@@ -182,6 +182,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
     <script>
         document.getElementById('myProfile').addEventListener('click', function () {
             document.getElementById('myProfileContainer').style.display = 'block';

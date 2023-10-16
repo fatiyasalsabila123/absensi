@@ -76,19 +76,6 @@ class M_model extends CI_Model
         return $total_jam_masuk;
     }
 
-    public function updateAbsensiPulang($user_id)
-    {
-        $data = array(
-            'jam_pulang' => date('Y-m-d H:i:s'),
-            'status' => 'done'
-        );
-
-        $this->db->where('id_karyawan', $user_id);
-        $this->db->where('jam_masuk IS NOT NULL');
-        $this->db->where('jam_pulang IS NULL');
-        $this->db->update('absensi', $data);
-    }
-
     public function ubahKegiatan($id_absensi, $kegiatan_baru)
     {
         $data = array('kegiatan' => $kegiatan_baru);
@@ -153,15 +140,6 @@ class M_model extends CI_Model
     }
     
 
-    //     public function getRekapPerBulan($selectedMonth) {
-//         $this->db->select('MONTH(date) as bulan, SUM(jumlah) as total_penjualan');
-//         $this->db->from('absensi');
-//         $this->db->where('MONTH(date)', $selectedMonth);
-//         $this->db->group_by('MONTH(date)');
-//         return $this->db->get()->result();
-// }
-
-
     public function getTotalJamMasuk()
     {
         $this->db->select('COUNT(IF(jam_masuk != "00:00:00", TIME_TO_SEC(jam_masuk), 0)) as total_jam_masuk');
@@ -195,11 +173,7 @@ class M_model extends CI_Model
         $this->db->where('jam_masuk', '00:00:00');
         $this->db->join('user', 'user.id = absensi.id_karyawan', 'left');
         $query = $this->db->get('absensi');
-        $result = $query->row();
     }
-
-
-
 
 }
 ?>

@@ -43,27 +43,27 @@
                         <p>Buat akun sekarang agar bisa login</p>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control form-control-lg bg-light fs-6" name="email"
+                        <input type="email" class="form-control form-control-lg bg-light fs-6" required name="email"
                             placeholder="Email address">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="username"
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" required name="username"
                             placeholder="Username">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_depan"
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" required name="nama_depan"
                             placeholder="Nama depan">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_belakang"
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" required name="nama_belakang"
                             placeholder="Nama Belakang">
                     </div>
                     <div class="input-group mb-1">
-                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" name="password"
+                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" required name="password"
                             placeholder="Password">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role"
+                        <input type="hidden" class="form-control form-control-lg bg-light fs-6" required name="role"
                             placeholder="Role" value="karyawan">
                     </div>
                     <p>Password harus minimal 8 karakter*</p>

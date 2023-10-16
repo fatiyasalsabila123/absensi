@@ -119,6 +119,6 @@
             </main>
         </div>
     </div>
+    <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
 </body>
-
 </html>

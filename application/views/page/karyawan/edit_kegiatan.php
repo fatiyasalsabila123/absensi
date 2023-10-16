@@ -74,7 +74,7 @@
                     <input type="hidden" name="id" value="<?php echo $keterangan->id ?>">
                     <div class="modal-body">
                         <label for="" class="form-label">Keterangan izin</label>
-                        <textarea cols="40" rows="10" name="keterangan_izin"
+                        <textarea cols="40" rows="10" name="keterangan_izin" placeholder="Izin hanya dilakukan sekali sehari"
                             class="form-control"><?php echo $keterangan->keterangan_izin ?></textarea>
                     </div>
                 <?php endforeach; ?>
@@ -86,6 +86,7 @@
             </form>
         </div>
     </div>
+    <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php if ($this->session->flashdata('gagal_ijin')): ?>
         <script>
@@ -107,6 +108,20 @@
                 icon: 'error',
                 title: 'Gagal melakukan izin',
                 text: '<?= $this->session->flashdata('gagal_izin') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('berhasil_izin')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '<?= $this->session->flashdata('berhasil_izin') ?>',
                 background: '#fff',
                 customClass: {
                     title: 'text-dark',
