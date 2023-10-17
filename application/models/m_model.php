@@ -59,23 +59,9 @@ class M_model extends CI_Model
         $query = $this->db->get('absensi');
         return $query->result();
     }
+    // end get data by id absensi
 
-    public function jam_kerja()
-    {
-        $id_user = $this->session->userdata('id');
-
-        $this->db->select('id, SUM(jam_masuk) AS total_jam_masuk');
-        $this->db->from('absensi');
-        $this->db->where('id', $id_user);
-        $query = $this->db->get();
-
-        if ($query->num_rows() > 0) {
-            $result = $query->row();
-            $total_jam_masuk = $result->total_jam_masuk;
-        }
-        return $total_jam_masuk;
-    }
-
+    //function edit kegiatan
     public function ubahKegiatan($id_absensi, $kegiatan_baru)
     {
         $data = array('kegiatan' => $kegiatan_baru);
@@ -85,6 +71,7 @@ class M_model extends CI_Model
 
         return $this->db->affected_rows(); // Mengembalikan jumlah baris yang berubah
     }
+    //end function edit kegiatan
 
     public function get($id = null)
     {
@@ -139,7 +126,7 @@ class M_model extends CI_Model
         return $query->result();
     }
     
-
+//start menjumlahkan semua data total kerja 
     public function getTotalJamMasuk()
     {
         $this->db->select('COUNT(IF(jam_masuk != "00:00:00", TIME_TO_SEC(jam_masuk), 0)) as total_jam_masuk');
@@ -148,6 +135,8 @@ class M_model extends CI_Model
         $result = $query->row();
         return $result->total_jam_masuk;
     }
+
+    //menjumlahkan jumlah data sesui login kerja 
     public function getTotalJamMasukKaryawan($idKaryawan)
     {
         $this->db->select('absensi.*, user.id, COUNT(IF(jam_masuk != "00:00:00", TIME_TO_SEC(jam_masuk), 0)) as total_jam_masuk');
@@ -158,6 +147,8 @@ class M_model extends CI_Model
         $result = $query->row();
         return $result->total_jam_masuk;
     }
+
+    //menjuamlahkan semua data cuti
     public function getTotalCuti()
     {
         $this->db->select('COUNT(TIME_TO_SEC(jam_masuk)) AS total_jam_masuk');
@@ -166,6 +157,8 @@ class M_model extends CI_Model
         $result = $query->row();
         return $result->total_jam_masuk;
     }
+
+    //menjumlahkan data(absensi) cuti
     public function getTotalCutiKaryawan($idKaryawan)
     {
         $this->db->select('absensi.*, user.id, COUNT(TIME_TO_SEC(jam_masuk)) AS total_jam_masuk');
@@ -178,9 +171,9 @@ class M_model extends CI_Model
     }
 
     public function EmailSudahAda($email) {
-        $this->db->where('email', $email);
-        $query = $this->db->get('user');
-        return $query->num_rows()>0;
+        $this->db->where('email', $email);    // Menggunakan CodeIgniter Query Builder, kita menentukan kondisi pencarian berdasarkan kolom 'email'.
+        $query = $this->db->get('user');    // Melakukan query ke tabel 'user' dengan kondisi di atas.
+        return $query->num_rows()>0;//Memeriksa jumlah baris hasil query Jika jumlah baris (rows) lebih dari 0, berarti email sudah ada
     }   
 
 }

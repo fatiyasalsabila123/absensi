@@ -24,20 +24,30 @@
             <?php $this->load->view('component/header'); ?>
             <main class="py-6 bg-surface-secondary">
                 <div class="container-fluid">
+                    <form method="post">
+                        <div class="input-group">
+                            <input type="date" name="tanggal" class="form-control" id="tanggal" required>
+                            <span class="input-group-text">
+                              <button class="btn btn-sm" type="submit" name="submit" formaction="<?php echo base_url('page/rekapharian')?>">Submit</button>
+                              <button class="btn btn-sm" type="submit" name="submit" formaction="<?php echo base_url('page/export')?>" >Export</button>
+                        </div>
+                    </form>
+                    <br>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header bg-white">
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0">Data perhari</h5>
                                 <div class="d-flex">
-                                <button class="btn btn-sm btn-primary"><a
-                                        href="<?php echo base_url('page/export_absensi') ?>"
-                                        class="text-decoration-none text-light">Export</a></button>
-                                    </div>
+                                    <!-- <button class="btn btn-sm btn-primary"><a
+                                            href="<?php echo base_url('page/export_absensi') ?>"
+                                            class="text-decoration-none text-light">Export</a></button> -->
+                                </div>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-nowrap">
                                 <thead class="thead-light">
+                                    <?php if (!empty($this->input->post('tanggal'))):?>
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Nama karyawan</th>
@@ -51,8 +61,10 @@
                                             <th scope="col" class="text-center">Aksi</th>
                                         <?php endif; ?>
                                     </tr>
+                                    <?php endif;?>
                                 </thead>
                                 <tbody>
+                                    <?php if (!empty($this->input->post('tanggal'))):?>
                                     <?php $no = 0;
                                     foreach ($rekapHarian as $row):
                                         $no++ ?>
@@ -113,7 +125,17 @@
                                                 </td>
                                             <?php endif; ?>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php endforeach; ?><?php else: ?>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <h5> Pilih tanggal terlebih dahulu untuk menampilkan data nya</h5>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -124,4 +146,5 @@
     </div>
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
 </body>
+
 </html>

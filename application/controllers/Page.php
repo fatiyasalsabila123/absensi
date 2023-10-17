@@ -354,7 +354,8 @@ class Page extends CI_Controller
 	//start export semua data absensi
 	public function export_absensi_all()
 	{
-		$tanggal = date('Y-m-d');
+		// $tanggal = date('Y-m-d');
+		$tanggal = $this->input->post('tanggal');
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 
@@ -794,7 +795,8 @@ class Page extends CI_Controller
 	//start menampilkan page rekap harian
 	public function rekapHarian()
 	{
-		$tanggal = date('Y-m-d');
+		// $tanggal = date('Y-m-d');
+		$tanggal = $this->input->post('tanggal');
 		$data['rekapHarian'] = $this->m_model->getHarianData($tanggal);
 		$this->load->view('page/admin/rekapHarian', $data);
 	}

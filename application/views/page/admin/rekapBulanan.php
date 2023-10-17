@@ -58,6 +58,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-nowrap">
                                 <thead class="thead-light">
+                                    <?php if (!empty($this->input->post('bulan'))):?>
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Nama karyawan</th>
@@ -71,69 +72,82 @@
                                             <th scope="col" class="text-center">Aksi</th>
                                         <?php endif; ?>
                                     </tr>
+                                    <?php endif;?>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 0;
-                                    foreach ($rekapBulanan as $row):
-                                        $no++ ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $no ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row->nama_depan . '' . $row->nama_belakang ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row->kegiatan ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row->date ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row->jam_masuk ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row->jam_pulang ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row->keterangan_izin ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row->status ?>
-                                            </td>
-                                            <?php if ($this->session->userdata('role') == "karyawan"): ?>
-                                                <td class="text-end">
-                                                    <?php if ($row->status == "done"): ?>
-                                                        <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
-                                                            disabled><a class="text-white text-decoration-none">
-                                                                Pulang</a>
-                                                        </button>
-                                                    <?php elseif ($row->keterangan_izin != "-"): ?>
-                                                        <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
-                                                            disabled><a class="text-white text-decoration-none">
-                                                                Pulang</a>
-                                                        </button>
-                                                    <?php else: ?>
-                                                        <button type="button" class="btn btn-sm btn-warning text-danger-hover"><a
-                                                                class="text-black text-decoration-none"
-                                                                href="<?php echo base_url('page/pulang/' . $row->id) ?>">
-                                                                Pulang</a>
-                                                        </button>
-                                                    <?php endif; ?>
-                                                    <button type="button"
-                                                        class="btn btn-sm btn-square btn-primary text-danger-hover-none"><a
-                                                            class="text-light text-decoration-none"
-                                                            href="<?php echo base_url('page/edit_kegiatan/' . $row->id) ?>">
-                                                            <i class="fas fa-edit"></i></a>
-                                                    </button>
-                                                    <button type="button" onclick="hapus(<?php echo $row->id ?>)"
-                                                        class="btn btn-sm btn-square btn-danger text-danger-hover-none">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
+                                    <?php if (!empty($this->input->post('bulan'))): ?>
+                                        <?php $no = 0;
+                                        foreach ($rekapBulanan as $row):
+                                            $no++ ?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo $no ?>
                                                 </td>
-                                            <?php endif; ?>
+                                                <td>
+                                                    <?php echo $row->nama_depan . '' . $row->nama_belakang ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->kegiatan ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->date ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->jam_masuk ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->jam_pulang ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->keterangan_izin ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->status ?>
+                                                </td>
+                                                <?php if ($this->session->userdata('role') == "karyawan"): ?>
+                                                    <td class="text-end">
+                                                        <?php if ($row->status == "done"): ?>
+                                                            <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
+                                                                disabled><a class="text-white text-decoration-none">
+                                                                    Pulang</a>
+                                                            </button>
+                                                        <?php elseif ($row->keterangan_izin != "-"): ?>
+                                                            <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
+                                                                disabled><a class="text-white text-decoration-none">
+                                                                    Pulang</a>
+                                                            </button>
+                                                        <?php else: ?>
+                                                            <button type="button" class="btn btn-sm btn-warning text-danger-hover"><a
+                                                                    class="text-black text-decoration-none"
+                                                                    href="<?php echo base_url('page/pulang/' . $row->id) ?>">
+                                                                    Pulang</a>
+                                                            </button>
+                                                        <?php endif; ?>
+                                                        <button type="button"
+                                                            class="btn btn-sm btn-square btn-primary text-danger-hover-none"><a
+                                                                class="text-light text-decoration-none"
+                                                                href="<?php echo base_url('page/edit_kegiatan/' . $row->id) ?>">
+                                                                <i class="fas fa-edit"></i></a>
+                                                        </button>
+                                                        <button type="button" onclick="hapus(<?php echo $row->id ?>)"
+                                                            class="btn btn-sm btn-square btn-danger text-danger-hover-none">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                <?php endif; ?>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <h5> Pilih bulan terlebih dahulu untuk menampilkan data nya</h5>
+                                            </td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
