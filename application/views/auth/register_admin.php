@@ -8,6 +8,10 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- CSS File -->
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/login.css" rel="stylesheet">
     <title>Register Admin</title>
@@ -59,11 +63,12 @@
                             required="Input nama belakang harus di isi" placeholder="Nama Belakang">
                     </div>
                     <div class="input-group mb-1">
-                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" name="password"
-                            required="Input password harus di isi" placeholder="Password">
+                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6"
+                            name="password" required="Input password harus di isi" placeholder="Password">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role" placeholder="Role" value="admin">
+                        <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role"
+                            placeholder="Role" value="admin">
                     </div>
                     <p>Password harus minimal 8 karakter*</p>
                     <div class="input-group mb-5 d-flex justify-content-between">
@@ -74,7 +79,8 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <button type="submit" name="submit" class="btn btn-lg w-100 fs-6" style="background: #C07F00; color: white;">Register</button>
+                        <button type="submit" name="submit" class="btn btn-lg w-100 fs-6"
+                            style="background: #C07F00; color: white;">Register</button>
                     </div>
                     <div class="row">
                         <small>Sudah memiliki akun silahkan <a href="/absensi/auth/">Login</a></small>
@@ -86,33 +92,66 @@
     </div>
     <!-- script hide dan show password -->
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var passwordField = document.getElementById('password');
-        var showPasswordCheckbox = document.getElementById('show-password');
+        document.addEventListener('DOMContentLoaded', function () {
+            var passwordField = document.getElementById('password');
+            var showPasswordCheckbox = document.getElementById('show-password');
 
-        showPasswordCheckbox.addEventListener('change', function () {
-            if (showPasswordCheckbox.checked) {
-                passwordField.type = 'text';
-            } else {
-                passwordField.type = 'password';
-            }
+            showPasswordCheckbox.addEventListener('change', function () {
+                if (showPasswordCheckbox.checked) {
+                    passwordField.type = 'text';
+                } else {
+                    passwordField.type = 'password';
+                }
+            });
         });
-    });
-</script>
+    </script>
 
-<!-- sweet alert register jika error -->
-<?php if ($this->session->flashdata('error_message')): ?>
-   <script>
-      Swal.fire({
-         icon: 'error',
-         title: 'Oops...',
-         text: '<?= $this->session->flashdata('error_message') ?>',
-      });
-   </script>
-<?php endif; ?>
+    <!-- sweet alert register jika error -->
+    <?php if ($this->session->flashdata('error_message')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '<?= $this->session->flashdata('error_message') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('error_email')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '<?= $this->session->flashdata('error_email') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('berhasil_register_admin')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Hore...',
+                text: '<?= $this->session->flashdata('berhasil_register_admin') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
 
-<!-- script sweet alert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- script sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

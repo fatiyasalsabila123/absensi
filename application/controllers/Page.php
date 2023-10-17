@@ -26,13 +26,15 @@ class Page extends CI_Controller
 			$data['dashboard'] = $this->m_model->get_all_karyawan();
 			$data['total_data'] = count($data['dashboard']);
 			$data['get_user'] = $this->m_model->get_data('user')->result();
+			$data['total_data_user'] = count($data['get_user']);
 			$data['total_kerja'] = $this->m_model->getTotalJamMasuk();
 			$data['total_cuti'] = $this->m_model->getTotalCuti();
 		} else {
-			$data['dashboard'] = $this->m_model->getAbsensiByIdKaryawan($this->session->userdata('id'));
+			$idKaryawan = $this->session->userdata('id');
+			$data['dashboard'] = $this->m_model->getAbsensiByIdKaryawan($idKaryawan);
 			$data['total_data'] = count($data['dashboard']);
-			$data['total_cuti'] = $this->m_model->getTotalCuti($this->session->userdata('id'));
-			$data['total_kerja'] = $this->m_model->getTotalJamMasukKaryawan($this->session->userdata('id'));
+			$data['total_cuti'] = $this->m_model->getTotalCutiKaryawan($this->session->userdata('id'));
+			$data['total_kerja'] = $this->m_model->getTotalJamMasukKaryawan($idKaryawan);
 		}
 		$this->load->view('page/dashboard', $data);
 	}
@@ -513,7 +515,7 @@ class Page extends CI_Controller
 			$sheet->getStyle('G3')->applyFromArray($style_col);
 			$sheet->getStyle('H3')->applyFromArray($style_col);
 
-			$karyawan = $this->m_model->getHarianData($tanggal);
+				$karyawan = $this->m_model->getHarianData($tanggal);
 
 			$no = 1;
 			$numrow = 4;
@@ -680,11 +682,12 @@ class Page extends CI_Controller
 	public function export_absensi_bulanan()
 	{
 		$bulan = $this->input->post('bulan');
+		$absensi = $this->m_model->getBulananData($bulan);
 		// $bulan = date('Y-m');
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 
-		if (!empty($bulan)) {
+		if (!empty($bulan) && !empty($absensi)) {
 			$style_col = [
 				'font' => ['bold' => true],
 				'alignment' => [
@@ -780,6 +783,9 @@ class Page extends CI_Controller
 
 			$writer = new Xlsx($spreadsheet);
 			$writer->save('php://output');
+		} else {
+			$this->session->set_flashdata('error_export_perbulan', 'Data tidak ada untuk di export');
+			redirect(base_url('page/rekapBulanan'));
 		}
 
 	}

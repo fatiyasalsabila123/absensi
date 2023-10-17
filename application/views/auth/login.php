@@ -8,6 +8,9 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- CSS File -->
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/login.css" rel="stylesheet">
     <title>Login</title>
@@ -46,8 +49,8 @@
                             placeholder="Email address">
                     </div>
                     <div class="input-group mb-1">
-                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6"
-                            required name="password" placeholder="Password">
+                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" required
+                            name="password" placeholder="Password">
                     </div>
                     <div class="input-group mb-5 d-flex justify-content-between">
                         <div class="form-check">
@@ -86,13 +89,26 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php if ($this->session->flashdata('berhasil_login')): ?>
         <script>
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil login',
                 text: '<?= $this->session->flashdata('berhasil_login') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('success_login_admin')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil login',
+                text: '<?= $this->session->flashdata('success_login_admin') ?>',
                 background: '#fff',
                 customClass: {
                     title: 'text-dark',

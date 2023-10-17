@@ -173,7 +173,15 @@ class M_model extends CI_Model
         $this->db->where('jam_masuk', '00:00:00');
         $this->db->join('user', 'user.id = absensi.id_karyawan', 'left');
         $query = $this->db->get('absensi');
+        $result = $query->row();
+        return $result->total_jam_masuk;
     }
+
+    public function EmailSudahAda($email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('user');
+        return $query->num_rows()>0;
+    }   
 
 }
 ?>

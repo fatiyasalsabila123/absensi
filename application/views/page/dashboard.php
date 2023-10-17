@@ -34,7 +34,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
-                                                <i class="bi bi-credit-card"></i>
+                                            <i class="far fa-calendar-minus"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
-                                                <i class="bi bi-people"></i>
+                                            <i class="far fa-calendar-minus"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
-                                    <div class="row">
+                                        <div class="row">
                                         <div class="col">
                                             <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
                                                 data</span>
@@ -69,13 +69,33 @@
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
-                                                <i class="bi bi-clock-history"></i>
+                                            <i class="fas fa-database"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                           
+                         <?php if ($this->session->userdata('role') === "admin"):?>
+                        <div class="col-xl-3 col-sm-6 col-12">
+                            <div class="card shadow border-0">
+                                <div class="card-body">
+                                        <div class="row">
+                                        <div class="col">
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
+                                                data user</span>
+                                            <span class="h3 font-bold mb-0"><?php echo $total_data_user?></span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
+                                            <i class="fas fa-user"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <?php endif;?>
                     </div>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header">

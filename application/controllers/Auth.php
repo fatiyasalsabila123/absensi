@@ -41,7 +41,7 @@ class Auth extends CI_Controller
 
 			// Memeriksa peran pengguna dan mengarahkannya ke halaman yang sesuai
 			if ($this->session->userdata('role') == 'admin') {
-				$this->session->set_flashdata('success_login', 'berhasil');
+				$this->session->set_flashdata('success_login_admin', 'Selamat datang sebagai admin');
 				redirect(base_url() . "page/dashboard"); // menuju ke halaman page
 			} elseif ($this->session->userdata('role') == 'karyawan') {
 				$absen = $this->m_model->hariIniAbsen($result['id']);
@@ -61,7 +61,7 @@ class Auth extends CI_Controller
 
 					$eksekusi = $this->m_model->tambah_data('absensi', $data);
 					if ($eksekusi) {
-						$this->session->set_flashdata('berhasil_login, Berhasil login sebagai karyawan yeayy');
+						$this->session->set_flashdata('berhasil_login, Selamat datang sebagai user');
 						$id_absensi = $this->db->insert_id();
 						redirect(base_url('page/edit_kegiatan/' . $id_absensi));
 					} else {
@@ -106,7 +106,10 @@ class Auth extends CI_Controller
 		$nama_belakang = $this->input->post('nama_belakang');
 		$role = $this->input->post('role');
 		$password = $this->input->post('password');
-		if (strlen($password) < 8 || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $password)) {
+		if ($this->m_model->EmailSudahAda($email)) {
+			$this->session->set_flashdata('error_email', 'Email ini sudah di ada. Gunakan email lainya');
+			redirect(base_url('auth/register'));
+		} elseif (strlen($password) < 8 || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $password)) {
 			// Password tidak memenuhi persyaratan
 			$this->session->set_flashdata('error_message', 'Password harus memiliki setidaknya 8 karakter, satu huruf besar, satu huruf kecil, dan angka.');
 			redirect('auth/register'); // Redirect kembali ke halaman registrasi
@@ -127,6 +130,8 @@ class Auth extends CI_Controller
 			$this->m_model->register($data); // Panggil model untuk menyimpan data
 
 			// Redirect ke halaman login atau halaman selamat datang
+
+			$this->session->set_flashdata('Berhasil_register_user', 'Berhasil Registter');
 			redirect('auth');
 		}
 	}
@@ -151,10 +156,13 @@ class Auth extends CI_Controller
 		$nama_belakang = $this->input->post('nama_belakang');
 		$role = $this->input->post('role');
 		$password = $this->input->post('password');
-		if (strlen($password) < 8 || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $password)) {
+		if ($this->m_model->EmailSudahAda($email)) {
+			$this->session->set_flashdata('error_email', 'Email ini sudah di ada. Gunakan email lainya');
+			redirect(base_url('auth/register_admin'));
+		} elseif (strlen($password) < 8 || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $password)) {
 			// Password tidak memenuhi persyaratan
 			$this->session->set_flashdata('error_message', 'Password harus memiliki setidaknya 8 karakter, satu huruf besar, satu huruf kecil, dan angka.');
-			redirect('register'); // Redirect kembali ke halaman registrasi
+			redirect(base_url('auth/register_admin'));
 		} else {
 			// Hash password menggunakan MD5
 			$hashed_password = md5($password);
@@ -171,7 +179,7 @@ class Auth extends CI_Controller
 
 			$this->m_model->register($data); // Panggil model untuk menyimpan data
 
-			// Redirect ke halaman login atau halaman selamat datang
+			$this->session->set_flashdata('berhasil_register_admin', 'Berhasil Register');
 			redirect('auth');
 		}
 	}

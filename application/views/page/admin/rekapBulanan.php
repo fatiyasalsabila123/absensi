@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -37,8 +42,10 @@
                             <option value="10">Oktober</option>
                             <option value="11">November</option>
                             <option value="12">Desember</option>
-                        </select> <button type="submit" name="submit" class="btn btn-sm btn-primary" formaction="<?php echo base_url('page/export_absensi_bulanan')?>">Export</button>
-                        <button type="submit" name="submit" class="btn btn-sm btn-primary" formaction="<?php echo base_url('page/rekapBulanan')?>">Absensi</button>
+                        </select> <button type="submit" name="submit" class="btn btn-sm btn-primary"
+                            formaction="<?php echo base_url('page/export_absensi_bulanan') ?>">Export</button>
+                        <button type="submit" name="submit" class="btn btn-sm btn-primary"
+                            formaction="<?php echo base_url('page/rekapBulanan') ?>">Absensi</button>
                     </form>
                     <br>
                     <div class="card shadow border-0 mb-7">
@@ -146,12 +153,26 @@
             });
         });
     </script>
-<script>
-    function setAction(action) {
-        // Setel nilai input dengan name "action" sesuai dengan tindakan yang dipilih
-        document.querySelector('#exportForm input[name="action"]').value = action;
-    }
-</script>
+    <script>
+        function setAction(action) {
+            // Setel nilai input dengan name "action" sesuai dengan tindakan yang dipilih
+            document.querySelector('#exportForm input[name="action"]').value = action;
+        }
+    </script>
+    <?php if ($this->session->flashdata('error_export_perbulan')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Uppss...',
+                text: '<?= $this->session->flashdata('error_export_perbulan') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
 
 </body>
 

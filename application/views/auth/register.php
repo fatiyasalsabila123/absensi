@@ -10,6 +10,9 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- CSS File -->
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/login.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Register</title>
 </head>
 
@@ -55,12 +58,12 @@
                             placeholder="Nama depan">
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" required name="nama_belakang"
-                            placeholder="Nama Belakang">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" required
+                            name="nama_belakang" placeholder="Nama Belakang">
                     </div>
                     <div class="input-group mb-1">
-                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" required name="password"
-                            placeholder="Password">
+                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" required
+                            name="password" placeholder="Password">
                     </div>
                     <div class="input-group mb-3">
                         <input type="hidden" class="form-control form-control-lg bg-light fs-6" required name="role"
@@ -87,33 +90,64 @@
     </div>
     <!-- script hide dan show password -->
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var passwordField = document.getElementById('password');
-        var showPasswordCheckbox = document.getElementById('show-password');
+        document.addEventListener('DOMContentLoaded', function () {
+            var passwordField = document.getElementById('password');
+            var showPasswordCheckbox = document.getElementById('show-password');
 
-        showPasswordCheckbox.addEventListener('change', function () {
-            if (showPasswordCheckbox.checked) {
-                passwordField.type = 'text';
-            } else {
-                passwordField.type = 'password';
-            }
+            showPasswordCheckbox.addEventListener('change', function () {
+                if (showPasswordCheckbox.checked) {
+                    passwordField.type = 'text';
+                } else {
+                    passwordField.type = 'password';
+                }
+            });
         });
-    });
-</script>
+    </script>
 
-<!-- sweet alert register jika error -->
-<?php if ($this->session->flashdata('error_message')): ?>
-   <script>
-      Swal.fire({
-         icon: 'error',
-         title: 'Oops...',
-         text: '<?= $this->session->flashdata('error_message') ?>',
-      });
-   </script>
-<?php endif; ?>
-
-<!-- script sweet alert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- sweet alert register jika error -->
+    <?php if ($this->session->flashdata('error_message')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '<?= $this->session->flashdata('error_message') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+                });
+        </script>
+    <?php endif; ?>
+    <?php if ($this->session->flashdata('error_email')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '<?= $this->session->flashdata('error_email') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+                });
+        </script>
+    <?php endif; ?>
+    <!-- end sweet alert jika error -->
+    <?php if ($this->session->flashdata('Berhasil_register_user')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Horee...',
+                text: '<?= $this->session->flashdata('Berhasil_register_user') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+                });
+        </script>
+    <?php endif; ?>
 </body>
 
 </html>

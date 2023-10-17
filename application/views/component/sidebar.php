@@ -8,6 +8,9 @@
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/dashboard.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -34,10 +37,17 @@
                     <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <div class="avatar-parent-child">
+                            <?php if (empty( $this->fungsi->user_login()->image)):?>
                             <img alt="Image Placeholder"
                                 src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
                                 class="avatar avatar- rounded-circle">
                             <span class="avatar-child avatar-badge bg-success"></span>
+                            <?php else:?>
+                            <img alt="Image Placeholder"
+                            src="<?php echo base_url('images/user/' . $this->fungsi->user_login()->image) ?>"
+                                class="avatar avatar- rounded-circle">
+                            <span class="avatar-child avatar-badge bg-success"></span>
+                            <?php endif;?>
                         </div>
                     </a>
                     <!-- Menu -->
@@ -64,28 +74,28 @@
                             <i class="bi bi-bar-chart"></i> Absensi karyawan
                         </a>
                     </li>
-                    <?php if ($this->session->userdata('role') === "admin"):?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="dataKaryawan">
-                            <i class="bi bi-bar-chart"></i> Data Karyawan
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="rekapHarian">
-                            <i class="bi bi-bar-chart"></i> Data absensi harian
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="rekapMingguan">
-                            <i class="bi bi-bar-chart"></i> Data absensi mingguan
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="rekapBulanan">
-                            <i class="bi bi-bar-chart"></i> Data absensi bulanan
-                        </a>
-                    </li>
-                    <?php endif;?>
+                    <?php if ($this->session->userdata('role') === "admin"): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="dataKaryawan">
+                                <i class="bi bi-bar-chart"></i> Data User
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="rekapHarian">
+                                <i class="bi bi-bar-chart"></i> Data absensi harian
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="rekapMingguan">
+                                <i class="bi bi-bar-chart"></i> Data absensi mingguan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="rekapBulanan">
+                                <i class="bi bi-bar-chart"></i> Data absensi bulanan
+                            </a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <!-- Divider -->
                 <!-- <hr class="navbar-divider my-5 opacity-20"> -->
@@ -93,22 +103,22 @@
                 <div class="mt-auto"></div>
                 <!-- User (md) -->
                 <ul class="navbar-nav">
-                    <?php if ($this->session->userdata('role') === "karyawan"):?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile">
-                            <i class="bi bi-person-square"></i> Account
-                        </a>
-                    </li>
-                    <?php else:?>
+                    <?php if ($this->session->userdata('role') === "karyawan"): ?>
                         <li class="nav-item">
-                        <a class="nav-link" href="profileAdmin">
-                            <i class="bi bi-person-square"></i> Account
-                        </a>
-                    </li>
-                    <?php endif;?>
+                            <a class="nav-link" href="profile">
+                                <i class="bi bi-person-square"></i> Account
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profileAdmin">
+                                <i class="bi bi-person-square"></i> Account
+                            </a>
+                        </li>
+                    <?php endif; ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url('auth/logout') ?>"
-                            onclick="return confirm('Are you sure you want to logout?')">
+                        <a class="nav-link"
+                            onclick="logout()">
                             <i class="bi bi-box-arrow-left"></i> Logout
                         </a>
                     </li>
@@ -116,6 +126,35 @@
             </div>
         </div>
     </nav>
+    <script>
+        function logout(id) {
+            swal.fire({
+                title: 'Apakah Anda yakin ingin logout?',
+                icon: 'warning',
+                background: '#fff',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya Hapus', customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil Dihapus',
+                        showConfirmButton: false,
+                        timer: 1500,
+
+                    }).then(function () {
+                        window.location.href = "<?php echo base_url('auth/logout/') ?>";
+                    });
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
