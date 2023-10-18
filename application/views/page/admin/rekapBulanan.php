@@ -58,21 +58,21 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-nowrap">
                                 <thead class="thead-light">
-                                    <?php if (!empty($this->input->post('bulan'))):?>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Nama karyawan</th>
-                                        <th scope="col">Kegiatan</th>
-                                        <th scope="col">Tanggal absen</th>
-                                        <th scope="col">Jam masuk</th>
-                                        <th scope="col">Jam pulang</th>
-                                        <th scope="col">Keterangan izin</th>
-                                        <th scope="col">Status</th>
-                                        <?php if ($this->session->userdata('role') == "karyawan"): ?>
-                                            <th scope="col" class="text-center">Aksi</th>
-                                        <?php endif; ?>
-                                    </tr>
-                                    <?php endif;?>
+                                    <?php if (!empty($this->input->post('bulan'))): ?>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Nama karyawan</th>
+                                            <th scope="col">Kegiatan</th>
+                                            <th scope="col">Tanggal absen</th>
+                                            <th scope="col">Jam masuk</th>
+                                            <th scope="col">Jam pulang</th>
+                                            <th scope="col">Keterangan izin</th>
+                                            <th scope="col">Status</th>
+                                            <?php if ($this->session->userdata('role') == "karyawan"): ?>
+                                                <th scope="col" class="text-center">Aksi</th>
+                                            <?php endif; ?>
+                                        </tr>
+                                    <?php endif; ?>
                                 </thead>
                                 <tbody>
                                     <?php if (!empty($this->input->post('bulan'))): ?>

@@ -89,7 +89,7 @@
                                     <hr>
                                     <form method="post" action="<?php echo base_url('page/aksi_edit_password') ?>"
                                         enctype="multipart/form-data" class="row">
-                                        <div class="mb-3 col-6">
+                                        <div class="mb-3 lg-col-6">
                                             <label for="password_lama" class="form-label">Password lama</label>
                                             <div class="input-group">
                                             <input type="password" name="password_lama" class="form-control"
@@ -97,7 +97,7 @@
                                             <span class="input-group-text"><i id="showPasswordLama" class="fas fa-eye"></i></span>
                                         </div>
                                         </div>
-                                        <div class="mb-3 col-6">
+                                        <div class="mb-3 lg-col-6">
                                             <label for="password_baru" class="form-label">Password baru</label>
                                             <div class="input-group">
                                             <input type="password" name="password_baru" class="form-control"
@@ -105,7 +105,7 @@
                                             <span class="input-group-text"><i id="showPasswordBaru" class="fas fa-eye"></i></span>
                                         </div>
                                         </div>
-                                        <div class="mb-3 col-6">
+                                        <div class="mb-3 lg-col-6">
                                             <label for="konfirmasi_password" class="form-label">Konfirmasi
                                                 password</label>
                                                 <div class="input-group">
@@ -130,25 +130,25 @@
                                     <?php foreach ($profile as $value) : ?>
                                     <form method="post" action="<?php echo base_url('page/aksi_ubah_profile') ?>"
                                         enctype="multipart/form-data" class="row">
-                                        <div class="mb-3 col-6">
+                                        <div class="mb-3 lg-col-6">
                                             <label for="username" class="form-label">Username</label>
                                             <!-- Input field untuk jurusam_kelas -->
                                             <input type="text" name="username" class="form-control" id="jurusan_kelas"
                                                 placeholder="username" required value="<?php echo $value->username?>">
                                         </div>
-                                        <div class="mb-3 col-6">
+                                        <div class="mb-3 lg-col-6">
                                             <label for="email" class="form-label">Email</label>
                                             <!-- Input field untuk jurusam_kelas -->
                                             <input type="text" name="email" class="form-control" id="jurusan_kelas"
                                                 placeholder="email" required value="<?php echo $value->email?>">
                                         </div>
-                                        <div class="mb-3 col-6">
+                                        <div class="mb-3 lg-col-6">
                                             <label for="nama_depan" class="form-label">Nama depan</label>
                                             <!-- Input field untuk jurusam_kelas -->
                                             <input type="text" name="nama_depan" class="form-control" id="jurusan_kelas"
                                                 placeholder="nama_depan" required value="<?php echo $value->nama_depan?>">
                                         </div>
-                                        <div class="mb-3 col-6">
+                                        <div class="mb-3 lg-col-6">
                                             <label for="nama_belakang" class="form-label">Nama belakang</label>
                                             <!-- Input field untuk jurusam_kelas -->
                                             <input type="text" name="nama_belakang" class="form-control"
@@ -166,7 +166,7 @@
                                     <hr>
                                     <form method="post" action="<?php echo base_url('page/aksi_ubah_gambar') ?>"
                                         enctype="multipart/form-data"  class="row">
-                                        <div class="mb-3 col-6">
+                                        <div class="mb-3">
                                             <label for="foto" class="form-label">Foto</label>
                                             <div class="input-group">
                                             <input type="file" name="foto" class="form-control"

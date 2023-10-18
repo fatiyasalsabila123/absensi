@@ -175,6 +175,36 @@ class M_model extends CI_Model
         $query = $this->db->get('user');    // Melakukan query ke tabel 'user' dengan kondisi di atas.
         return $query->num_rows()>0;//Memeriksa jumlah baris hasil query Jika jumlah baris (rows) lebih dari 0, berarti email sudah ada
     }   
+    public function usernameSudahAda($username) {
+        $this->db->where('username', $username);    // Menggunakan CodeIgniter Query Builder, kita menentukan kondisi pencarian berdasarkan kolom 'username'.
+        $query = $this->db->get('user');    // Melakukan query ke tabel 'user' dengan kondisi di atas.
+        return $query->num_rows()>0;//Memeriksa jumlah baris hasil query Jika jumlah baris (rows) lebih dari 0, berarti username sudah ada
+    }   
 
+    public function searchKaryawan($keyword) {
+        $keyword = strtolower($keyword);
+        $this->db->like('LOWER(username)', $keyword);
+        $query = $this->db->get('user');
+        return $query->result();
+    }
+    public function searchAbsensi($keyword) {
+        $keyword = strtolower($keyword);
+        $this->db->select('absensi.*, user.nama_depan, user.nama_belakang');
+        $this->db->from('absensi');
+        $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
+        $this->db->like('LOWER(user.nama_depan)', $keyword);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function searchAbsensiByid($keyword, $userId) {
+        $keyword = strtolower($keyword);
+        $this->db->select('absensi.*, user.nama_depan, user.nama_belakang');
+        $this->db->from('absensi');
+        $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
+        $this->db->where('user.id', $userId);
+        $this->db->like('LOWER(user.nama_depan)', $keyword);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
 ?>

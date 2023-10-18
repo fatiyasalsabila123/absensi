@@ -24,13 +24,10 @@
             <?php $this->load->view('component/header'); ?>
             <main class="py-6 bg-surface-secondary">
                 <div class="container-fluid">
-                    <form method="post">
-                        <div class="input-group">
+                    <form method="post" class="d-flex" style="gap:10px">
                             <input type="date" name="tanggal" class="form-control" id="tanggal" required>
-                            <span class="input-group-text">
-                              <button class="btn btn-sm" type="submit" name="submit" formaction="<?php echo base_url('page/rekapharian')?>">Submit</button>
-                              <button class="btn btn-sm" type="submit" name="submit" formaction="<?php echo base_url('page/export')?>" >Export</button>
-                        </div>
+                              <button class="btn btn-sm btn-primary" type="submit" name="submit" formaction="<?php echo base_url('page/rekapharian')?>">Submit</button>
+                              <button class="btn btn-sm btn-primary" type="submit" name="submit" formaction="<?php echo base_url('page/export_absensi')?>" >Export</button>
                     </form>
                     <br>
                     <div class="card shadow border-0 mb-7">

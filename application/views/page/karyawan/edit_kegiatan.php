@@ -67,7 +67,7 @@
             <form class="modal-content" method="post" action="<?php echo base_url('page/aksi_keterangan_izin') ?>"
                 enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Izin</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <?php foreach ($karyawan1 as $keterangan): ?>

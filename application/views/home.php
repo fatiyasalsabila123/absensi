@@ -182,18 +182,18 @@
             <ul>
               <li><i class="bi bi-chevron-right"></i> <a href="#hero">Home</a></li>
               <li><i class="bi bi-chevron-right"></i> <a href="#about">About</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#service">Fitur</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#services">Fitur</a></li>
             </ul>
           </div>
 
           <div class="col-lg-2 col-6 footer-links">
             <h4>Page</h4>
             <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Login</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Register</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Dashboard</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Absensi karyawan</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Profile</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="auth">Login</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="auth/register">Register</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a>Dashboard</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a>Absensi karyawan</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a>Profile</a></li>
             </ul>
           </div>
 

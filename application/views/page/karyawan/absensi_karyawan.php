@@ -40,6 +40,12 @@
             <!-- start table absensi karyawan -->
             <main class="py-6 bg-surface-secondary">
                 <div class="container-fluid">
+                    <form class="d-flex" style="gap:10px" action="<?php echo base_url('page/absensi_karyawan') ?>"
+                        method="post">
+                        <input type="search" name="search_keyword" class="form-control" placeholder="Cari nama depan karyawan...">
+                        <button class="btn btn btn-primary" type="submit" name="submit">Cari</button>
+                    </form>
+                    <br>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header bg-white">
                             <div class="d-flex justify-content-between">

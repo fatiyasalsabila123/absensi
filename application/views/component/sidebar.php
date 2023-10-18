@@ -37,26 +37,27 @@
                     <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <div class="avatar-parent-child">
-                            <?php if (empty( $this->fungsi->user_login()->image)):?>
-                            <img alt="Image Placeholder"
-                                src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
-                                class="avatar avatar- rounded-circle">
-                            <span class="avatar-child avatar-badge bg-success"></span>
-                            <?php else:?>
-                            <img alt="Image Placeholder"
-                            src="<?php echo base_url('images/user/' . $this->fungsi->user_login()->image) ?>"
-                                class="avatar avatar- rounded-circle">
-                            <span class="avatar-child avatar-badge bg-success"></span>
-                            <?php endif;?>
+                            <?php if (empty($this->fungsi->user_login()->image)): ?>
+                                <img alt="Image Placeholder"
+                                    src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                                    class="avatar avatar- rounded-circle">
+                                <span class="avatar-child avatar-badge bg-success"></span>
+                            <?php else: ?>
+                                <img alt="Image Placeholder"
+                                    src="<?php echo base_url('images/user/' . $this->fungsi->user_login()->image) ?>"
+                                    class="avatar avatar- rounded-circle">
+                                <span class="avatar-child avatar-badge bg-success"></span>
+                            <?php endif; ?>
                         </div>
                     </a>
                     <!-- Menu -->
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
-                        <a href="#" class="dropdown-item">Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Billing</a>
-                        <hr class="dropdown-divider">
-                        <a href="#" class="dropdown-item">Logout</a>
+                        <?php if ($this->session->userdata('role') === "admin"): ?>
+                            <a href="profileAdmin" class="dropdown-item">Profile</a>
+                        <?php else: ?>
+                            <a href="profile" class="dropdown-item">Profile</a>
+                        <?php endif; ?>
+                        <a href="<?php echo base_url('auth/logout') ?>" class="dropdown-item">Logout</a>
                     </div>
                 </div>
             </div>
@@ -116,9 +117,8 @@
                             </a>
                         </li>
                     <?php endif; ?>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                            onclick="logout()">
+                    <li class="nav-item" style="cursor:pointer">
+                        <a class="nav-link" onclick="logout()">
                             <i class="bi bi-box-arrow-left"></i> Logout
                         </a>
                     </li>
@@ -147,6 +147,11 @@
                         title: 'Berhasil Dihapus',
                         showConfirmButton: false,
                         timer: 1500,
+                        background: '#fff',
+                        customClass: {
+                            title: 'text-dark',
+                            content: 'text-dark'
+                        }
 
                     }).then(function () {
                         window.location.href = "<?php echo base_url('auth/logout/') ?>";

@@ -133,6 +133,20 @@
                 });
         </script>
     <?php endif; ?>
+    <?php if ($this->session->flashdata('error_username')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '<?= $this->session->flashdata('error_username') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+                });
+        </script>
+    <?php endif; ?>
     <!-- end sweet alert jika error -->
     <?php if ($this->session->flashdata('Berhasil_register_user')): ?>
         <script>

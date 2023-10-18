@@ -14,8 +14,8 @@ class Page extends CI_Controller
 		$this->load->helper('my_helper');
 		$this->load->library('upload');
 		if ($this->session->userData('logged_in') != true) {
-            redirect(base_url().'auth');
-        }
+			redirect(base_url() . 'auth');
+		}
 	}
 	//end construct
 
@@ -45,16 +45,31 @@ class Page extends CI_Controller
 	//start untuk menampilkan data absensi karyawan
 	public function absensi_karyawan()
 	{
+		$keyword = $this->input->post('search_keyword');
+		$data['karyawan'] = array(); // Inisialisasi $data['karyawan'] sebagai array kosong
+
 		if ($this->session->userdata('role') === "admin") {
-			$totalAbsensi = $this->m_model->get_all_karyawan();
-			$data['karyawan'] = $totalAbsensi;
+			if (!empty($keyword)) {
+				$keyword = strtolower($keyword);
+				$data['karyawan'] = $this->m_model->searchAbsensi($keyword);
+			} else {
+				$data['karyawan'] = $this->m_model->get_all_karyawan();
+			}
 		} else {
-			$idKaryawan = $this->session->userdata('id');
-			$totalAbsensi = $this->m_model->getAbsensiByIdKaryawan($idKaryawan);
-			$data['karyawan'] = $totalAbsensi;
+			if (!empty($keyword)) {
+				$keyword = strtolower($keyword);
+				$userId = $this->session->userdata('id');
+				$data['karyawan'] = $this->m_model->searchAbsensiByid($keyword, $userId);
+			} else {
+				$idKaryawan = $this->session->userdata('id');
+				$totalAbsensi = $this->m_model->getAbsensiByIdKaryawan($idKaryawan);
+				$data['karyawan'] = $totalAbsensi;
+			}
 		}
+
 		$this->load->view('page/karyawan/absensi_karyawan', $data);
 	}
+
 	//end untuk menampilkan data absensi karyawan
 	//start pulang di tabel absensi
 	public function pulang($id)
@@ -516,7 +531,7 @@ class Page extends CI_Controller
 			$sheet->getStyle('G3')->applyFromArray($style_col);
 			$sheet->getStyle('H3')->applyFromArray($style_col);
 
-				$karyawan = $this->m_model->getHarianData($tanggal);
+			$karyawan = $this->m_model->getHarianData($tanggal);
 
 			$no = 1;
 			$numrow = 4;
@@ -818,17 +833,36 @@ class Page extends CI_Controller
 	public function rekapBulanan()
 	{
 		$bulan = $this->input->post('bulan');
-		$data['rekapBulanan'] = $this->m_model->getBulananData($bulan);
+		$data['rekapBulanan'] = array();
+
+		if (!empty($bulan)) {
+			$data['rekapBulanan'] = $this->m_model->getBulananData($bulan);
+		}
+
 		$this->load->view('page/admin/rekapBulanan', $data);
 	}
+
 	//end menampilkan page rekap bulanan
 
 	//start menampilkan page data karyawan
 	public function dataKaryawan()
 	{
-		$data['get_karyawan'] = $this->m_model->get_data('user')->result();
+		$keyword = $this->input->post('search_keyword');
+
+		if (!empty($keyword)) {
+			$keyword = strtolower($keyword);
+			$data['get_karyawan'] = $this->m_model->searchKaryawan($keyword);
+		} else {
+			// Handle jika $keyword adalah null, misalnya tampilkan semua data
+			$data['get_karyawan'] = $this->m_model->get_data('user')->result();
+		}
+
 		$this->load->view('page/admin/dataKaryawan', $data);
 	}
+
+
+
+
 	//end menampilkan page data karyawan
 
 	//end role admin

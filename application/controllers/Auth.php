@@ -107,9 +107,12 @@ class Auth extends CI_Controller
 		$role = $this->input->post('role');
 		$password = $this->input->post('password');
 		if ($this->m_model->EmailSudahAda($email)) {
-			$this->session->set_flashdata('error_email', 'Email ini sudah di ada. Gunakan email lainya');
+			$this->session->set_flashdata('error_email', 'Email ini sudah ada. Gunakan email lainya');
 			redirect(base_url('auth/register'));
-		} elseif (strlen($password) < 8 || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $password)) {
+		} elseif($this->m_model->usernameSudahAda($username)) {
+			$this->session->set_flashdata('error_username', 'Username ini sudah ada. Gunakan username lainya');
+			redirect(base_url('auth/register'));
+		}elseif (strlen($password) < 8 || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $password)) {
 			// Password tidak memenuhi persyaratan
 			$this->session->set_flashdata('error_message', 'Password harus memiliki setidaknya 8 karakter, satu huruf besar, satu huruf kecil, dan angka.');
 			redirect('auth/register'); // Redirect kembali ke halaman registrasi
