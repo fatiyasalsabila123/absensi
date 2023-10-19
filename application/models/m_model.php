@@ -66,7 +66,7 @@ class M_model extends CI_Model
     {
         $data = array('kegiatan' => $kegiatan_baru);
 
-        $this->db->where('id', $id_absensi); // Sesuaikan dengan nama kolom ID di tabel absensi
+        $this->db->where('id', $id_absensi);
         $this->db->update('absensi', $data);
 
         return $this->db->affected_rows(); // Mengembalikan jumlah baris yang berubah
@@ -117,14 +117,20 @@ class M_model extends CI_Model
 
     //start get data per bulan
     public function getBulananData($bulan)
-    {
-        $this->db->select("absensi.*, user.nama_depan, user.nama_belakang");
-        $this->db->from("absensi");
-        $this->db->join("user", "absensi.id_karyawan = user.id", "left");
-        $this->db->where("DATE_FORMAT(date, '%m') = ", $bulan); // Perbaikan di sini
-        $query = $this->db->get();
-        return $query->result();
-    }
+{
+    // Select kolom yang dibutuhkan dari tabel absensi dan user
+    $this->db->select("absensi.*, user.nama_depan, user.nama_belakang");
+    // Tabel utama adalah "absensi" dan kita lakukan JOIN dengan "user" menggunakan kolom "id_karyawan"
+    $this->db->from("absensi");
+    $this->db->join("user", "absensi.id_karyawan = user.id", "left");
+    // Filter data dengan WHERE clause. Di sini kita mencari data yang sesuai dengan bulan yang diberikan.
+    $this->db->where("DATE_FORMAT(date, '%m') = ", $bulan);
+    // Eksekusi query
+    $query = $this->db->get();
+    // Mengembalikan hasil query dalam bentuk array dari objek
+    return $query->result();
+}
+
     
 //start menjumlahkan semua data total kerja 
     public function getTotalJamMasuk()
@@ -139,37 +145,56 @@ class M_model extends CI_Model
     //menjumlahkan jumlah data sesui login kerja 
     public function getTotalJamMasukKaryawan($idKaryawan)
     {
+        // memilih kolom yang di perlukan dan menghitung total jam masuk yang tidak bernilai "00:00:00"
         $this->db->select('absensi.*, user.id, COUNT(IF(jam_masuk != "00:00:00", TIME_TO_SEC(jam_masuk), 0)) as total_jam_masuk');
+        // membatasi hasil pencarian berdasarrkan id_karyawan 
         $this->db->where('absensi.id_karyawan', $idKaryawan);
+        // membatasi hasil pencarian berdasarkan jam masuk yang tidak bernilai  "00:00:00"
         $this->db->where('jam_masuk !=', '00:00:00');
+        // bergabung dengan tabel user
         $this->db->join('user', 'user.id = absensi.id_karyawan', 'left');
+        // menjalankan query
         $query = $this->db->get('absensi');
+        // mengambil hasil query sebagai objek yunggal
         $result = $query->row();
+        // mengambalikan total jam masuk
         return $result->total_jam_masuk;
     }
 
-    //menjuamlahkan semua data cuti
+    //menjuamlahkan semua data(absensi) cuti
     public function getTotalCuti()
     {
+        // Memilih kolom yang diperlukan dan menghitung total jam masuk
         $this->db->select('COUNT(TIME_TO_SEC(jam_masuk)) AS total_jam_masuk');
+        //membatasi hasil pencarian hanya untuk jam masuk dengan nilai '00:00:00'
         $this->db->where('jam_masuk', '00:00:00');
+        //menjalankan query
         $query = $this->db->get('absensi');
+        // mengambil hasil query sebagai objek tunggal
         $result = $query->row();
+        //mengambilakn total jam masuk
         return $result->total_jam_masuk;
     }
 
     //menjumlahkan data(absensi) cuti
     public function getTotalCutiKaryawan($idKaryawan)
     {
+        // Memilih kolom yang diperlukan dan menghitung total jam masuk
         $this->db->select('absensi.*, user.id, COUNT(TIME_TO_SEC(jam_masuk)) AS total_jam_masuk');
+        // Membatasi hasil pencarian berdasarkan id karyawan
         $this->db->where('absensi.id_karyawan', $idKaryawan);
+        // Membatasi hasil pencarian hanya untuk jam masuk dengan nilai '00:00:00'
         $this->db->where('jam_masuk', '00:00:00');
+        // Menggabungkan tabel 'user' dengan 'absensi' menggunakan left join
         $this->db->join('user', 'user.id = absensi.id_karyawan', 'left');
+        // Menjalankan query untuk mengambil data dari tabel 'absensi'
         $query = $this->db->get('absensi');
+        // Mengambil hasil query sebagai objek tunggal
         $result = $query->row();
+        // Mengembalikan total jam masuk
         return $result->total_jam_masuk;
     }
-
+    
     public function EmailSudahAda($email) {
         $this->db->where('email', $email);    // Menggunakan CodeIgniter Query Builder, kita menentukan kondisi pencarian berdasarkan kolom 'email'.
         $query = $this->db->get('user');    // Melakukan query ke tabel 'user' dengan kondisi di atas.
@@ -182,29 +207,52 @@ class M_model extends CI_Model
     }   
 
     public function searchKaryawan($keyword) {
+        // emjadikan hururf kecil
         $keyword = strtolower($keyword);
+        // mengambil data kolom yang igin di cari
         $this->db->like('LOWER(username)', $keyword);
+        //menjalankan query
         $query = $this->db->get('user');
         return $query->result();
     }
     public function searchAbsensi($keyword) {
+        //$keyworad menjadi huruf kecil
         $keyword = strtolower($keyword);
+        // memilih kolom yang akan di munclkan
         $this->db->select('absensi.*, user.nama_depan, user.nama_belakang');
+        //menentukan tabel utama yang akan diambil data nya
         $this->db->from('absensi');
+        //bergabung dengan tabel user
         $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
+        //mengambil data kolom yang ingin dicari
         $this->db->like('LOWER(user.nama_depan)', $keyword);
+        //menjalakankan query
         $query = $this->db->get();
         return $query->result();
     }
     public function searchAbsensiByid($keyword, $userId) {
+        // Konversi $keyword menjadi huruf kecil
         $keyword = strtolower($keyword);
+    
+        // Memilih kolom-kolom yang akan ditampilkan
         $this->db->select('absensi.*, user.nama_depan, user.nama_belakang');
+    
+        // Menentukan tabel utama yang akan diambil data
         $this->db->from('absensi');
+    
+        // Bergabung dengan tabel 'user' menggunakan JOIN LEFT
         $this->db->join('user', 'absensi.id_karyawan = user.id', 'left');
+    
+        // Menambahkan kondisi WHERE, hanya data dengan 'user.id' yang sesuai dengan '$userId' yang akan diambil
         $this->db->where('user.id', $userId);
+    
+        // Menerapkan LIKE dengan 'user.nama_depan' yang telah dikonversi menjadi huruf kecil
         $this->db->like('LOWER(user.nama_depan)', $keyword);
+    
+        // Menjalankan query dan mengembalikan hasil dalam bentuk array objek
         $query = $this->db->get();
         return $query->result();
     }
+    
 }
 ?>

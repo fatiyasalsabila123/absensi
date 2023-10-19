@@ -136,7 +136,7 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 cancelButtonText: 'Batal',
-                confirmButtonText: 'Ya Hapus', customClass: {
+                confirmButtonText: 'Ya logout', customClass: {
                     title: 'text-dark',
                     content: 'text-dark'
                 }
@@ -144,7 +144,7 @@
                 if (result.isConfirmed) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Berhasil Dihapus',
+                        title: 'Berhasi logout',
                         showConfirmButton: false,
                         timer: 1500,
                         background: '#fff',

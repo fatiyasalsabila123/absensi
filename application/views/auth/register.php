@@ -119,6 +119,8 @@
                 });
         </script>
     <?php endif; ?>
+
+    <!-- sweet alert jika email sudah ada -->
     <?php if ($this->session->flashdata('error_email')): ?>
         <script>
             Swal.fire({
@@ -133,6 +135,8 @@
                 });
         </script>
     <?php endif; ?>
+
+    <!-- sweet alert jika username sudah ada -->
     <?php if ($this->session->flashdata('error_username')): ?>
         <script>
             Swal.fire({
@@ -148,6 +152,8 @@
         </script>
     <?php endif; ?>
     <!-- end sweet alert jika error -->
+
+    <!-- sweet alert jika berhasil register -->
     <?php if ($this->session->flashdata('Berhasil_register_user')): ?>
         <script>
             Swal.fire({

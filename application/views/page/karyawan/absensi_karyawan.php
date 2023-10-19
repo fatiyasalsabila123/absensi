@@ -7,16 +7,16 @@
     <title>Absensi karyawan</title>
 </head>
 <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/dashboard.css" rel="stylesheet">
-<!-- <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet"> -->
+<!-- sweetalert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<!-- font-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
 
 <body>
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+        <!-- sidebar -->
         <?php $this->load->view('component/sidebar'); ?>
         <div class="h-screen flex-grow-1 overflow-y-lg-auto">
             <!-- Header -->
@@ -40,11 +40,14 @@
             <!-- start table absensi karyawan -->
             <main class="py-6 bg-surface-secondary">
                 <div class="container-fluid">
-                    <form class="d-flex" style="gap:10px" action="<?php echo base_url('page/absensi_karyawan') ?>"
-                        method="post">
-                        <input type="search" name="search_keyword" class="form-control" placeholder="Cari nama depan karyawan...">
-                        <button class="btn btn btn-primary" type="submit" name="submit">Cari</button>
-                    </form>
+                    <?php if ($this->session->userdata('role') === "admin"): ?>
+                        <form class="d-flex" style="gap:10px" action="<?php echo base_url('page/absensi_karyawan') ?>"
+                            method="post">
+                            <input type="search" name="search_keyword" class="form-control"
+                                placeholder="Cari nama depan karyawan...">
+                            <button class="btn btn btn-primary" type="submit" name="submit">Cari</button>
+                        </form>
+                    <?php endif ?>
                     <br>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header bg-white">
@@ -83,7 +86,7 @@
                                                 <?php echo $no ?>
                                             </td>
                                             <td>
-                                                <?php echo $row->nama_depan . '' . $row->nama_belakang ?>
+                                                <?php echo $row->nama_depan . ' ' . $row->nama_belakang ?>
                                             </td>
                                             <td>
                                                 <?php echo $row->kegiatan ?>
@@ -143,84 +146,64 @@
                 </div>
             </main>
         </div>
-        <!-- end tabel absensi karyawan -->
-        <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
-        <script>
-            function hapus(id) {
-                swal.fire({
-                    title: 'Yakin untuk menghapus data ini?',
-                    icon: 'warning',
-                    background: '#fff',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: 'Batal',
-                    confirmButtonText: 'Ya Hapus', customClass: {
-                        title: 'text-dark',
-                        content: 'text-dark'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil Dihapus',
-                            showConfirmButton: false,
-                            timer: 1500,
+    </div>
+    <!-- end tabel absensi karyawan -->
+    <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
 
-                        }).then(function () {
-                            window.location.href = "<?php echo base_url('controller/namafunction/') ?>" + id;
-                        });
-                    }
-                });
-            }
-        </script>
-        <?php if ($this->session->flashdata('berhasil_pulang')): ?>
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: '<?= $this->session->flashdata('berhasil_pulang') ?>',
-                    background: '#fff',
-                    customClass: {
-                        title: 'text-dark',
-                        content: 'text-dark'
-                    }
-                });
-            </script>
-        <?php endif; ?>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
+    <!-- sweet alert hapus data absensi karyawan -->
+    <script>
+        function hapus(id) {
+            swal.fire({
+                title: 'Yakin untuk menghapus data ini?',
+                icon: 'warning',
+                background: '#fff',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya Hapus', customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil Dihapus',
+                        showConfirmButton: false,
+                        timer: 1500, customClass: {
+                            title: 'text-dark',
+                            content: 'text-dark'
+                        }
 
-        <script>
-            const tampilHarian = document.getElementById('tampil_harian');
-            const tampilMingguan = document.getElementById('tampil_mingguan');
-            const tampilBulanan = document.getElementById('tampil_bulanan');
-
-            const rekapHarian = document.getElementById('rekap_harian');
-            const rekapMingguan = document.getElementById('rekap_mingguan');
-            const rekapBulanan = document.getElementById('rekap_bulanan');
-
-            rekapHarian.addEventListener('click', function () {
-                tampilHarian.style.display = 'block';
-                tampilMingguan.style.display = 'none';
-                tampilBulanan.style.display = 'none';
+                    }).then(function () {
+                        window.location.href = "<?php echo base_url('page/hapus/') ?>" + id;
+                    });
+                }
             });
+        }
+    </script>
 
-            rekapMingguan.addEventListener('click', function () {
-                tampilHarian.style.display = 'none';
-                tampilBulanan.style.display = 'none';
-                tampilMingguan.style.display = 'block';
-            });
-
-            rekapBulanan.addEventListener('click', function () {
-                tampilHarian.style.display = 'none';
-                tampilMingguan.style.display = 'none';
-                tampilBulanan.style.display = 'block';
+    <!-- sweet alert jika berhasil melakukan pulang -->
+    <?php if ($this->session->flashdata('berhasil_pulang')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '<?= $this->session->flashdata('berhasil_pulang') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
             });
         </script>
+    <?php endif; ?>
 
-
+    <!-- script bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

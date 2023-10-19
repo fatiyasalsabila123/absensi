@@ -29,12 +29,15 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total masuk kerja</span>
-                                            <span class="h3 font-bold mb-0"><?php echo $total_kerja?></span>
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total masuk
+                                                kerja</span>
+                                            <span class="h3 font-bold mb-0">
+                                                <?php echo $total_kerja ?>
+                                            </span>
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
-                                            <i class="far fa-calendar-minus"></i>
+                                                <i class="far fa-calendar-minus"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -46,12 +49,15 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total cuti</span>
-                                            <span class="h3 font-bold mb-0"><?php echo $total_cuti?></span>
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
+                                                cuti</span>
+                                            <span class="h3 font-bold mb-0">
+                                                <?php echo $total_cuti ?>
+                                            </span>
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
-                                            <i class="far fa-calendar-minus"></i>
+                                                <i class="far fa-calendar-minus"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -61,148 +67,158 @@
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="card shadow border-0">
                                 <div class="card-body">
-                                        <div class="row">
+                                    <div class="row">
                                         <div class="col">
                                             <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
                                                 data</span>
-                                            <span class="h3 font-bold mb-0"><?php echo $total_data?></span>
+                                            <span class="h3 font-bold mb-0">
+                                                <?php echo $total_data ?>
+                                            </span>
                                         </div>
                                         <div class="col-auto">
                                             <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
-                                            <i class="fas fa-database"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                                           
-                         <?php if ($this->session->userdata('role') === "admin"):?>
-                        <div class="col-xl-3 col-sm-6 col-12">
-                            <div class="card shadow border-0">
-                                <div class="card-body">
-                                        <div class="row">
-                                        <div class="col">
-                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
-                                                data user</span>
-                                            <span class="h3 font-bold mb-0"><?php echo $total_data_user?></span>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
-                                            <i class="fas fa-user"></i>
+                                                <i class="fas fa-database"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php endif;?>
+                        <?php if ($this->session->userdata('role') === "admin"): ?>
+                            <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="card shadow border-0">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
+                                                    data user</span>
+                                                <span class="h3 font-bold mb-0">
+                                                    <?php echo $total_data_user ?>
+                                                </span>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
+                                                    <i class="fas fa-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header">
                             <h5 class="mb-0">Absensi</h5>
                         </div>
                         <div class="table-responsive">
+                            <!-- start table absensi-->
                             <table class="table table-hover table-nowrap">
                                 <thead class="thead-light">
-                                <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama karyawan</th>
-                            <th scope="col">Kegiatan</th>
-                            <th scope="col">Tanggal absen</th>
-                            <th scope="col">Jam masuk</th>
-                            <th scope="col">Jam pulang</th>
-                            <th scope="col">Keterangan izin</th>
-                            <th scope="col">Status</th>
-                        </tr>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Nama karyawan</th>
+                                        <th scope="col">Kegiatan</th>
+                                        <th scope="col">Tanggal absen</th>
+                                        <th scope="col">Jam masuk</th>
+                                        <th scope="col">Jam pulang</th>
+                                        <th scope="col">Keterangan izin</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                        <?php $no = 0;
-                        foreach ($dashboard as $row):
-                            $no++ ?>
-                            <tr>
-                                <td>
-                                    <?php echo $no ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->nama_depan . '' . $row->nama_belakang ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->kegiatan ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->date ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->jam_masuk ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->jam_pulang ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->keterangan_izin ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->status ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
+                                    <?php $no = 0;
+                                    foreach ($dashboard as $row):
+                                        $no++ ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $no ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row->nama_depan . '' . $row->nama_belakang ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row->kegiatan ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row->date ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row->jam_masuk ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row->jam_pulang ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row->keterangan_izin ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row->status ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
                             </table>
+                            <!-- end table absensi-->
                         </div>
                     </div>
-                    <?php if ($this->session->userdata('role') === "admin"):?>
-                    <div class="card shadow border-0 mb-7">
-                        <div class="card-header px-3">
-                            <h5 class="mb-0">Karyawan</h5>
+                    <?php if ($this->session->userdata('role') === "admin"): ?>
+                        <div class="card shadow border-0 mb-7">
+                            <div class="card-header px-3">
+                                <h5 class="mb-0">Karyawan</h5>
+                            </div>
+                            <div class="table-responsive">
+                                <!-- start tabel user -->
+                                <table class="table table-hover table-nowrap">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Nama depan</th>
+                                            <th scope="col">Nama belakang</th>
+                                            <th scope="col">image</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 0;
+                                        foreach ($get_user as $row):
+                                            $no++ ?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo $no ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->username ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->nama_depan ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->nama_belakang ?>
+                                                </td>
+                                                <td>
+                                                    <img style="width:80px; border-radius:50%"
+                                                        src="<?= base_url('images/user/' . $row->image) ?>" alt="">
+
+                                                </td>
+                                                <td>
+                                                    <?php echo $row->email ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <!-- end tabel user -->
+                            </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-nowrap">
-                                <thead class="thead-light">
-                                <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Nama depan</th>
-                            <th scope="col">Nama belakang</th>
-                            <th scope="col">image</th>
-                            <th scope="col">Email</th>
-                        </tr>
-                                </thead>
-                                <tbody>
-                        <?php $no = 0;
-                        foreach ($get_user as $row):
-                            $no++ ?>
-                            <tr>
-                                <td>
-                                    <?php echo $no ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->username?>
-                                </td>
-                                <td>
-                                    <?php echo $row->nama_depan ?>
-                                </td>
-                                <td>
-                                    <?php echo $row->nama_belakang ?>
-                                </td>
-                                <td>
-                                    <img style="width:80px; border-radius:50%" src="<?= base_url('images/user/' . $row->image) ?>" alt="">
-                                   
-                                </td>
-                                <td>
-                                    <?php echo $row->email ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <?php endif;?>
-                    </div>
+                    <?php endif; ?>
                 </div>
-            </main>
         </div>
+        </main>
     </div>
+    </div>
+    <!-- script bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>

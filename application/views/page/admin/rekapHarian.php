@@ -17,31 +17,32 @@
 </head>
 
 <body>
-
+    <!-- kondisi jika tidak role admin maka tidak bisa melihat page ini -->
+    <?php if ($this->session->userdata('role') === "admin"):?>
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+        <!-- sidebar -->
         <?php $this->load->view('component/sidebar'); ?>
         <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+            <!-- header -->
             <?php $this->load->view('component/header'); ?>
             <main class="py-6 bg-surface-secondary">
                 <div class="container-fluid">
+                    <!-- form yang berisi tanggal  -->
                     <form method="post" class="d-flex" style="gap:10px">
                             <input type="date" name="tanggal" class="form-control" id="tanggal" required>
                               <button class="btn btn-sm btn-primary" type="submit" name="submit" formaction="<?php echo base_url('page/rekapharian')?>">Submit</button>
                               <button class="btn btn-sm btn-primary" type="submit" name="submit" formaction="<?php echo base_url('page/export_absensi')?>" >Export</button>
                     </form>
+                    <!-- end form -->
                     <br>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header bg-white">
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0">Data perhari</h5>
-                                <div class="d-flex">
-                                    <!-- <button class="btn btn-sm btn-primary"><a
-                                            href="<?php echo base_url('page/export_absensi') ?>"
-                                            class="text-decoration-none text-light">Export</a></button> -->
-                                </div>
                             </div>
                         </div>
                         <div class="table-responsive">
+                            <!-- start table -->
                             <table class="table table-hover table-nowrap">
                                 <thead class="thead-light">
                                     <?php if (!empty($this->input->post('tanggal'))):?>
@@ -135,12 +136,14 @@
                                     <?php endif; ?>
                                 </tbody>
                             </table>
+                            <!-- end tabel -->
                         </div>
                     </div>
                 </div>
             </main>
         </div>
     </div>
+    <?php endif;?>
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
 </body>
 

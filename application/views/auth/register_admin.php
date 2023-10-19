@@ -30,9 +30,9 @@
             <!--------------------------- Left Box ----------------------------->
 
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-                style="background: #C07F00;">
+                style="background: #8ECDDD;">
                 <div class="featured-image mb-3">
-                    <img src="https://cdn3d.iconscout.com/3d/premium/thumb/form-4721284-3927997.png" class="img-fluid"
+                    <img src="https://cdn3d.iconscout.com/3d/premium/thumb/breadcrumb-navigation-6853697-5625764.png" class="img-fluid"
                         style="width: 290px;">
                 </div>
             </div>
@@ -80,10 +80,10 @@
                     </div>
                     <div class="input-group mb-3">
                         <button type="submit" name="submit" class="btn btn-lg w-100 fs-6"
-                            style="background: #C07F00; color: white;">Register</button>
+                            style="background: #8ECDDD; color: black;">Register</button>
                     </div>
                     <div class="row">
-                        <small>Sudah memiliki akun silahkan <a href="/absensi/auth/">Login</a></small>
+                        <small>Sudah memiliki akun? silahkan <a href="/absensi/auth/">Login</a></small>
                     </div>
                 </form>
             </div>
@@ -121,6 +121,8 @@
             });
         </script>
     <?php endif; ?>
+
+    <!-- sweet alert jika email sudah ada-->
     <?php if ($this->session->flashdata('error_email')): ?>
         <script>
             Swal.fire({
@@ -135,6 +137,24 @@
             });
         </script>
     <?php endif; ?>
+
+    <!-- sweet alert jika username sudah ada-- -->
+    <?php if ($this->session->flashdata('error_username')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '<?= $this->session->flashdata('error_username') ?>',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            });
+        </script>
+    <?php endif; ?>
+
+    <!-- sweet selrt jika register berhasil -->
     <?php if ($this->session->flashdata('berhasil_register_admin')): ?>
         <script>
             Swal.fire({
