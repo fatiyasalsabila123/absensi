@@ -103,7 +103,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal melakukan izin',
+                title: 'Gagal Melakukan Izin',
                 text: '<?= $this->session->flashdata('gagal_izin') ?>',
                 background: '#fff',
                 customClass: {

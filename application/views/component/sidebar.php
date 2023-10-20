@@ -13,7 +13,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
+<body class="text-capitalize">
     <!-- Vertical Navbar -->
     <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg"
         id="navbarVertical" style="padding:20px">
@@ -72,12 +72,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="absensi_karyawan">
-                            <i class="bi bi-bar-chart"></i> Absensi karyawan
+                            <i class="bi bi-bar-chart"></i> Absensi Karyawan
                         </a>
                     </li>
                     <?php if ($this->session->userdata('role') === "admin"): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="dataKaryawan">
+                            <a class="nav-link" href="dataUser">
                                 <i class="bi bi-bar-chart"></i> Data User
                             </a>
                         </li>
@@ -129,14 +129,14 @@
     <script>
         function logout(id) {
             swal.fire({
-                title: 'Apakah Anda yakin ingin logout?',
+                title: 'Apakah Anda Yakin Ingin Logout?',
                 icon: 'warning',
                 background: '#fff',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 cancelButtonText: 'Batal',
-                confirmButtonText: 'Ya logout', customClass: {
+                confirmButtonText: 'Ya Logout', customClass: {
                     title: 'text-dark',
                     content: 'text-dark'
                 }
@@ -144,7 +144,7 @@
                 if (result.isConfirmed) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Berhasi logout',
+                        title: 'Berhasil Logout',
                         showConfirmButton: false,
                         timer: 1500,
                         background: '#fff',

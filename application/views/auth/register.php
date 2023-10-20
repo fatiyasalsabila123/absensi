@@ -43,45 +43,55 @@
                     class="row align-items-center">
                     <div class="header-text mb-4">
                         <h2>Register</h2>
-                        <p>Buat akun sekarang agar bisa login</p>
+                        <p>Buat Akun Sekarang Agar Bisa Login</p>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control form-control-lg bg-light fs-6" required name="email"
-                            placeholder="Email address">
+                    <div class="form-group mb-3">
+                        <input type="email" class="form-control form-control-lg bg-light fs-6" name="email"
+                            placeholder="Email" value="<?php echo set_value('email');?>">
+                    <?= form_error('email', '<smal class="text-danger pl-3">', '</smal>'); ?>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" required name="username"
-                            placeholder="Username">
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="username"
+                            placeholder="Username" value="<?php echo set_value('username');?>">
+                    <?= form_error('username', '<div class="text-danger">', '</div>'); ?>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" required name="nama_depan"
-                            placeholder="Nama depan">
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_depan"
+                            placeholder="Nama Depan" value="<?php echo set_value('nama_depan');?>">
+                    <?= form_error('nama_depan', '<div class="text-danger">', '</div>'); ?>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" required
-                            name="nama_belakang" placeholder="Nama Belakang">
+                    <div class="form-group mb-3">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6"
+                            name="nama_belakang" placeholder="Nama Belakang" value="<?php echo set_value('nama_belakang');?>">
+                    <?= form_error('nama_belakang', '<div class="text-danger">', '</div>'); ?>
                     </div>
-                    <div class="input-group mb-1">
-                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" required
-                            name="password" placeholder="Password">
+                    <div class="form-group mb-1">
+                        <input type="password" id="password" class="form-control form-control-lg bg-light fs-6"
+                            name="password" placeholder="Password" value="<?php echo set_value('password');?>">
+                    <?= form_error('password', '<div class="text-danger">', '</div>'); ?>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="hidden" class="form-control form-control-lg bg-light fs-6" required name="role"
+                    <div class="form-group mb-1">
+                        <input type="password" id="konfir_password" class="form-control form-control-lg bg-light fs-6"
+                            name="konfir_password" placeholder="Konfirmasi Password" value="<?php echo set_value('konfir_password');?>">
+                    <?= form_error('konfir_password', '<div class="text-danger">', '</div>'); ?>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role"
                             placeholder="Role" value="karyawan">
                     </div>
-                    <p>Password harus minimal 8 karakter*</p>
-                    <div class="input-group mb-5 d-flex justify-content-between">
+                    <p>Password Harus Minimal 8 Karakter*</p>
+                    <div class="form-group mb-5 d-flex justify-content-between">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="show-password">
                             <label for="formCheck" class="form-check-label text-secondary"><small>Tampilkan
-                                    password</small></label>
+                                    Password</small></label>
                         </div>
                     </div>
                     <div class="input-group mb-3">
                         <button type="submit" name="submit" class="btn btn-lg btn-primary w-100 fs-6">Register</button>
                     </div>
                     <div class="row">
-                        <small>Sudah memiliki akun silahkan <a href="/absensi/auth/">Login</a></small>
+                        <small>Sudah Memiliki Akun Silahkan <a href="/absensi/auth/">Login</a></small>
                     </div>
                 </form>
             </div>
@@ -116,7 +126,7 @@
                     title: 'text-dark',
                     content: 'text-dark'
                 }
-                });
+            });
         </script>
     <?php endif; ?>
 
@@ -132,7 +142,7 @@
                     title: 'text-dark',
                     content: 'text-dark'
                 }
-                });
+            });
         </script>
     <?php endif; ?>
 
@@ -148,7 +158,7 @@
                     title: 'text-dark',
                     content: 'text-dark'
                 }
-                });
+            });
         </script>
     <?php endif; ?>
     <!-- end sweet alert jika error -->
@@ -165,7 +175,7 @@
                     title: 'text-dark',
                     content: 'text-dark'
                 }
-                });
+            });
         </script>
     <?php endif; ?>
 </body>

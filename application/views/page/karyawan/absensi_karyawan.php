@@ -14,7 +14,7 @@
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<body>
+<body class="text-capitalize">
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <!-- sidebar -->
         <?php $this->load->view('component/sidebar'); ?>
@@ -44,7 +44,7 @@
                         <form class="d-flex" style="gap:10px" action="<?php echo base_url('page/absensi_karyawan') ?>"
                             method="post">
                             <input type="search" name="search_keyword" class="form-control"
-                                placeholder="Cari nama depan karyawan...">
+                                placeholder="Cari Nama Depan Karyawan...">
                             <button class="btn btn btn-primary" type="submit" name="submit">Cari</button>
                         </form>
                     <?php endif ?>
@@ -62,22 +62,22 @@
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-nowrap">
-                                <thead class="thead-light">
+                                <thead class="thead-light text-capitalize">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Nama karyawan</th>
+                                        <th scope="col">Nama Karyawan</th>
                                         <th scope="col">Kegiatan</th>
-                                        <th scope="col">Tanggal absen</th>
-                                        <th scope="col">Jam masuk</th>
-                                        <th scope="col">Jam pulang</th>
-                                        <th scope="col">Keterangan izin</th>
+                                        <th scope="col">Tanggal Absen</th>
+                                        <th scope="col">Jam Masuk</th>
+                                        <th scope="col">Jam Pulang</th>
+                                        <th scope="col">Keterangan Izin</th>
                                         <th scope="col">Status</th>
                                         <?php if ($this->session->userdata('role') === "karyawan"): ?>
                                             <th scope="col" class="text-center">Aksi</th>
                                         <?php endif; ?>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-capitalize">
                                     <?php $no = 0;
                                     foreach ($karyawan as $row):
                                         $no++ ?>
@@ -131,10 +131,10 @@
                                                             href="<?php echo base_url('page/edit_kegiatan/' . $row->id) ?>">
                                                             <i class="fas fa-edit"></i></a>
                                                     </button>
-                                                    <button type="button" onclick="hapus(<?php echo $row->id ?>)"
+                                                    <!-- <button type="button" onclick="hapus(<?php echo $row->id ?>)"
                                                         class="btn btn-sm btn-square btn-danger text-danger-hover-none">
                                                         <i class="bi bi-trash"></i>
-                                                    </button>
+                                                    </button> -->
                                                 </td>
                                             <?php endif; ?>
                                         </tr>
@@ -151,7 +151,7 @@
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
 
     <!-- sweet alert hapus data absensi karyawan -->
-    <script>
+    <!-- <script>
         function hapus(id) {
             swal.fire({
                 title: 'Yakin untuk menghapus data ini?',
@@ -182,7 +182,7 @@
                 }
             });
         }
-    </script>
+    </script> -->
 
     <!-- sweet alert jika berhasil melakukan pulang -->
     <?php if ($this->session->flashdata('berhasil_pulang')): ?>

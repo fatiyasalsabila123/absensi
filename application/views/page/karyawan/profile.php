@@ -43,20 +43,20 @@
                                     <h6 class="text-xs text-uppercase text-muted mb-1">
                                         <?php echo $this->session->userData('role') ?>
                                     </h6>
-                                    <h1 class="h2">
+                                    <h1 class="h2 text-capitalize">
                                         <?php echo $this->session->userData('username') ?>
                                     </h1>
                                 </div>
                             </div>
                             <ul class="nav nav-tabs overflow-x ms-1 mt-4">
                                 <li class="nav-item">
-                                    <a href="#!" class="nav-link active font-bold" id="myProfile">My profile</a>
+                                    <a href="#!" class="nav-link active font-bold" id="myProfile">My Profile</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#!" class="nav-link" id="editProfile">Edit Profile</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#!" class="nav-link" id="editPassword">Edit password</a>
+                                    <a href="#!" class="nav-link" id="editPassword">Edit Password</a>
                                 </li>
                             </ul>
                         </div>
@@ -69,7 +69,7 @@
                                     <div class="card-body">
                                         <h5 class="mb-3">Profile</h5>
                                         <br>
-                                        <div class="row">
+                                        <div class="row text-capitalize">
                                             <p class="text-sm lh-relaxed mb-4 col-6">Username</p>
                                             <p class="text-sm lh-relaxed mb-4 col-6">
                                                 <?php echo $this->session->userData('username') ?>
@@ -80,7 +80,7 @@
                                                 <?php echo $this->session->userdata('email') ?>
                                             </p>
                                             <hr>
-                                            <p class="text-sm lh-relaxed mb-4 col-6">Nama lengkap</p>
+                                            <p class="text-sm lh-relaxed mb-4 col-6">Nama Lengkap</p>
                                             <p class="text-sm lh-relaxed mb-4 col-6">
                                                 <?= $this->fungsi->user_login()->nama_depan . " " . $this->fungsi->user_login()->nama_belakang ?>
                                             </p>
@@ -104,26 +104,26 @@
                                                 <label for="password_lama" class="form-label">Password lama</label>
                                                 <div class="input-group">
                                                     <input type="password" name="password_lama" class="form-control"
-                                                        id="password_lama" placeholder="password_lama" required>
+                                                        id="password_lama" placeholder="Password Lama" required>
                                                     <span class="input-group-text"><i id="showPasswordLama"
                                                             class="fas fa-eye"></i></span>
                                                 </div>
                                             </div>
                                             <div class="mb-3 col-6">
-                                                <label for="password_baru" class="form-label">Password baru</label>
+                                                <label for="password_baru" class="form-label">Password Baru</label>
                                                 <div class="input-group">
                                                     <input type="password" name="password_baru" class="form-control"
-                                                        id="password_baru" placeholder="password_baru" required>
+                                                        id="password_baru" placeholder="Password Baru" required>
                                                     <span class="input-group-text"><i id="showPasswordBaru"
                                                             class="fas fa-eye"></i></span>
                                                 </div>
                                             </div>
                                             <div class="mb-3 col-6">
                                                 <label for="konfirmasi_password" class="form-label">Konfirmasi
-                                                    password</label>
+                                                    Password</label>
                                                 <div class="input-group">
                                                     <input type="password" name="konfirmasi_password" class="form-control"
-                                                        id="konfirmasi_password" placeholder="konfirmasi_password" required>
+                                                        id="konfirmasi_password" placeholder="Konfirmasi Password" required>
                                                     <span class="input-group-text"><i id="showKonfirmasiPassword"
                                                             class="fas fa-eye"></i></span>
                                                 </div>
@@ -274,7 +274,7 @@
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil edit profile',
+                title: 'Berhasil Edit Profile',
                 text: '<?= $this->session->flashdata('berhasil_edit_profile') ?>',
                 background: '#fff',
                 customClass: {
@@ -290,7 +290,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal edit profile',
+                title: 'Gagal Edit Profile',
                 text: '<?= $this->session->flashdata('gagal_edit_profile') ?>',
                 background: '#fff',
                 customClass: {
@@ -306,7 +306,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal ganti password',
+                title: 'Gagal Ganti Password',
                 text: '<?= $this->session->flashdata('konfirmasi_pass') ?>',
                 background: '#fff',
                 customClass: {
@@ -322,7 +322,7 @@
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil ganti password',
+                title: 'Berhasil Ganti Password',
                 text: '<?= $this->session->flashdata('berhasil_ganti_password') ?>',
                 background: '#fff',
                 customClass: {
@@ -338,7 +338,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal ganti password',
+                title: 'Gagal Ganti Password',
                 text: '<?= $this->session->flashdata('pass_lama') ?>',
                 background: '#fff',
                 customClass: {
@@ -354,7 +354,7 @@
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil ganti foto',
+                title: 'Berhasil Ganti Foto',
                 text: '<?= $this->session->flashdata('berhasil_ganti_foto') ?>',
                 background: '#fff',
                 customClass: {
@@ -370,7 +370,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal ganti Foto',
+                title: 'Gagal Ganti Foto',
                 text: '<?= $this->session->flashdata('gagal_ganti_foto') ?>',
                 background: '#fff',
                 customClass: {

@@ -44,38 +44,38 @@
                     class="row align-items-center">
                     <div class="header-text mb-4">
                         <h2>Register Admin</h2>
-                        <p>Buat akun sekarang agar bisa login</p>
+                        <p>Buat Akun Sekarang Agar Bisa Login</p>
                     </div>
                     <div class="input-group mb-3">
                         <input type="email" class="form-control form-control-lg bg-light fs-6" name="email"
-                            required="Input email harus di isi" placeholder="Email address">
+                            required placeholder="Email">
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="username"
-                            required="Input username harus di isi" placeholder="Username">
+                            required placeholder="Username">
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_depan"
-                            required="Input nama depan harus di isi" placeholder="Nama depan">
+                            required placeholder="Nama Depan">
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_belakang"
-                            required="Input nama belakang harus di isi" placeholder="Nama Belakang">
+                            required placeholder="Nama Belakang">
                     </div>
                     <div class="input-group mb-1">
                         <input type="password" id="password" class="form-control form-control-lg bg-light fs-6"
-                            name="password" required="Input password harus di isi" placeholder="Password">
+                            name="password" required placeholder="Password">
                     </div>
                     <div class="input-group mb-3">
                         <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role"
                             placeholder="Role" value="admin">
                     </div>
-                    <p>Password harus minimal 8 karakter*</p>
+                    <p>*Password Harus Minimal 8 Karakter Huruf Besar Dan Huruf Kecil</p>
                     <div class="input-group mb-5 d-flex justify-content-between">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="show-password">
                             <label for="formCheck" class="form-check-label text-secondary"><small>Tampilkan
-                                    password</small></label>
+                                    Password</small></label>
                         </div>
                     </div>
                     <div class="input-group mb-3">
@@ -83,7 +83,7 @@
                             style="background: #8ECDDD; color: black;">Register</button>
                     </div>
                     <div class="row">
-                        <small>Sudah memiliki akun? silahkan <a href="/absensi/auth/">Login</a></small>
+                        <small>Sudah Memiliki Akun? Silahkan <a href="/absensi/auth/">Login</a></small>
                     </div>
                 </form>
             </div>

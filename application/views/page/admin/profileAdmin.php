@@ -15,7 +15,7 @@
     <title>Profile Admin</title>
 </head>
 
-<body>
+<body class="text-capitalize">
     <?php if ($this->session->userdata('role') === "admin"): ?>
         <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
             <!-- kondisi jika tidak berrole admin maka tidak bisa melihat page ini -->
@@ -278,7 +278,7 @@
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil edit profile',
+                title: 'Berhasil Edit Profile',
                 text: '<?= $this->session->flashdata('berhasil_edit_profile') ?>',
                 background: '#fff',
                 customClass: {
@@ -294,7 +294,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal edit profile',
+                title: 'Gagal Edit Profile',
                 text: '<?= $this->session->flashdata('gagal_edit_profile') ?>',
                 background: '#fff',
                 customClass: {
@@ -310,7 +310,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal ganti password',
+                title: 'Gagal Ganti Password',
                 text: '<?= $this->session->flashdata('konfirmasi_pass') ?>',
                 background: '#fff',
                 customClass: {
@@ -326,7 +326,7 @@
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil ganti password',
+                title: 'Berhasil Ganti Password',
                 text: '<?= $this->session->flashdata('berhasil_ganti_password') ?>',
                 background: '#fff',
                 customClass: {
@@ -342,7 +342,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal ganti password',
+                title: 'Gagal Ganti Password',
                 text: '<?= $this->session->flashdata('pass_lama') ?>',
                 background: '#fff',
                 customClass: {
@@ -358,7 +358,7 @@
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil ganti foto',
+                title: 'Berhasil Ganti Foto',
                 text: '<?= $this->session->flashdata('berhasil_ganti_foto') ?>',
                 background: '#fff',
                 customClass: {
@@ -374,7 +374,7 @@
         <script>
             Swal.fire({
                 icon: 'error',
-                title: 'Gagal ganti Foto',
+                title: 'Gagal Ganti Foto',
                 text: '<?= $this->session->flashdata('gagal_ganti_foto') ?>',
                 background: '#fff',
                 customClass: {

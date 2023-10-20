@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+<body class="text-capitalize">
     <!-- kondisi jika tidak berole admin maka tidak bisa melihat page ini -->
     <?php if ($this->session->userdata('role') === "admin"): ?>
         <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
@@ -33,7 +33,7 @@
                         <form class="d-flex" style="gap:10px" method="post" id="exportForm">
                             <select class="form-select form-select-sm" name="bulan" id="bulan"
                                 aria-label="Small select example">
-                                <option value="">Pilih bulan</option>
+                                <option value="">Pilih Bulan</option>
                                 <option value="01">Januari</option>
                                 <option value="02">Februari</option>
                                 <option value="03">Maret</option>

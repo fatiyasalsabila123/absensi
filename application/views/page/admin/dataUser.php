@@ -27,7 +27,7 @@
                         <!-- start search mencari data -->
                         <form class="d-flex" style="gap:10px" action="<?php echo base_url('page/dataKaryawan') ?>"
                             method="post">
-                            <input type="search" name="search_keyword" class="form-control" placeholder="Cari username">
+                            <input type="search" name="search_keyword" class="form-control" placeholder="Cari Username">
                             <button class="btn btn btn-primary" type="submit" name="submit">Cari</button>
                         </form>
                         <!-- end search -->
@@ -36,7 +36,7 @@
                             <div class="card-header px-3">
                                 <!-- start button export data -->
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="mb-0">Karyawan</h5>
+                                    <h5 class="mb-0">Data user</h5>
                                     <div class="d-flex">
                                         <button class="btn btn-sm btn-primary"><a
                                                 href="<?php echo base_url('page/export') ?>"
@@ -57,6 +57,7 @@
                                             <th scope="col">Nama belakang</th>
                                             <th scope="col">image</th>
                                             <th scope="col">Email</th>
+                                            <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
                                     <!-- end th -->
@@ -86,6 +87,12 @@
                                                 <td>
                                                     <?php echo $row->email ?>
                                                 </td>
+                                                <td>
+                                                    <button type="button" onclick="hapus(<?php echo $row->id ?>)"
+                                                        class="btn btn-sm btn-square btn-danger text-danger-hover-none">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -101,6 +108,39 @@
     <?php endif; ?>
     <!-- script FlexStart -->
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
+    
+    <script>
+        function hapus(id) {
+            swal.fire({
+                title: 'Yakin untuk menghapus data ini?',
+                icon: 'warning',
+                background: '#fff',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya Hapus', customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil Dihapus',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        background: '#fff', customClass: {
+                            title: 'text-dark',
+                            content: 'text-dark'
+                        }
+                    }).then(function () {
+                        window.location.href = "<?php echo base_url('page/hapus/') ?>" + id;
+                    });
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

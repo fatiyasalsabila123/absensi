@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="text-capitalize">
     <!-- kondisi jika tidak role admin maka tidak bisa melihat page ini -->
     <?php if ($this->session->userdata('role') === "admin"):?>
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">

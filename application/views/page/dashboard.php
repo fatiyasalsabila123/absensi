@@ -29,8 +29,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total masuk
-                                                kerja</span>
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Masuk
+                                                Kerja</span>
                                             <span class="h3 font-bold mb-0">
                                                 <?php echo $total_kerja ?>
                                             </span>
@@ -50,7 +50,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
-                                                cuti</span>
+                                                Cuti</span>
                                             <span class="h3 font-bold mb-0">
                                                 <?php echo $total_cuti ?>
                                             </span>
@@ -70,7 +70,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
-                                                data</span>
+                                                Data</span>
                                             <span class="h3 font-bold mb-0">
                                                 <?php echo $total_data ?>
                                             </span>
@@ -91,7 +91,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
-                                                    data user</span>
+                                                    Data User</span>
                                                 <span class="h3 font-bold mb-0">
                                                     <?php echo $total_data_user ?>
                                                 </span>
@@ -126,7 +126,7 @@
                                         <th scope="col">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-capitalize">
                                     <?php $no = 0;
                                     foreach ($dashboard as $row):
                                         $no++ ?>
@@ -180,7 +180,7 @@
                                             <th scope="col">Email</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="text-capitalize">
                                         <?php $no = 0;
                                         foreach ($get_user as $row):
                                             $no++ ?>

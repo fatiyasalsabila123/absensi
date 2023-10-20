@@ -96,8 +96,9 @@ class Page extends CI_Controller
 	// start hapus data absensi
 	public function hapus($id)
 	{
-		$this->m_model->delete('absensi', 'id', $id);
-		redirect(base_url('page/absensi_karyawan'));
+		$this->m_model->delete_relasi($id);
+		$this->m_model->delete('user', 'id', $id);
+		redirect(base_url('page/dataUser'));
 	}
 	//end hapus data absensi
 
@@ -109,10 +110,10 @@ class Page extends CI_Controller
 		];
 		$eksekusi = $this->m_model->ubah_data('absensi', $data, array('id' => $this->input->post('id')));
 		if ($eksekusi) {
-			$this->session->set_flashdata('success_message', 'berhasil');
+			$this->session->set_flashdata('success_message', 'Berhasil');
 			redirect(base_url('page/absensi_karyawan'));
 		} else {
-			$this->session->set_flashdata('error', "Data belum di edit");
+			$this->session->set_flashdata('error', "Data Belum Di Edit");
 			redirect(base_url('page/edit_kegiatan/' . $this->input->post('id')));
 		}
 	}
@@ -183,10 +184,10 @@ class Page extends CI_Controller
 		$this->session->set_userdata($data);
 		$update_result = $this->m_model->ubah_data('user', $data, array('id' => $this->session->userdata('id')));
 		if ($update_result) {
-			$this->session->set_flashdata('berhasil_ganti_foto', 'Foto berhasil diubah');
+			$this->session->set_flashdata('berhasil_ganti_foto', 'Foto Berhasil Diubah');
 			redirect(base_url('page/profile'));
 		} else {
-			$this->session->set_flashdata('gagal_ganti_foto', 'Foto gagal diubah');
+			$this->session->set_flashdata('gagal_ganti_foto', 'Foto Gagal Diubah');
 			redirect(base_url('page/profile'));
 		}
 	}
@@ -207,11 +208,11 @@ class Page extends CI_Controller
 		$eksekusi = $this->m_model->ubah_data('user', $data, array('id' => $user_id));
 
 		if ($eksekusi) {
-			$this->session->set_flashdata('berhasil_edit_profile', 'Berhasil untuk mengedit profile');
+			$this->session->set_flashdata('berhasil_edit_profile', 'Berhasil Untuk Mengedit Profile');
 			$this->session->set_userdata($data);
 			redirect(base_url('page/profile'));
 		} else {
-			$this->session->set_flashdata('gagal_edit_profile', 'Gagal untuk mengedit profile');
+			$this->session->set_flashdata('gagal_edit_profile', 'Gagal Untuk Mengedit Profile');
 			redirect(base_url('page/profile'));
 		}
 	}
@@ -243,14 +244,14 @@ class Page extends CI_Controller
 				$data = ['password' => md5($password_baru)];
 				$this->m_model->ubah_data('user', $data, ['id' => $this->session->userdata('id')]);
 
-				$this->session->set_flashdata('berhasil_ganti_password', 'Password berhasil diubah');
+				$this->session->set_flashdata('berhasil_ganti_password', 'Password Berhasil Diubah');
 				redirect(base_url('page/profile'));
 			} else {
-				$this->session->set_flashdata('konfirmasi_pass', 'Password baru dan konfirmasi password harus sama');
+				$this->session->set_flashdata('konfirmasi_pass', 'Password Baru Dan Konfirmasi Password Harus Sama');
 				redirect(base_url('page/profile'));
 			}
 		} else {
-			$this->session->set_flashdata('pass_lama', 'Pastikan anda mengisi password lama anda dengan benar');
+			$this->session->set_flashdata('pass_lama', 'Pastikan Anda Mengisi Password Lama Anda Dengan Benar');
 			redirect(base_url('page/profile'));
 		}
 		redirect(base_url('page/profile'));
@@ -800,7 +801,7 @@ class Page extends CI_Controller
 			$writer = new Xlsx($spreadsheet);
 			$writer->save('php://output');
 		} else {
-			$this->session->set_flashdata('error_export_perbulan', 'Data tidak ada untuk di export');
+			$this->session->set_flashdata('error_export_perbulan', 'Data Tidak Ada Untuk Di Export');
 			redirect(base_url('page/rekapBulanan'));
 		}
 
@@ -845,7 +846,7 @@ class Page extends CI_Controller
 	//end menampilkan page rekap bulanan
 
 	//start menampilkan page data karyawan
-	public function dataKaryawan()
+	public function dataUser()
 	{
 		$keyword = $this->input->post('search_keyword');
 
@@ -857,7 +858,7 @@ class Page extends CI_Controller
 			$data['get_karyawan'] = $this->m_model->get_data('user')->result();
 		}
 
-		$this->load->view('page/admin/dataKaryawan', $data);
+		$this->load->view('page/admin/dataUser', $data);
 	}
 	//end menampilkan page data karyawan
 

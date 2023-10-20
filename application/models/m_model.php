@@ -253,6 +253,12 @@ class M_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function delete_relasi($userId) {
+        $this->db->where('id_karyawan', $userId);
+        $this->db->delete('absensi');
+    }
+    
     
 }
 ?>
