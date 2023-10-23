@@ -258,6 +258,16 @@ class M_model extends CI_Model
         $this->db->where('id_karyawan', $userId);
         $this->db->delete('absensi');
     }
+
+    public function hanya_karyawan() {
+        $this->db->where('role', 'karyawan');
+        $query = $this->db->get('user');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array(); // Mengembalikan array kosong jika tidak ada data yang sesuai
+        }
+    }
     
     
 }

@@ -14,9 +14,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,500&display=swap"
+        rel="stylesheet">
 </head>
 
-<body class="text-capitalize">
+<body class="text-capitalize" style="font-family: 'Poppins', sans-serif;">
     <!-- kondisi jika tidak role admin maka tidak bisa melihat page ini -->
     <?php if ($this->session->userdata('role') === "admin"): ?>
         <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">

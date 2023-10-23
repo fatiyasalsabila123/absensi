@@ -5,16 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absensi karyawan</title>
+    <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/dashboard.css" rel="stylesheet">
+    <!-- sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,500&display=swap"
+        rel="stylesheet">
 </head>
-<link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/dashboard.css" rel="stylesheet">
-<!-- sweetalert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-<!-- font-awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<body class="text-capitalize">
+<body class="text-capitalize" style="font-family: 'Poppins', sans-serif;">
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <!-- sidebar -->
         <?php $this->load->view('component/sidebar'); ?>
@@ -72,7 +76,7 @@
                                         <th scope="col">Jam Pulang</th>
                                         <th scope="col">Keterangan Izin</th>
                                         <th scope="col">Status</th>
-                                        <?php if ($this->session->userdata('role') === "karyawan"): ?>
+                                        <?php if ($this->session->userdata('role') === "admin"): ?>
                                             <th scope="col" class="text-center">Aksi</th>
                                         <?php endif; ?>
                                     </tr>
@@ -106,8 +110,8 @@
                                             <td>
                                                 <?php echo $row->status ?>
                                             </td>
-                                            <?php if ($this->session->userdata('role') === "karyawan"): ?>
-                                                <td class="text-end">
+                                            <td class="text-end">
+                                                <?php if ($this->session->userdata('role') === "karyawan"): ?>
                                                     <?php if ($row->status == "done"): ?>
                                                         <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
                                                             disabled><a class="text-white text-decoration-none">
@@ -131,12 +135,14 @@
                                                             href="<?php echo base_url('page/edit_kegiatan/' . $row->id) ?>">
                                                             <i class="fas fa-edit"></i></a>
                                                     </button>
-                                                    <!-- <button type="button" onclick="hapus(<?php echo $row->id ?>)"
+                                                <?php endif; ?>
+                                                <?php if ($this->session->userdata('role') == "admin"): ?>
+                                                    <button type="button" onclick="hapus(<?php echo $row->id ?>)"
                                                         class="btn btn-sm btn-square btn-danger text-danger-hover-none">
                                                         <i class="bi bi-trash"></i>
-                                                    </button> -->
-                                                </td>
-                                            <?php endif; ?>
+                                                    </button>
+                                                <?php endif; ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -151,7 +157,7 @@
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/js/script.js" rel="stylesheet">
 
     <!-- sweet alert hapus data absensi karyawan -->
-    <!-- <script>
+    <script>
         function hapus(id) {
             swal.fire({
                 title: 'Yakin untuk menghapus data ini?',
@@ -171,18 +177,19 @@
                         icon: 'success',
                         title: 'Berhasil Dihapus',
                         showConfirmButton: false,
+                        background: '#fff',
                         timer: 1500, customClass: {
                             title: 'text-dark',
                             content: 'text-dark'
                         }
 
                     }).then(function () {
-                        window.location.href = "<?php echo base_url('page/hapus/') ?>" + id;
+                        window.location.href = "<?php echo base_url('page/hapus_absensi_karyawan/') ?>" + id;
                     });
                 }
             });
         }
-    </script> -->
+    </script>
 
     <!-- sweet alert jika berhasil melakukan pulang -->
     <?php if ($this->session->flashdata('berhasil_pulang')): ?>

@@ -101,6 +101,11 @@ class Page extends CI_Controller
 		redirect(base_url('page/dataUser'));
 	}
 	//end hapus data absensi
+	
+	public function hapus_absensi_karyawan($id) {
+		$this->m_model->delete('absensi', 'id', $id);
+		redirect(base_url('page/absensi_karyawan'));
+	}
 
 	//start edit kegiatan di tabell absensi
 	public function aksi_edit()
@@ -855,7 +860,7 @@ class Page extends CI_Controller
 			$data['get_karyawan'] = $this->m_model->searchKaryawan($keyword);
 		} else {
 			// Handle jika $keyword adalah null, misalnya tampilkan semua data
-			$data['get_karyawan'] = $this->m_model->get_data('user')->result();
+			$data['get_karyawan'] = $this->m_model->hanya_karyawan();
 		}
 
 		$this->load->view('page/admin/dataUser', $data);

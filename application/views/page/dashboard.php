@@ -8,9 +8,12 @@
     <link href="<?php echo base_url('/asset/FlexStart/') ?>assets/css/dashboard.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,500&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="font-family: 'Poppins', sans-serif;">
     <!-- Dashboard -->
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <!-- Vertical Navbar -->
@@ -29,7 +32,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Masuk
+                                            <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
                                                 Kerja</span>
                                             <span class="h3 font-bold mb-0">
                                                 <?php echo $total_kerja ?>
@@ -165,7 +168,7 @@
                     <?php if ($this->session->userdata('role') === "admin"): ?>
                         <div class="card shadow border-0 mb-7">
                             <div class="card-header px-3">
-                                <h5 class="mb-0">Karyawan</h5>
+                                <h5 class="mb-0">User</h5>
                             </div>
                             <div class="table-responsive">
                                 <!-- start tabel user -->

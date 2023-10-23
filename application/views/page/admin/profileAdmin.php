@@ -13,9 +13,13 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
     <title>Profile Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,500&display=swap"
+        rel="stylesheet">
 </head>
 
-<body class="text-capitalize">
+<body class="text-capitalize" style="font-family: 'Poppins', sans-serif;">
     <?php if ($this->session->userdata('role') === "admin"): ?>
         <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
             <!-- kondisi jika tidak berrole admin maka tidak bisa melihat page ini -->

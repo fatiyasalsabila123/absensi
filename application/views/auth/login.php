@@ -41,18 +41,20 @@
             <!-------------------- ------ Right Box ---------------------------->
 
             <div class="col-md-6 right-box">
-                <form action="<?php echo base_url('Auth/aksi_login') ?>" method="post" class="row align-items-center">
+                <form action="<?php echo base_url('auth/aksi_login') ?>" method="post" class="row align-items-center">
                     <div class="header-text mb-4">
                         <h2>Login</h2>
                         <p>Selamat Datang Kembali</p>
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" required name="email"
-                            placeholder="Email">
+                            placeholder="Email" value="<?php echo set_value('email')?>">
+                        <!-- <?= form_error('email', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
                     <div class="input-group mb-1">
                         <input type="password" id="password" class="form-control form-control-lg bg-light fs-6" required
                             name="password" placeholder="Password">
+                        <!-- <?= form_error('password', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
                     <div class="input-group mb-5 d-flex justify-content-between">
                         <div class="form-check">

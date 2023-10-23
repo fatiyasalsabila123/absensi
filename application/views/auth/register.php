@@ -38,49 +38,46 @@
 
             <!-------------------- ------ Right Box ---------------------------->
 
-            <div class="col-md-6 right-box">
+            <div class="col-md-6 right-box max-h-screen">
                 <form action="<?php echo base_url('Auth/aksi_register') ?>" method="post"
                     class="row align-items-center">
-                    <div class="header-text mb-4">
+                    <div class="header-text">
                         <h2>Register</h2>
                         <p>Buat Akun Sekarang Agar Bisa Login</p>
                     </div>
                     <div class="form-group mb-3">
                         <input type="email" class="form-control form-control-lg bg-light fs-6" name="email"
                             placeholder="Email" value="<?php echo set_value('email');?>">
-                    <?= form_error('email', '<smal class="text-danger pl-3">', '</smal>'); ?>
+                    <!-- <?= form_error('email', '<smal class="text-danger pl-3">', '</smal>'); ?> -->
                     </div>
                     <div class="form-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="username"
                             placeholder="Username" value="<?php echo set_value('username');?>">
-                    <?= form_error('username', '<div class="text-danger">', '</div>'); ?>
+                    <!-- <?= form_error('username', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="row">
+                    <div class="form-group mb-3 col">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_depan"
                             placeholder="Nama Depan" value="<?php echo set_value('nama_depan');?>">
-                    <?= form_error('nama_depan', '<div class="text-danger">', '</div>'); ?>
+                    <!-- <?= form_error('nama_depan', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3 col">
                         <input type="text" class="form-control form-control-lg bg-light fs-6"
                             name="nama_belakang" placeholder="Nama Belakang" value="<?php echo set_value('nama_belakang');?>">
-                    <?= form_error('nama_belakang', '<div class="text-danger">', '</div>'); ?>
+                    <!-- <?= form_error('nama_belakang', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
+                </div>
                     <div class="form-group mb-1">
                         <input type="password" id="password" class="form-control form-control-lg bg-light fs-6"
                             name="password" placeholder="Password" value="<?php echo set_value('password');?>">
-                    <?= form_error('password', '<div class="text-danger">', '</div>'); ?>
-                    </div>
-                    <div class="form-group mb-1">
-                        <input type="password" id="konfir_password" class="form-control form-control-lg bg-light fs-6"
-                            name="konfir_password" placeholder="Konfirmasi Password" value="<?php echo set_value('konfir_password');?>">
-                    <?= form_error('konfir_password', '<div class="text-danger">', '</div>'); ?>
+                    <!-- <?= form_error('password', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
                     <div class="form-group mb-3">
                         <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role"
                             placeholder="Role" value="karyawan">
                     </div>
-                    <p>Password Harus Minimal 8 Karakter*</p>
-                    <div class="form-group mb-5 d-flex justify-content-between">
+                        <p style="font-size:13px">* Password Harus Minimal 8 Karakter Dan Ada Huruf Besar Dan Kecil</p>
+                    <div class="form-group mb-3 d-flex justify-content-between">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="show-password">
                             <label for="formCheck" class="form-check-label text-secondary"><small>Tampilkan

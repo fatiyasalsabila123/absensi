@@ -78,23 +78,30 @@
                     <?php if ($this->session->userdata('role') === "admin"): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="dataUser">
-                                <i class="bi bi-bar-chart"></i> Data User
+                            <i class="fas fa-user-friends"></i> Data Karyawan
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="#submenu2" data-bs-toggle="collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="nav-link">
+                            <i class="fas fa-bars"></i> Data Rekap
+                            </a>
+                            <ul class="navbar-nav" id="submenu2" data-bs-parent="#menu">
+                        <li class="nav-item">
                             <a class="nav-link" href="rekapHarian">
-                                <i class="bi bi-bar-chart"></i> Data absensi harian
+                            <i class="fas fa-calendar-day"></i> Data absensi harian
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="rekapMingguan">
-                                <i class="bi bi-bar-chart"></i> Data absensi mingguan
+                            <i class="fas fa-table"></i> Data absensi mingguan
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="rekapBulanan">
-                                <i class="bi bi-bar-chart"></i> Data absensi bulanan
+                            <i class="fas fa-calendar-minus"></i> Data absensi bulanan
                             </a>
+                        </li>
+                            </ul>
                         </li>
                     <?php endif; ?>
                 </ul>

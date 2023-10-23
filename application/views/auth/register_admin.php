@@ -42,7 +42,7 @@
             <div class="col-md-6 right-box">
                 <form action="<?php echo base_url('Auth/aksi_register_admin') ?>" method="post"
                     class="row align-items-center">
-                    <div class="header-text mb-4">
+                    <div class="header-text">
                         <h2>Register Admin</h2>
                         <p>Buat Akun Sekarang Agar Bisa Login</p>
                     </div>
@@ -54,14 +54,16 @@
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="username"
                             required placeholder="Username">
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="row">
+                    <div class="input-group col mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_depan"
                             required placeholder="Nama Depan">
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group col mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_belakang"
                             required placeholder="Nama Belakang">
                     </div>
+                </div>
                     <div class="input-group mb-1">
                         <input type="password" id="password" class="form-control form-control-lg bg-light fs-6"
                             name="password" required placeholder="Password">
@@ -70,8 +72,8 @@
                         <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role"
                             placeholder="Role" value="admin">
                     </div>
-                    <p>*Password Harus Minimal 8 Karakter Huruf Besar Dan Huruf Kecil</p>
-                    <div class="input-group mb-5 d-flex justify-content-between">
+                        <p style="font-size:13px">* Password Harus Minimal 8 Karakter Dan Ada Huruf Besar Dan Kecil</p>
+                    <div class="input-group mb-3 d-flex justify-content-between">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="show-password">
                             <label for="formCheck" class="form-check-label text-secondary"><small>Tampilkan
