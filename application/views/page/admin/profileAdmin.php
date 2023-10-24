@@ -113,7 +113,7 @@
                                                 <label for="password_lama" class="form-label">Password lama</label>
                                                 <div class="input-group">
                                                     <input type="password" name="password_lama" class="form-control"
-                                                        id="password_lama" placeholder="password_lama" required>
+                                                        id="password_lama" required>
                                                     <span class="input-group-text"><i id="showPasswordLama"
                                                             class="fas fa-eye"></i></span>
                                                 </div>
@@ -122,7 +122,7 @@
                                                 <label for="password_baru" class="form-label">Password baru</label>
                                                 <div class="input-group">
                                                     <input type="password" name="password_baru" class="form-control"
-                                                        id="password_baru" placeholder="password_baru" required>
+                                                        id="password_baru" required>
                                                     <span class="input-group-text"><i id="showPasswordBaru"
                                                             class="fas fa-eye"></i></span>
                                                 </div>
@@ -132,7 +132,7 @@
                                                     password</label>
                                                 <div class="input-group">
                                                     <input type="password" name="konfirmasi_password" class="form-control"
-                                                        id="konfirmasi_password" placeholder="konfirmasi_password" required>
+                                                        id="konfirmasi_password" required>
                                                     <span class="input-group-text"><i id="showKonfirmasiPassword"
                                                             class="fas fa-eye"></i></span>
                                                 </div>

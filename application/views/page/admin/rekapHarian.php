@@ -33,7 +33,7 @@
                     <div class="container-fluid">
                         <!-- form yang berisi tanggal  -->
                         <form method="post" class="d-flex" style="gap:10px">
-                            <input type="date" name="tanggal" class="form-control" id="tanggal" required>
+                            <input type="date" name="tanggal" class="form-control" id="tanggal">
                             <button class="btn btn-sm btn-primary" type="submit" name="submit"
                                 formaction="<?php echo base_url('page/rekapharian') ?>">Submit</button>
                             <button class="btn btn-sm btn-primary" type="submit" name="submit"

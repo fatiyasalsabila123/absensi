@@ -76,9 +76,7 @@
                                         <th scope="col">Jam Pulang</th>
                                         <th scope="col">Keterangan Izin</th>
                                         <th scope="col">Status</th>
-                                        <?php if ($this->session->userdata('role') === "admin"): ?>
-                                            <th scope="col" class="text-center">Aksi</th>
-                                        <?php endif; ?>
+                                        <th scope="col" class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-capitalize">
@@ -115,18 +113,18 @@
                                                     <?php if ($row->status == "done"): ?>
                                                         <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
                                                             disabled><a class="text-white text-decoration-none">
-                                                                Pulang</a>
+                                                                <i class="fas fa-home"></i></a>
                                                         </button>
                                                     <?php elseif ($row->keterangan_izin != "-"): ?>
                                                         <button type="button" class="btn btn-sm btn-secondary text-danger-hover"
                                                             disabled><a class="text-white text-decoration-none">
-                                                                Pulang</a>
+                                                                <i class="fas fa-home"></i></a>
                                                         </button>
                                                     <?php else: ?>
                                                         <button type="button" class="btn btn-sm btn-warning text-danger-hover"><a
                                                                 class="text-black text-decoration-none"
                                                                 href="<?php echo base_url('page/pulang/' . $row->id) ?>">
-                                                                Pulang</a>
+                                                                <i class="fas fa-home"></i></a>
                                                         </button>
                                                     <?php endif; ?>
                                                     <button type="button"

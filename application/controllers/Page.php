@@ -327,7 +327,7 @@ class Page extends CI_Controller
 		$sheet->getStyle('E3')->applyFromArray($style_col);
 		$sheet->getStyle('F3')->applyFromArray($style_col);
 
-		$karyawan = $this->m_model->get_data('user')->result();
+		$karyawan = $this->m_model->hanya_karyawan();
 
 		$no = 1;
 		$numrow = 4;
@@ -336,15 +336,13 @@ class Page extends CI_Controller
 			$sheet->setCellValue('B' . $numrow, $data->username);
 			$sheet->setCellValue('C' . $numrow, $data->nama_depan);
 			$sheet->setCellValue('D' . $numrow, $data->nama_belakang);
-			$sheet->setCellValue('E' . $numrow, $data->image);
-			$sheet->setCellValue('F' . $numrow, $data->email);
+			$sheet->setCellValue('E' . $numrow, $data->email);
 
 			$sheet->getStyle('A' . $numrow)->applyFromArray($style_row);
 			$sheet->getStyle('B' . $numrow)->applyFromArray($style_row);
 			$sheet->getStyle('C' . $numrow)->applyFromArray($style_row);
 			$sheet->getStyle('D' . $numrow)->applyFromArray($style_row);
 			$sheet->getStyle('E' . $numrow)->applyFromArray($style_row);
-			$sheet->getStyle('F' . $numrow)->applyFromArray($style_row);
 
 			$no++;
 			$numrow++;
@@ -355,7 +353,6 @@ class Page extends CI_Controller
 		$sheet->getColumnDimension('C')->setWidth(50);
 		$sheet->getColumnDimension('D')->setWidth(20);
 		$sheet->getColumnDimension('E')->setWidth(30);
-		$sheet->getColumnDimension('F')->setWidth(30);
 
 		$sheet->getDefaultRowDimension()->setRowHeight(-1);
 
@@ -484,7 +481,7 @@ class Page extends CI_Controller
 	//start export data absen perhari
 	public function export_absensi()
 	{
-		$tanggal = date('Y-m-d');
+		$tanggal = $this->session->userdata('tanggal');
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 
@@ -703,7 +700,7 @@ class Page extends CI_Controller
 	//start export data absen bulanan
 	public function export_absensi_bulanan()
 	{
-		$bulan = $this->input->post('bulan');
+		$bulan = $this->session->userdata('bulan');
 		$absensi = $this->m_model->getBulananData($bulan);
 		// $bulan = date('Y-m');
 		$spreadsheet = new Spreadsheet();
@@ -818,6 +815,7 @@ class Page extends CI_Controller
 	{
 		// $tanggal = date('Y-m-d');
 		$tanggal = $this->input->post('tanggal');
+		$this->session->set_userdata('tanggal', $tanggal);
 		$data['rekapHarian'] = $this->m_model->getHarianData($tanggal);
 		$this->load->view('page/admin/rekapHarian', $data);
 	}
@@ -839,6 +837,7 @@ class Page extends CI_Controller
 	public function rekapBulanan()
 	{
 		$bulan = $this->input->post('bulan');
+		$this->session->set_userdata('bulan', $bulan);
 		$data['rekapBulanan'] = array();
 
 		if (!empty($bulan)) {

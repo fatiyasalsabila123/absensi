@@ -29,7 +29,7 @@
                 <main class="py-6 bg-surface-secondary">
                     <div class="container-fluid">
                         <!-- start search mencari data -->
-                        <form class="d-flex" style="gap:10px" action="<?php echo base_url('page/dataKaryawan') ?>"
+                        <form class="d-flex" style="gap:10px" action="<?php echo base_url('page/dataUser') ?>"
                             method="post">
                             <input type="search" name="search_keyword" class="form-control" placeholder="Cari Username">
                             <button class="btn btn btn-primary" type="submit" name="submit">Cari</button>
@@ -40,7 +40,7 @@
                             <div class="card-header px-3">
                                 <!-- start button export data -->
                                 <div class="d-flex justify-content-between">
-                                    <h5 class="mb-0">Data user</h5>
+                                    <h5 class="mb-0">Data Karyawan</h5>
                                     <div class="d-flex">
                                         <button class="btn btn-sm btn-primary"><a
                                                 href="<?php echo base_url('page/export') ?>"
