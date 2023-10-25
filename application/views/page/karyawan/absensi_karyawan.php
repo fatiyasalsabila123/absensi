@@ -96,9 +96,16 @@
                                             <td>
                                                 <?php echo $row->date ?>
                                             </td>
-                                            <td>
-                                                <?php echo $row->jam_masuk ?>
+                                            <?php
+                                            date_default_timezone_set('Asia/Jakarta');
+                                            $seven_am = strtotime(date('Y-m-d 07:00:00'));
+                                            $jam_masuk = strtotime($row->jam_masuk);
+                                            ?>
+                                            <td
+                                                class="<?php echo ($jam_masuk > $seven_am) ? 'text-danger' : 'text-black'; ?>">
+                                                <?php echo $row->jam_masuk; ?>
                                             </td>
+
                                             <td>
                                                 <?php echo $row->jam_pulang ?>
                                             </td>
@@ -121,18 +128,52 @@
                                                                 <i class="fas fa-home"></i></a>
                                                         </button>
                                                     <?php else: ?>
-                                                        <button type="button" class="btn btn-sm btn-warning text-danger-hover"><a
-                                                                class="text-black text-decoration-none"
+                                                        <!-- <?php
+                                                        // Mendapatkan waktu saat ini
+                                                        $current_time = time();
+                                                        $current_time_formatted = date('H:i', $current_time); // Format jam dan menit
+                                            
+                                                        // Mengatur waktu batas (12.00 siang dalam format jam dan menit)
+                                                        $deadline_time = '12:00';
+
+                                                        // Memeriksa apakah waktu saat ini kurang dari waktu batas
+                                                        if ($current_time_formatted < $deadline_time) {
+                                                            $button_disabled = 'disabled';
+                                                        } else {
+                                                            $button_disabled = ''; // Tombol aktif
+                                                        }
+                                                        ?> -->
+                                                        <button type="button" class="btn btn-sm btn-warning text-danger-hover">
+                                                            <a class="text-black text-decoration-none"
                                                                 href="<?php echo base_url('page/pulang/' . $row->id) ?>">
-                                                                <i class="fas fa-home"></i></a>
+                                                                <i class="fas fa-home"></i>
+                                                            </a>
                                                         </button>
                                                     <?php endif; ?>
+                                                    <?php
+                                                    // Menghitung selisih waktu antara waktu sekarang dan waktu dalam data
+                                                    $current_time = time(); // Waktu sekarang dalam bentuk timestamp
+                                                    $data_time = strtotime($row->date); // Waktu dalam data dalam bentuk timestamp
+                                                    $time_difference = $current_time - $data_time; // Selisih waktu
+                                            
+                                                    // Mengatur batas waktu (dalam detik) untuk menonaktifkan tombol (misalnya 24 jam = 24 * 3600 detik)
+                                                    $threshold = 24 * 3600;
+
+                                                    // Mengecek apakah selisih waktu lebih besar dari batas waktu
+                                                    if ($time_difference > $threshold) {
+                                                        $button_disabled = 'disabled';
+                                                    } else {
+                                                        $button_disabled = ''; // Tombol aktif
+                                                    }
+                                                    ?>
                                                     <button type="button"
-                                                        class="btn btn-sm btn-square btn-primary text-danger-hover-none"><a
-                                                            class="text-light text-decoration-none"
+                                                        class="btn btn-sm btn-square btn-primary text-danger-hover-none" <?php echo $button_disabled; ?>>
+                                                        <a class="text-light text-decoration-none"
                                                             href="<?php echo base_url('page/edit_kegiatan/' . $row->id) ?>">
-                                                            <i class="fas fa-edit"></i></a>
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
                                                     </button>
+
                                                 <?php endif; ?>
                                                 <?php if ($this->session->userdata('role') == "admin"): ?>
                                                     <button type="button" onclick="hapus(<?php echo $row->id ?>)"

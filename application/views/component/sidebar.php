@@ -78,29 +78,30 @@
                     <?php if ($this->session->userdata('role') === "admin"): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="dataUser">
-                            <i class="fas fa-user-friends"></i> Data Karyawan
+                                <i class="fas fa-user-friends"></i> Data Karyawan
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#submenu2" data-bs-toggle="collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="nav-link">
-                            <i class="fas fa-bars"></i> Data Rekap
+                            <a href="#submenu" data-bs-toggle="collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation" class="nav-link">
+                                <i class="fas fa-bars"></i> Data Rekap
                             </a>
-                            <ul class="navbar-nav" id="submenu2" data-bs-parent="#menu">
-                        <li class="nav-item">
-                            <a class="nav-link" href="rekapHarian">
-                            <i class="fas fa-calendar-day"></i> Data absensi harian
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="rekapMingguan">
-                            <i class="fas fa-table"></i> Data absensi mingguan
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="rekapBulanan">
-                            <i class="fas fa-calendar-minus"></i> Data absensi bulanan
-                            </a>
-                        </li>
+                            <ul class="navbar-nav collapse" id="submenu" data-bs-parent="#menu">
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link" href="rekapHarian">
+                                        <i class="fas fa-calendar-day"></i> Data absensi harian
+                                    </a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link" href="rekapMingguan">
+                                        <i class="fas fa-table"></i> Data absensi mingguan
+                                    </a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link" href="rekapBulanan">
+                                        <i class="fas fa-calendar-minus"></i> Data absensi bulanan
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     <?php endif; ?>

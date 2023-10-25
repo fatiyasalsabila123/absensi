@@ -105,77 +105,77 @@ class Auth extends CI_Controller
 	// end menampilkan page register karyawan
 
 	// start aksi register karyawan
-	// public function aksi_register()
-	// {
-	// 	$email = $this->input->post('email');
-	// 	$username = $this->input->post('username');
-	// 	$nama_depan = $this->input->post('nama_depan');
-	// 	$nama_belakang = $this->input->post('nama_belakang');
-	// 	$role = $this->input->post('role');
-	// 	$password = $this->input->post('password');
-	// 	if ($this->m_model->EmailSudahAda($email)) {
-	// 		$this->session->set_flashdata('error_email', 'Email ini sudah ada. Gunakan email lainya');
-	// 		redirect(base_url('auth/register'));
-	// 	} elseif($this->m_model->usernameSudahAda($username)) {
-	// 		$this->session->set_flashdata('error_username', 'Username ini sudah ada. Gunakan username lainya');
-	// 		redirect(base_url('auth/register'));
-	// 	}elseif (strlen($password) < 8 || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $password)) {
-	// 		// Password tidak memenuhi persyaratan
-	// 		$this->session->set_flashdata('error_message', 'Password harus memiliki setidaknya 8 karakter, satu huruf besar, satu huruf kecil, dan angka.');
-	// 		redirect('auth/register'); // Redirect kembali ke halaman registrasi
-	// 	} else {
-	// 		// Hash password menggunakan MD5						
-	// 		$hashed_password = md5($password);
-
-	// 		// Simpan data pengguna ke database
-	// 		$data = array(
-	// 			'username' => $username,
-	// 			'password' => $hashed_password,
-	// 			'email' => $email,
-	// 			'role' => $role,
-	// 			'nama_depan' => $nama_depan,
-	// 			'nama_belakang' => $nama_belakang,
-	// 		);
-
-	// 		$this->m_model->register($data); // Panggil model untuk menyimpan data
-
-	// 		// Redirect ke halaman login atau halaman selamat datang
-
-	// 		$this->session->set_flashdata('Berhasil_register_user', 'Berhasil Registter');
-	// 		redirect('auth');
-	// 	}
-	// }
 	public function aksi_register()
 	{
-		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
-			'is_unique' => 'Username Ini Sudah Ada'
-		]);
-		$this->form_validation->set_rules('nama_depan', 'Nama Depan', 'required|trim');
-		$this->form_validation->set_rules('nama_belakang', 'Nama Belakang', 'required|trim');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
-			'is_unique' => 'Email Ini Sudah Ada'
-		]);
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
-
-		if ($this->form_validation->run() == FALSE) {
-			// Validasi gagal, tampilkan pesan kesalahan
-			$this->load->view('auth/register'); // Gantilah 'form_register' dengan nama view Anda
+		$email = $this->input->post('email');
+		$username = $this->input->post('username');
+		$nama_depan = $this->input->post('nama_depan');
+		$nama_belakang = $this->input->post('nama_belakang');
+		$role = $this->input->post('role');
+		$password = $this->input->post('password');
+		if ($this->m_model->EmailSudahAda($email)) {
+			$this->session->set_flashdata('error_email', 'Email ini sudah ada. Gunakan email lainya');
+			redirect(base_url('auth/register'));
+		} elseif($this->m_model->usernameSudahAda($username)) {
+			$this->session->set_flashdata('error_username', 'Username ini sudah ada. Gunakan username lainya');
+			redirect(base_url('auth/register'));
+		}elseif (strlen($password) < 8 || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $password)) {
+			// Password tidak memenuhi persyaratan
+			$this->session->set_flashdata('error_message', 'Password harus memiliki setidaknya 8 karakter, satu huruf besar, satu huruf kecil, dan angka.');
+			redirect('auth/register'); // Redirect kembali ke halaman registrasi
 		} else {
-			$data = [
-				'username' => $this->input->post('username', true),
-				'email' => $this->input->post('email', true),
-				'nama_depan' => $this->input->post('nama_depan', true),
-				'nama_belakang' => $this->input->post('nama_belakang', true),
-				'password' => md5($this->input->post('password')),
-				'role' => 'karyawan'
-			];
-			// $this->db->insert('user', $data);
-			$this->_sendEmail();
-			// Validasi berhasil, lanjutkan dengan tindakan registrasi
-			// Misalnya, simpan data pengguna ke database
-			redirect('auth'); // Redirect ke halaman sukses registrasi
+			// Hash password menggunakan MD5						
+			$hashed_password = md5($password);
+
+			// Simpan data pengguna ke database
+			$data = array(
+				'username' => $username,
+				'password' => $hashed_password,
+				'email' => $email,
+				'role' => $role,
+				'nama_depan' => $nama_depan,
+				'nama_belakang' => $nama_belakang,
+			);
+
+			$this->m_model->register($data); // Panggil model untuk menyimpan data
+
+			// Redirect ke halaman login atau halaman selamat datang
+
+			$this->session->set_flashdata('Berhasil_register_user', 'Berhasil Registter');
+			redirect('auth');
 		}
 	}
+	// public function aksi_register()
+	// {
+	// 	$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
+	// 		'is_unique' => 'Username Ini Sudah Ada'
+	// 	]);
+	// 	$this->form_validation->set_rules('nama_depan', 'Nama Depan', 'required|trim');
+	// 	$this->form_validation->set_rules('nama_belakang', 'Nama Belakang', 'required|trim');
+	// 	$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+	// 		'is_unique' => 'Email Ini Sudah Ada'
+	// 	]);
+	// 	$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+
+	// 	if ($this->form_validation->run() == FALSE) {
+	// 		// Validasi gagal, tampilkan pesan kesalahan
+	// 		$this->load->view('auth/register'); // Gantilah 'form_register' dengan nama view Anda
+	// 	} else {
+	// 		$data = [
+	// 			'username' => $this->input->post('username', true),
+	// 			'email' => $this->input->post('email', true),
+	// 			'nama_depan' => $this->input->post('nama_depan', true),
+	// 			'nama_belakang' => $this->input->post('nama_belakang', true),
+	// 			'password' => md5($this->input->post('password')),
+	// 			'role' => 'karyawan'
+	// 		];
+	// 		// $this->db->insert('user', $data);
+	// 		$this->_sendEmail();
+	// 		// Validasi berhasil, lanjutkan dengan tindakan registrasi
+	// 		// Misalnya, simpan data pengguna ke database
+	// 		redirect('auth'); // Redirect ke halaman sukses registrasi
+	// 	}
+	// }
 
 	private function _sendEmail()
 {

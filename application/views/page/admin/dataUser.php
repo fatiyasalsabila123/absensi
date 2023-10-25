@@ -84,8 +84,15 @@
                                                     <?php echo $row->nama_belakang ?>
                                                 </td>
                                                 <td>
-                                                    <img style="width:80px; border-radius:50%"
-                                                        src="<?= base_url('images/user/' . $row->image) ?>" alt="">
+                                                    <?php if ($row->image == null): ?>
+
+                                                        <img alt="..."
+                                                            src="<?php echo base_url('/asset/FlexStart/') ?>assets/img/user.avif"
+                                                            style="width:80px" class="rounded-circle">
+                                                    <?php else: ?>
+                                                        <img style="width:80px; border-radius:50%"
+                                                            src="<?= base_url('images/user/' . $row->image) ?>" alt="">
+                                                    <?php endif; ?>
 
                                                 </td>
                                                 <td>

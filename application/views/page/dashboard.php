@@ -10,7 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,500&display=swap"
+        rel="stylesheet">
 </head>
 
 <body style="font-family: 'Poppins', sans-serif;">
@@ -73,7 +74,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
-                                                Data</span>
+                                                Absensi</span>
                                             <span class="h3 font-bold mb-0">
                                                 <?php echo $total_data ?>
                                             </span>
@@ -87,28 +88,26 @@
                                 </div>
                             </div>
                         </div>
-                        <?php if ($this->session->userdata('role') === "admin"): ?>
                             <div class="col-xl-3 col-sm-6 col-12">
                                 <div class="card shadow border-0">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col">
                                                 <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total
-                                                    Data User</span>
+                                                    Terlambat</span>
                                                 <span class="h3 font-bold mb-0">
-                                                    <?php echo $total_data_user ?>
+                                                    <?php echo $total_telat ?>
                                                 </span>
                                             </div>
                                             <div class="col-auto">
-                                                <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
-                                                    <i class="fas fa-user"></i>
+                                                <div class="icon icon-shape bg-danger text-white text-lg rounded-circle">
+                                                    <i class="fa-solid fa-clock"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        <?php endif; ?>
                     </div>
                     <div class="card shadow border-0 mb-7">
                         <div class="card-header">
@@ -146,8 +145,14 @@
                                             <td>
                                                 <?php echo $row->date ?>
                                             </td>
-                                            <td>
-                                                <?php echo $row->jam_masuk ?>
+                                            <?php
+                                            date_default_timezone_set('Asia/Jakarta');
+                                            $seven_am = strtotime(date('Y-m-d 07:00:00'));
+                                            $jam_masuk = strtotime($row->jam_masuk);
+                                            ?>
+                                            <td
+                                                class="<?php echo ($jam_masuk > $seven_am) ? 'text-danger' : 'text-black'; ?>">
+                                                <?php echo $row->jam_masuk; ?>
                                             </td>
                                             <td>
                                                 <?php echo $row->jam_pulang ?>
@@ -201,8 +206,15 @@
                                                     <?php echo $row->nama_belakang ?>
                                                 </td>
                                                 <td>
-                                                    <img style="width:80px; border-radius:50%"
-                                                        src="<?= base_url('images/user/' . $row->image) ?>" alt="">
+                                                    <?php if ($row->image == null): ?>
+
+                                                        <img alt="..."
+                                                            src="<?php echo base_url('/asset/FlexStart/') ?>assets/img/user.avif"
+                                                            style="width:80px" class="rounded-circle">
+                                                    <?php else: ?>
+                                                        <img style="width:80px; border-radius:50%"
+                                                            src="<?= base_url('images/user/' . $row->image) ?>" alt="">
+                                                    <?php endif; ?>
 
                                                 </td>
                                                 <td>

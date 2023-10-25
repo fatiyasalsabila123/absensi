@@ -254,7 +254,7 @@ class M_model extends CI_Model
         return $query->result();
     }
 
-    public function delete_relasi($userId) {
+    public function delete_relasi($userId) { 
         $this->db->where('id_karyawan', $userId);
         $this->db->delete('absensi');
     }
@@ -267,6 +267,21 @@ class M_model extends CI_Model
         } else {
             return array(); // Mengembalikan array kosong jika tidak ada data yang sesuai
         }
+    }
+
+    public function jumlah_terlambat_masuk($user_id) {
+        $this->db->select('absensi.*, jam_masuk');
+        $this->db->where('absensi.id_karyawan', $user_id);
+        $this->db->join('user', 'user.id = absensi.id_karyawan', 'left');
+        $this->db->where('jam_masuk >', '07:00:00');
+        $query = $this->db->get('absensi');
+        return $query->num_rows();
+    }
+    public function jumlah_terlambat_masuk_all() {
+        $this->db->select('jam_masuk');
+        $this->db->where('jam_masuk >', '07:00:00');
+        $query = $this->db->get('absensi');
+        return $query->num_rows();
     }
     
     

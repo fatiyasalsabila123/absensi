@@ -60,9 +60,15 @@
                                     Izin
                                 </button>
                             <?php endif; ?>
+                            <?php if ($data->jam_masuk == "00:00:00"):?>
+                                <button type="submit" name="submit" class="btn btn-sm btn-primary text-danger-hover-none" disabled>
+                                Submit
+                            </button>
+                            <?php else:?>
                             <button type="submit" name="submit" class="btn btn-sm btn-primary text-danger-hover-none">
                                 Submit
                             </button>
+                            <?php endif;?>
                         </div>
                     </form>
                 <?php endforeach ?>

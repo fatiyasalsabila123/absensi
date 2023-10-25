@@ -85,8 +85,14 @@
                                                     <td>
                                                         <?php echo $row->date ?>
                                                     </td>
-                                                    <td>
-                                                        <?php echo $row->jam_masuk ?>
+                                                    <?php
+                                                    date_default_timezone_set('Asia/Jakarta');
+                                                    $seven_am = strtotime(date('Y-m-d 07:00:00'));
+                                                    $jam_masuk = strtotime($row->jam_masuk);
+                                                    ?>
+                                                    <td
+                                                        class="<?php echo ($jam_masuk > $seven_am) ? 'text-danger' : 'text-black'; ?>">
+                                                        <?php echo $row->jam_masuk; ?>
                                                     </td>
                                                     <td>
                                                         <?php echo $row->jam_pulang ?>

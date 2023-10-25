@@ -29,12 +29,14 @@ class Page extends CI_Controller
 			$data['total_data_user'] = count($data['get_user']);
 			$data['total_kerja'] = $this->m_model->getTotalJamMasuk();
 			$data['total_cuti'] = $this->m_model->getTotalCuti();
+			$data['total_telat'] = $this->m_model->jumlah_terlambat_masuk_all();
 		} else {
 			$idKaryawan = $this->session->userdata('id');
 			$data['dashboard'] = $this->m_model->getAbsensiByIdKaryawan($idKaryawan);
 			$data['total_data'] = count($data['dashboard']);
 			$data['total_cuti'] = $this->m_model->getTotalCutiKaryawan($this->session->userdata('id'));
 			$data['total_kerja'] = $this->m_model->getTotalJamMasukKaryawan($idKaryawan);
+			$data['total_telat'] = $this->m_model->jumlah_terlambat_masuk($idKaryawan);
 		}
 		$this->load->view('page/dashboard', $data);
 	}
