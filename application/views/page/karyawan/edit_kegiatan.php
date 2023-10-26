@@ -49,11 +49,6 @@
                                     class="btn btn-sm btn-success text-danger-hover-none">
                                     Izin
                                 </button>
-                            <?php elseif ($data->status != "done"): ?>
-                                <button type="button" onclick="tampilSweetAlert()"
-                                    class="btn btn-sm btn-success text-danger-hover-none">
-                                    Izin
-                                </button>
                             <?php else: ?>
                                 <button type="button" class="btn btn-sm btn-success text-danger-hover-none" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">

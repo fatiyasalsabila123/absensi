@@ -47,30 +47,30 @@
                     </div>
                     <div class="form-group mb-3">
                         <input type="email" class="form-control form-control-lg bg-light fs-6" name="email"
-                            placeholder="Email" value="<?php echo set_value('email');?>">
-                    <?= form_error('email', '<smal class="text-danger pl-3">', '</smal>'); ?>
+                            placeholder="Email" required value="<?php echo set_value('email');?>">
+                    <!-- <?= form_error('email', '<smal class="text-danger pl-3">', '</smal>'); ?> -->
                     </div>
                     <div class="form-group mb-3">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="username"
-                            placeholder="Username" value="<?php echo set_value('username');?>">
-                    <?= form_error('username', '<div class="text-danger">', '</div>'); ?>
+                            placeholder="Username" required value="<?php echo set_value('username');?>">
+                    <!-- <?= form_error('username', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
                     <div class="row">
                     <div class="form-group mb-3 col">
                         <input type="text" class="form-control form-control-lg bg-light fs-6" name="nama_depan"
-                            placeholder="Nama Depan" value="<?php echo set_value('nama_depan');?>">
-                    <?= form_error('nama_depan', '<div class="text-danger">', '</div>'); ?>
+                            placeholder="Nama Depan" required value="<?php echo set_value('nama_depan');?>">
+                    <!-- <?= form_error('nama_depan', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
                     <div class="form-group mb-3 col">
                         <input type="text" class="form-control form-control-lg bg-light fs-6"
-                            name="nama_belakang" placeholder="Nama Belakang" value="<?php echo set_value('nama_belakang');?>">
-                    <?= form_error('nama_belakang', '<div class="text-danger">', '</div>'); ?>
+                            name="nama_belakang" placeholder="Nama Belakang" required value="<?php echo set_value('nama_belakang');?>">
+                    <!-- <?= form_error('nama_belakang', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
                 </div>
                     <div class="form-group mb-1">
                         <input type="password" id="password" class="form-control form-control-lg bg-light fs-6"
-                            name="password" placeholder="Password" value="<?php echo set_value('password');?>">
-                    <?= form_error('password', '<div class="text-danger">', '</div>'); ?>
+                            name="password" placeholder="Password" required value="<?php echo set_value('password');?>">
+                    <!-- <?= form_error('password', '<div class="text-danger">', '</div>'); ?> -->
                     </div>
                     <div class="form-group mb-3">
                         <input type="hidden" class="form-control form-control-lg bg-light fs-6" name="role"

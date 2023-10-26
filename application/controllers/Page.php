@@ -319,15 +319,13 @@ class Page extends CI_Controller
 		$sheet->setCellValue('B3', "USERNAME");
 		$sheet->setCellValue('C3', "NAMA DEPAN");
 		$sheet->setCellValue('D3', "NAMA BELAKANG");
-		$sheet->setCellValue('E3', "IMAGE");
-		$sheet->setCellValue('F3', "EMAIL");
+		$sheet->setCellValue('E3', "EMAIL");
 
 		$sheet->getStyle('A3')->applyFromArray($style_col);
 		$sheet->getStyle('B3')->applyFromArray($style_col);
 		$sheet->getStyle('C3')->applyFromArray($style_col);
 		$sheet->getStyle('D3')->applyFromArray($style_col);
 		$sheet->getStyle('E3')->applyFromArray($style_col);
-		$sheet->getStyle('F3')->applyFromArray($style_col);
 
 		$karyawan = $this->m_model->hanya_karyawan();
 

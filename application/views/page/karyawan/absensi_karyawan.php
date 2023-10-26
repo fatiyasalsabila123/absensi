@@ -98,7 +98,7 @@
                                             </td>
                                             <?php
                                             date_default_timezone_set('Asia/Jakarta');
-                                            $seven_am = strtotime(date('Y-m-d 07:00:00'));
+                                            $seven_am = strtotime(date('Y-m-d 09:00:00'));
                                             $jam_masuk = strtotime($row->jam_masuk);
                                             ?>
                                             <td
@@ -128,27 +128,30 @@
                                                                 <i class="fas fa-home"></i></a>
                                                         </button>
                                                     <?php else: ?>
-                                                        <!-- <?php
+                                                        <?php
                                                         // Mendapatkan waktu saat ini
                                                         $current_time = time();
                                                         $current_time_formatted = date('H:i', $current_time); // Format jam dan menit
                                             
-                                                        // Mengatur waktu batas (12.00 siang dalam format jam dan menit)
-                                                        $deadline_time = '12:00';
+                                                        // Mengatur waktu batas (17.00 siang dalam format jam dan menit)
+                                                        $deadline_time = '17:00';
 
                                                         // Memeriksa apakah waktu saat ini kurang dari waktu batas
                                                         if ($current_time_formatted < $deadline_time) {
-                                                            $button_disabled = 'disabled';
+                                                            echo '
+                                                                <button type="button" onclick="belum_bisa_pulang()" class="btn btn-sm btn-warning">
+                                                                        <i class="fas fa-home"></i>
+                                                                </button>';
                                                         } else {
-                                                            $button_disabled = ''; // Tombol aktif
-                                                        }
-                                                        ?> -->
-                                                        <button type="button" class="btn btn-sm btn-warning text-danger-hover">
-                                                            <a class="text-black text-decoration-none"
-                                                                href="<?php echo base_url('page/pulang/' . $row->id) ?>">
+                                                            echo '
+                                                            <button type="button" class="btn btn-sm btn-warning text-danger-hover">
+                                                            <a class="text-light text-decoration-none"
+                                                                href="' . base_url("page/pulang/" . $row->id) . '">
                                                                 <i class="fas fa-home"></i>
                                                             </a>
-                                                        </button>
+                                                            </button>';
+                                                        }
+                                                        ?>
                                                     <?php endif; ?>
                                                     <?php
                                                     // Menghitung selisih waktu antara waktu sekarang dan waktu dalam data
@@ -225,6 +228,21 @@
                     }).then(function () {
                         window.location.href = "<?php echo base_url('page/hapus_absensi_karyawan/') ?>" + id;
                     });
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function belum_bisa_pulang() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Belum Bisa Pulang',
+                text: 'Anda Belum Bisa Pulang Sebelum Jam 12.00',
+                background: '#fff',
+                customClass: {
+                    title: 'text-dark',
+                    content: 'text-dark'
                 }
             });
         }
